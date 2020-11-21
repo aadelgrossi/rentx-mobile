@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Ionicons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
@@ -8,7 +8,7 @@ const useCachedResources = (): boolean => {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
   // Load any resources or data that we need prior to rendering the app
-  React.useEffect(() => {
+  useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHideAsync()
