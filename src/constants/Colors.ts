@@ -3,7 +3,7 @@ export default {
   background: '#fff',
   black: '#1B1B1F',
   tabBarBackground: '#eee',
-  tabIconDefault: '#AEAEB3',
+  tabIconDefault: '#A0A0B2',
   accent: '#dc1637',
   graySecondary: '#EBEBF0'
 }

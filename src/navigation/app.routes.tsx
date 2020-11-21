@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Feather, AntDesign } from '@expo/vector-icons'
+import { AntDesign, Feather } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import styled from 'styled-components/native'
 
 import { AppRoutesParamList } from '../../types'
+import IconWrapper from '../components/IconWrapper'
 import Colors from '../constants/Colors'
 import Booked from '../screens/Booked'
 import Home from '../screens/Home'
@@ -20,75 +20,58 @@ const AppRoutes: React.FC = () => {
         showLabel: false,
         style: {
           height: 60,
-          backgroundColor: Colors.tabBarBackground,
+          backgroundColor: Colors.background,
           borderTopColor: Colors.graySecondary
         },
-        activeTintColor: Colors.accent
+        activeTintColor: Colors.accent,
+        inactiveTintColor: Colors.tabIconDefault
       }}
     >
       <BottomTab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({ color, focused }) =>
-            resolveIcon({ color, focused, family: 'ant', name: 'home' })
+          tabBarIcon: ({ color, focused }) => (
+            <IconWrapper focused={focused}>
+              <AntDesign name="home" size={30} color={color}></AntDesign>
+            </IconWrapper>
+          )
         }}
       />
       <BottomTab.Screen
         name="Search"
         component={Search}
         options={{
-          tabBarIcon: ({ color, focused }) =>
-            resolveIcon({ color, focused, family: 'ant', name: 'car' })
+          tabBarIcon: ({ color, focused }) => (
+            <IconWrapper focused={focused}>
+              <AntDesign name="car" size={30} color={color}></AntDesign>
+            </IconWrapper>
+          )
         }}
       />
       <BottomTab.Screen
         name="Booked"
         component={Booked}
         options={{
-          tabBarIcon: ({ color, focused }) =>
-            resolveIcon({ color, focused, family: 'feather', name: 'calendar' })
+          tabBarIcon: ({ color, focused }) => (
+            <IconWrapper focused={focused}>
+              <Feather name="calendar" size={30} color={color}></Feather>
+            </IconWrapper>
+          )
         }}
       />
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({ color, focused }) =>
-            resolveIcon({ color, focused, family: 'feather', name: 'user' })
+          tabBarIcon: ({ color, focused }) => (
+            <IconWrapper focused={focused}>
+              <Feather name="user" size={30} color={color}></Feather>
+            </IconWrapper>
+          )
         }}
       />
     </BottomTab.Navigator>
-  )
-}
-
-interface TabIconProps {
-  family: string
-  name: string
-  color: string
-  focused: boolean
-}
-
-const BottomHighlight = styled.View`
-  position: absolute;
-  background-color: ${Colors.accent};
-  width: 6px;
-  height: 3px;
-  bottom: -6px;
-  right: 12px;
-`
-
-const IconWrapper = styled.View`
-  position: relative;
-`
-
-function resolveIcon({ family, name, color, focused }: TabIconProps) {
-  return (
-    <IconWrapper>
-      {family === 'feather' && <Feather name={name} color={color} size={30} />}
-      {family === 'ant' && <AntDesign name={name} color={color} size={30} />}
-      {focused && <BottomHighlight />}
-    </IconWrapper>
   )
 }
 
