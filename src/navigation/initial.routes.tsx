@@ -2,16 +2,22 @@ import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { RootStackParamList } from '../../types'
+import { InitialRoutesParamList } from '../../types'
+import SignIn from '../screens/SignIn'
 import Splash from '../screens/Splash'
 
-const Initial = createStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator<InitialRoutesParamList>()
 
 const InitialRoutes: React.FC = () => {
   return (
-    <Initial.Navigator screenOptions={{ headerShown: false }}>
-      <Initial.Screen name="Splash" component={Splash} />
-    </Initial.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {/* <Stack.Screen name="Splash" component={Splash} /> */}
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ headerTintColor: '#fff' }}
+      />
+    </Stack.Navigator>
   )
 }
 

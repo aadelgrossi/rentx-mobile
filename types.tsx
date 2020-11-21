@@ -1,18 +1,22 @@
-export type RootStackParamList = {
-  Root: undefined
+export type InitialRoutesParamList = {
   Splash: undefined
-  NotFound: undefined
+  SignIn: undefined
+  SignUpStepOne: undefined
+  SignUpStepTwo: undefined
+  SignUpConfirm: undefined
 }
 
-export type BottomTabParamList = {
-  TabOne: undefined
-  TabTwo: undefined
+export type AppRoutesParamList = {
+  Home: undefined
+  Search: undefined
+  Booked: undefined
+  Profile: undefined
 }
 
-export type TabOneParamList = {
-  TabOneScreen: undefined
-}
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined
+export type ProfileParamList = {
+  Main: undefined
+  ProfileInfo: undefined
+  ChangePassword: undefined
+  UpdateConfirm: undefined
+  SignOutPrompt: undefined
 }
