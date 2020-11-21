@@ -21,7 +21,8 @@ const useCachedResources = (): boolean => {
           'archivo-700': require('../../assets/fonts/Archivo-Bold.ttf'),
           'inter-400': require('../../assets/fonts/Inter-Regular.ttf'),
           'inter-500': require('../../assets/fonts/Inter-Medium.ttf'),
-          'inter-600': require('../../assets/fonts/Inter-SemiBold.ttf')
+          'inter-600': require('../../assets/fonts/Inter-SemiBold.ttf'),
+          'rent-icons': require('../../assets/fonts/RentIcons.ttf')
         })
       } catch (e) {
         // We might want to provide this error information to an error reporting service

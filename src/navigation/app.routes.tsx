@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { AntDesign, Feather } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { AppRoutesParamList } from '../../types'
 import IconWrapper from '../components/IconWrapper'
+import RentIcon from '../components/RentIcon'
 import Colors from '../constants/Colors'
 import Booked from '../screens/Booked'
 import Home from '../screens/Home'
@@ -33,7 +33,7 @@ const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
-              <AntDesign name="home" size={30} color={color}></AntDesign>
+              <RentIcon color={color} size={30} name="home"></RentIcon>
             </IconWrapper>
           )
         }}
@@ -44,7 +44,7 @@ const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
-              <AntDesign name="car" size={30} color={color}></AntDesign>
+              <RentIcon color={color} size={30} name="car"></RentIcon>
             </IconWrapper>
           )
         }}
@@ -55,7 +55,7 @@ const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
-              <Feather name="calendar" size={30} color={color}></Feather>
+              <RentIcon color={color} size={30} name="calendar"></RentIcon>
             </IconWrapper>
           )
         }}
@@ -66,7 +66,7 @@ const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
-              <Feather name="user" size={30} color={color}></Feather>
+              <RentIcon color={color} size={30} name="person"></RentIcon>
             </IconWrapper>
           )
         }}
