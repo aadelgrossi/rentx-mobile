@@ -14,3 +14,6 @@ type RentIcons =
   | 'lock'
   | 'person'
   | 'photo'
+  | 'edit'
+  | 'filter'
+  | 'power'
