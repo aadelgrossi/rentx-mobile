@@ -39,7 +39,7 @@ const SignIn: React.FC = () => {
               name="chevron-left"
               size={30}
               color={colors.grayAccent}
-              onPress={navigation.goBack}
+              onPress={() => navigation.navigate('Welcome')}
               style={{ position: 'absolute' }}
             />
             <Title>Login</Title>

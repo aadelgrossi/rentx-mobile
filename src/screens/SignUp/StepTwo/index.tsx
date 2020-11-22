@@ -52,7 +52,7 @@ const StepOne: React.FC = () => {
 
               <Button
                 style={{ marginTop: 32 }}
-                onPress={() => navigation.navigate('StepTwo')}
+                onPress={() => navigation.navigate('SignUpConfirm')}
               >
                 Próximo
               </Button>
