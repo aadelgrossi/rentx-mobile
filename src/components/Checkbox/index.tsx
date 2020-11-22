@@ -3,6 +3,7 @@ import React from 'react'
 import { Container, Checkbox, CheckboxText } from './styles'
 
 interface CheckboxProps {
+  onPress(): void
   checked: boolean
   text: string
 }
