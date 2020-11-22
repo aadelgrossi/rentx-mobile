@@ -7,16 +7,17 @@ export const Container = styled.View`
   align-items: stretch;
   background-color: #ffffff;
   flex-direction: column;
+  justify-content: center;
 `
 
 export const Contents = styled.View`
-  margin: 100px 24px 120px;
+  margin: 0 24px;
 `
 
 export const Title = styled.Text`
   font-family: 'archivo-600';
   font-size: 40px;
-  margin-top: 100px;
+  margin-top: 60px;
   color: ${colors.lightBlack};
 `
 
@@ -25,11 +26,11 @@ export const SignInText = styled.Text`
   width: 260px;
   font-size: 15px;
   color: ${colors.grayText};
-  margin-top: 40px;
+  margin-top: 20px;
 `
 
 export const Form = styled.View`
-  margin-top: 80px;
+  margin-top: 100px;
   width: 100%;
 `
 
