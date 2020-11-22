@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { NavigationContainer } from '@react-navigation/native'
 
+import { useAuth } from '../hooks/useAuth'
 import AppRoutes from './app.routes'
 import InitialRoutes from './initial.routes'
 
 const Navigation: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const { isAuthorized } = useAuth()
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AppRoutes /> : <InitialRoutes />}
+      {isAuthorized ? <AppRoutes /> : <InitialRoutes />}
     </NavigationContainer>
   )
 }
