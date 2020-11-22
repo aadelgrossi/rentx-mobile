@@ -1,6 +1,11 @@
 export type InitialRoutesParamList = {
   Splash: undefined
+  Welcome: undefined
   SignIn: undefined
+  SignUp: undefined
+}
+
+export type SignUpRoutesParamList = {
   SignUpStepOne: undefined
   SignUpStepTwo: undefined
   SignUpConfirm: undefined

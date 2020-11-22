@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import Colors from '../../constants/Colors'
+import colors from '../../styles/colors'
 
 export const Container = styled.View`
   position: relative;
@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const ActiveDetail = styled.View`
   position: absolute;
-  background-color: ${Colors.accent};
+  background-color: ${colors.red};
   width: 6px;
   height: 3px;
   bottom: -6px;

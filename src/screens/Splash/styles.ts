@@ -1,7 +1,7 @@
 import { Animated, Platform, StatusBar } from 'react-native'
 import styled from 'styled-components/native'
 
-import Colors from '../../constants/Colors'
+import colors from '../../styles/colors'
 
 const heightScreen = StatusBar.currentHeight || 0
 
@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView.attrs({
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `
 
 export const LogoContainer = styled.View`
