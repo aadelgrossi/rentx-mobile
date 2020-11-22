@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import { TextInputProps } from 'react-native'
+import { TextInputProps, TextInput as NativeTextInput } from 'react-native'
 
 import colors from '../../styles/colors'
 import RentIcon from '../RentIcon'
@@ -18,12 +18,19 @@ const Input: React.FC<InputProps> = ({
   children,
   ...rest
 }) => {
+  const inputRef = useRef<NativeTextInput>(null)
+
+  useEffect(() => {
+    inputRef.current?.setNativeProps({ style: { fontFamily: 'inter-400' } })
+  }, [])
+
   return (
     <Wrapper>
       <IconContainer>
         <RentIcon color={colors.grayText} size={24} name={icon}></RentIcon>
       </IconContainer>
       <TextInput
+        ref={inputRef}
         keyboardAppearance="dark"
         secureTextEntry={secureTextEntry}
         placeholderTextColor={colors.grayAccent}
