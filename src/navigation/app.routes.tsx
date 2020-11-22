@@ -19,7 +19,7 @@ const AppRoutes: React.FC = () => {
       tabBarOptions={{
         showLabel: false,
         style: {
-          height: 60,
+          height: 70,
           backgroundColor: colors.white,
           borderTopColor: colors.grayLighter
         },
