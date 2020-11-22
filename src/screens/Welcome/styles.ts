@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView`
 export const Contents = styled.View`
   flex: 1;
   align-items: center;
-  margin: 100px 24px 24px;
+  margin: 100px 24px 48px;
 `
 
 export const Title = styled.Text`
