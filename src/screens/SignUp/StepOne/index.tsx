@@ -45,7 +45,7 @@ const StepOne: React.FC = () => {
               <StepItemText>01. Dados</StepItemText>
 
               <Input name="name" icon="person" placeholder="Nome" />
-              <Input name="email" icon="email" placeholder="Senha" />
+              <Input name="email" icon="email" placeholder="Email" />
 
               <Button
                 style={{ marginTop: 32 }}

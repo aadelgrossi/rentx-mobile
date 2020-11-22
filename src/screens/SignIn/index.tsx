@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
+import { Keyboard, KeyboardAvoidingView } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import Button from '../../components/Button'
@@ -40,6 +40,7 @@ const SignIn: React.FC = () => {
               size={30}
               color={colors.grayAccent}
               onPress={navigation.goBack}
+              style={{ position: 'absolute' }}
             />
             <Title>Login</Title>
 

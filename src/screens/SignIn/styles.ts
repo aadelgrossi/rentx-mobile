@@ -34,11 +34,6 @@ export const Form = styled.View`
   width: 100%;
 `
 
-export const Input = styled.TextInput`
-  flex: 1;
-  background-color: ${colors.grayTertiary};
-`
-
 export const RememberAndForgotPasswordWrapper = styled.View`
   flex-direction: row;
   margin: 20px 0 40px;

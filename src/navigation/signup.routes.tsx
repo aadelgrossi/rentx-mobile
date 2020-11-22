@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { createStackNavigator } from '@react-navigation/stack'
+import {
+  CardStyleInterpolators,
+  createStackNavigator
+} from '@react-navigation/stack'
 
 import { SignUpRoutesParamList } from '../../types'
 import Confirm from '../screens/SignUp/Confirm'
@@ -11,7 +14,12 @@ const Stack = createStackNavigator<SignUpRoutesParamList>()
 
 const SignUpNavigator: React.FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+      }}
+    >
       <Stack.Screen name="SignUpStepOne" component={StepOne} />
       <Stack.Screen name="SignUpStepTwo" component={StepTwo} />
       <Stack.Screen name="SignUpConfirm" component={Confirm} />
