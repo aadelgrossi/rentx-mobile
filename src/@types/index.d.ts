@@ -17,3 +17,5 @@ type RentIcons =
   | 'edit'
   | 'filter'
   | 'power'
+  | 'eye'
+  | 'eye-cross'
