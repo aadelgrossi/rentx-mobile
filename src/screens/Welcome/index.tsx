@@ -6,16 +6,7 @@ import { Image } from 'react-native'
 
 import rentXSymbol from '../../assets/logo/symbol.png'
 import Button from '../../components/Button'
-import {
-  Container,
-  Contents,
-  Title,
-  Text,
-  Actions,
-  ButtonText
-  // BackButton,
-  // BackButtonText
-} from './styles'
+import { Container, Contents, Title, Text, Actions, ButtonText } from './styles'
 
 const Welcome: React.FC = () => {
   const navigation = useNavigation()
@@ -35,12 +26,8 @@ const Welcome: React.FC = () => {
             <ButtonText>Cadastre-se</ButtonText>
           </Button>
         </Actions>
-
-        {/* <BackButton>
-          <BackButtonText>Voltar</BackButtonText>
-        </BackButton> */}
       </Contents>
-      <StatusBar />
+      <StatusBar style="light" />
     </Container>
   )
 }

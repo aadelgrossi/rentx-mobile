@@ -1,9 +1,6 @@
 import React from 'react'
 
-import {
-  CardStyleInterpolators,
-  createStackNavigator
-} from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { InitialRoutesParamList } from '../../types'
 import SignIn from '../screens/SignIn'
@@ -17,8 +14,7 @@ const InitialRoutes: React.FC = () => {
     <Stack.Navigator
       initialRouteName="Welcome"
       screenOptions={{
-        headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS
+        headerShown: false
       }}
     >
       {/* <Stack.Screen name="Splash" component={Splash} /> */}

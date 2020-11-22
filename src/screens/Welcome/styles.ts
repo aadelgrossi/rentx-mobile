@@ -1,4 +1,3 @@
-import { RectButton } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
 import colors from '../../styles/colors'
@@ -6,20 +5,21 @@ import colors from '../../styles/colors'
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${colors.black};
+  justify-content: center;
 `
 
 export const Contents = styled.View`
   flex: 1;
   align-items: center;
-  margin: 160px 24px 0;
+  margin: 100px 24px 48px;
 `
 
 export const Title = styled.Text`
   color: ${colors.white};
   text-align: center;
   font-size: 40px;
-  margin-top: 160px;
-  margin-bottom: 40px;
+  margin-top: 100px;
+  margin-bottom: 20px;
   font-family: 'archivo-600';
 `
 
@@ -30,8 +30,7 @@ export const Text = styled.Text`
 `
 
 export const Actions = styled.View`
-  position: absolute;
-  bottom: 100px;
+  margin-top: auto;
   height: 130px;
   justify-content: space-between;
   width: 100%;
@@ -41,15 +40,4 @@ export const ButtonText = styled.Text`
   font-family: 'inter-600';
   font-size: 16px;
   color: ${colors.white};
-`
-
-export const BackButton = styled(RectButton)`
-  position: absolute;
-  bottom: 60px;
-`
-
-export const BackButtonText = styled.Text`
-  font-family: 'archivo-500';
-  font-size: 15px;
-  color: ${colors.grayText};
 `
