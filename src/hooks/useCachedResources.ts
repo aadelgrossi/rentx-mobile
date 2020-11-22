@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 
+import { MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
@@ -14,6 +15,7 @@ const useCachedResources = (): boolean => {
 
         // Load fonts
         await Font.loadAsync({
+          ...MaterialIcons.font,
           'archivo-500': require('../../assets/fonts/Archivo-Medium.ttf'),
           'archivo-600': require('../../assets/fonts/Archivo-SemiBold.ttf'),
           'archivo-700': require('../../assets/fonts/Archivo-Bold.ttf'),
