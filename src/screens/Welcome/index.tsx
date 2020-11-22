@@ -12,9 +12,9 @@ import {
   Title,
   Text,
   Actions,
-  ButtonText,
-  BackButton,
-  BackButtonText
+  ButtonText
+  // BackButton,
+  // BackButtonText
 } from './styles'
 
 const Welcome: React.FC = () => {
@@ -36,9 +36,9 @@ const Welcome: React.FC = () => {
           </Button>
         </Actions>
 
-        <BackButton>
+        {/* <BackButton>
           <BackButtonText>Voltar</BackButtonText>
-        </BackButton>
+        </BackButton> */}
       </Contents>
       <StatusBar />
     </Container>
