@@ -1,5 +1,5 @@
 import { RectButton } from 'react-native-gesture-handler'
-import styled, { css } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import colors from '../../styles/colors'
 
@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView`
 export const Contents = styled.View`
   flex: 1;
   align-items: center;
-  margin-top: 160px;
+  margin: 160px 24px 0;
 `
 
 export const Title = styled.Text`
@@ -32,32 +32,15 @@ export const Text = styled.Text`
 export const Actions = styled.View`
   position: absolute;
   bottom: 100px;
-  flex-direction: row;
+  height: 130px;
   justify-content: space-between;
-  width: 75%;
+  width: 100%;
 `
 
 export const ButtonText = styled.Text`
   font-family: 'inter-600';
   font-size: 16px;
   color: ${colors.white};
-`
-
-const buttonCss = css`
-  width: 156px;
-  height: 65px;
-  align-items: center;
-  justify-content: center;
-`
-
-export const LogInButton = styled(RectButton)`
-  ${buttonCss}
-  background-color: ${colors.red};
-`
-
-export const SignUpButton = styled(RectButton)`
-  ${buttonCss}
-  background-color: ${colors.lightBlack};
 `
 
 export const BackButton = styled(RectButton)`
