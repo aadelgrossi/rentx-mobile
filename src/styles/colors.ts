@@ -7,6 +7,7 @@ export default {
   lightBlack: '#29292E',
   grayPrimary: '#47474D',
   graySecondary: '#A0A0B2',
+  grayTertiary: '#F2F2FA',
   grayText: '#7A7A80',
   grayAccent: '#AEAEB3',
   grayLight: '#DEDEE3',
