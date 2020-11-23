@@ -9,6 +9,7 @@ const SIGN_IN = gql`
         firstName
         lastName
         admin
+        createdAt
         avatar {
           id
           url

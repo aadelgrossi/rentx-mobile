@@ -4,6 +4,7 @@ interface User {
   lastName: string
   email: string
   admin: boolean
+  createdAt: string
   avatar: {
     id: string
     url: string

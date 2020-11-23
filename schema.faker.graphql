@@ -27,6 +27,7 @@ type User {
   email: String! @fake(type: email)
   admin: Boolean @examples(values: [false])
   avatar: Image!
+  createdAt: String@fake(type: pastDate)
 }
 
 input SignInInput {
