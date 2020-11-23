@@ -25,9 +25,9 @@ type User {
   firstName: String! @fake(type: firstName)
   lastName: String! @fake(type: lastName)
   email: String! @fake(type: email)
-  admin: Boolean @examples(values: [false])
+  admin: Boolean! @examples(values: [false])
   avatar: Image!
-  createdAt: String@fake(type: pastDate)
+  createdAt: String! @fake(type: pastDate)
 }
 
 input SignInInput {
