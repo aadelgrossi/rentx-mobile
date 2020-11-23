@@ -1,15 +1,14 @@
 import React from 'react'
 
-import { useNavigation } from '@react-navigation/native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import RentIcon from '../../components/RentIcon'
 import { useAuth } from '../../hooks/useAuth'
 import colors from '../../styles/colors'
 import {
   Container,
-  Header,
-  HeaderTitle,
+  Spacing,
   Contents,
   ProfileContainer,
   ProfilePicture,
@@ -24,19 +23,10 @@ import {
 } from './styles'
 
 const Profile: React.FC = () => {
-  const { user, signOut } = useAuth()
-  const navigation = useNavigation()
+  const { user } = useAuth()
   return (
     <Container>
-      <Header>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileInfo')}>
-          <RentIcon name="edit" color={colors.grayAccent} />
-        </TouchableOpacity>
-        <HeaderTitle>Perfil</HeaderTitle>
-        <TouchableOpacity onPress={signOut}>
-          <RentIcon name="power" color={colors.grayAccent} />
-        </TouchableOpacity>
-      </Header>
+      <Spacing />
       <Contents>
         <ProfileContainer>
           <ProfilePicture
@@ -45,11 +35,19 @@ const Profile: React.FC = () => {
             }}
           />
           <SwitchPicture>
-            <RentIcon name="photo" color={colors.white} />
+            <RentIcon name="photo" color={colors.white} size={24} />
           </SwitchPicture>
         </ProfileContainer>
 
         <UserName>{[user.firstName, user.lastName].join(' ')}</UserName>
+        <InfoItem style={{ marginTop: 24 }}>
+          <InfoTitle>Membro desde</InfoTitle>
+          <InfoValue>
+            {format(Date.parse(user.createdAt), "dd 'de' MMMM 'de' yyyy", {
+              locale: ptBR
+            })}
+          </InfoValue>
+        </InfoItem>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Agendamentos feitos</InfoTitle>
           <InfoValue>05</InfoValue>

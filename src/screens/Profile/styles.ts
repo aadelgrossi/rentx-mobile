@@ -1,21 +1,17 @@
 import { RectButton } from 'react-native-gesture-handler'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 import colors from '../../styles/colors'
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background-color: ${colors.white};
   flex-direction: column;
 `
 
-export const Header = styled.View`
+export const Spacing = styled.View`
   background-color: ${colors.black};
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 48px 24px;
-  height: 200px;
+  height: 120px;
 `
 
 export const HeaderTitle = styled.Text`
@@ -59,10 +55,18 @@ export const UserName = styled.Text`
   margin-top: 16px;
 `
 
-export const InfoItem = styled.View`
+const bottomSectionItems = css`
   width: 100%;
-  flex-direction: row;
   justify-content: space-between;
+`
+
+export const InfoItem = styled.View`
+  ${bottomSectionItems}
+  flex-direction: row;
+`
+
+export const FavoriteCarContainer = styled.View`
+  ${bottomSectionItems}
 `
 
 export const InfoTitle = styled.Text`
@@ -81,11 +85,6 @@ export const Separator = styled.View`
   width: 100%;
   margin: 16px 0;
   background-color: ${colors.grayLighter};
-`
-
-export const FavoriteCarContainer = styled.View`
-  width: 100%;
-  justify-content: space-between;
 `
 
 export const CarCard = styled.View`
