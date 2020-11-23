@@ -18,11 +18,7 @@ const ProfileStack = createStackNavigator<ProfileParamList>()
 const ProfileNavigator: React.FC = () => {
   const { signOut } = useAuth()
   return (
-    <ProfileStack.Navigator
-      screenOptions={{
-        title: 'Perfil'
-      }}
-    >
+    <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="Main"
         component={Profile}
