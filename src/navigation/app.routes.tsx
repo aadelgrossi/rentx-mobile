@@ -16,6 +16,7 @@ const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
 const AppRoutes: React.FC = () => {
   return (
     <BottomTab.Navigator
+      sceneContainerStyle={{ backgroundColor: colors.black }}
       tabBarOptions={{
         showLabel: false,
         style: {

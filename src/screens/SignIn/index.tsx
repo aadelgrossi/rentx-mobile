@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import Button from '../../components/Button'
@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
     <Container>
       <KeyboardAvoidingView
         style={{ flex: 1, justifyContent: 'center' }}
-        behavior="padding"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
