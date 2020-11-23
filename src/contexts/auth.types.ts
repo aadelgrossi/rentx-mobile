@@ -1,7 +1,13 @@
 interface User {
   id: string
-  name: string
+  firstName: string
+  lastName: string
   email: string
+  admin: boolean
+  avatar: {
+    id: string
+    url: string
+  }
 }
 
 interface SignInCredentials {
@@ -10,7 +16,7 @@ interface SignInCredentials {
 }
 
 interface AuthState {
-  token: string
+  accessToken: string
   user: User
 }
 
@@ -21,4 +27,4 @@ interface AuthContextData {
   isAuthorized: boolean
 }
 
-export { AuthState, AuthContextData }
+export { AuthState, AuthContextData, SignInCredentials }
