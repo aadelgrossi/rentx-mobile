@@ -10,6 +10,7 @@ import Button from '../../components/Button'
 import CheckBox from '../../components/Checkbox'
 import Input from '../../components/Input'
 import SecureTextInput from '../../components/SecureTextInput'
+import { useAuth } from '../../hooks/useAuth'
 import colors from '../../styles/colors'
 import {
   Container,
@@ -24,6 +25,7 @@ import {
 
 const SignIn: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false)
+  const { signIn } = useAuth()
   const navigation = useNavigation()
 
   return (
@@ -64,7 +66,12 @@ const SignIn: React.FC = () => {
                 </ForgotPassword>
               </RememberAndForgotPasswordWrapper>
 
-              <Button style={{ marginTop: 20 }} onPress={() => {}}>
+              <Button
+                style={{ marginTop: 20 }}
+                onPress={() =>
+                  signIn({ email: 'dummy@email.com', password: 'test' })
+                }
+              >
                 Entrar
               </Button>
             </Form>
