@@ -6,7 +6,7 @@ import IcomoonConfig from '../../../assets/fonts/rent-icons.json'
 
 interface IconProps {
   color: string
-  size: number
+  size?: number
   name: RentIcons
 }
 
@@ -19,5 +19,7 @@ const IconSet = createIconSetFromIcoMoon(
 const RentIcon: React.FC<IconProps> = props => {
   return <IconSet {...props}></IconSet>
 }
+
+RentIcon.defaultProps = { size: 28 }
 
 export default RentIcon
