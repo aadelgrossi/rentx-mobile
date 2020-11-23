@@ -8,7 +8,6 @@ import ChangePassword from '../screens/Profile/ChangePassword'
 import ProfileInfo from '../screens/Profile/ProfileInfo'
 import SignOutPrompt from '../screens/Profile/SignOutPrompt'
 import UpdateConfirm from '../screens/Profile/UpdateConfirm'
-import colors from '../styles/colors'
 
 const ProfileStack = createStackNavigator<ProfileParamList>()
 
@@ -19,8 +18,7 @@ const ProfileNavigator: React.FC = () => {
         name="Main"
         component={Profile}
         options={{
-          headerStyle: { backgroundColor: colors.black },
-          headerTintColor: colors.white
+          headerShown: false
         }}
       />
       <ProfileStack.Screen name="ProfileInfo" component={ProfileInfo} />
