@@ -12,6 +12,9 @@ const SearchInput: React.FC<TextInputProps> = ({ style, ...rest }) => {
       <TextInput
         keyboardAppearance="dark"
         placeholderTextColor={colors.grayAccent}
+        spellCheck={false}
+        autoCapitalize="none"
+        autoCorrect={false}
         {...rest}
       ></TextInput>
 
