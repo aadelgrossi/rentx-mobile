@@ -8,7 +8,7 @@ import { Wrapper, IconContainer, TextInput } from './styles'
 
 interface InputProps extends TextInputProps {
   name: string
-  icon: RentIcons
+  icon?: RentIcons
   secureText?: boolean
 }
 
@@ -26,9 +26,11 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <Wrapper>
-      <IconContainer>
-        <RentIcon color={colors.grayText} size={24} name={icon}></RentIcon>
-      </IconContainer>
+      {icon && (
+        <IconContainer>
+          <RentIcon color={colors.grayText} size={24} name={icon}></RentIcon>
+        </IconContainer>
+      )}
       <TextInput
         ref={inputRef}
         keyboardAppearance="dark"
