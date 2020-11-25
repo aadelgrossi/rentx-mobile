@@ -25,7 +25,8 @@ const AppRoutes: React.FC = () => {
           borderTopColor: colors.grayLighter
         },
         activeTintColor: colors.red,
-        inactiveTintColor: colors.graySecondary
+        inactiveTintColor: colors.graySecondary,
+        keyboardHidesTabBar: true
       }}
     >
       <BottomTab.Screen
