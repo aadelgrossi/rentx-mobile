@@ -1,27 +1,26 @@
 import React from 'react'
 
-import { TextInputProps, View } from 'react-native'
+import { TextInputProps } from 'react-native'
 
 import colors from '../../styles/colors'
-import Input from '../Input'
 import RentIcon from '../RentIcon'
-import { IconContainer } from './styles'
+import { Wrapper, TextInput, IconContainer } from './styles'
 
-interface InputProps extends TextInputProps {
-  name: string
-}
-
-const SearchInput: React.FC<InputProps> = ({ style, ...rest }) => {
+const SearchInput: React.FC<TextInputProps> = ({ style, ...rest }) => {
   return (
-    <View style={style}>
-      <Input {...rest}>
-        <IconContainer
-          style={{ borderLeftColor: colors.white, borderLeftWidth: 2 }}
-        >
-          <RentIcon color={colors.grayPrimary} name="search"></RentIcon>
-        </IconContainer>
-      </Input>
-    </View>
+    <Wrapper style={style}>
+      <TextInput
+        keyboardAppearance="dark"
+        placeholderTextColor={colors.grayAccent}
+        {...rest}
+      ></TextInput>
+
+      <IconContainer
+        style={{ borderLeftWidth: 2, borderLeftColor: colors.white }}
+      >
+        <RentIcon color={colors.grayText} size={24} name="search"></RentIcon>
+      </IconContainer>
+    </Wrapper>
   )
 }
 
