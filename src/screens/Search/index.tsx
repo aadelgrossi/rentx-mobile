@@ -3,7 +3,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
-import CarCard from '../../components/CarCard'
+import Card from '../../components/Card/Small'
 import SearchInput from '../../components/SearchInput'
 import GET_ALL_CARS from '../../graphql/cars'
 import {
@@ -33,7 +33,7 @@ const Search: React.FC = () => {
 
       <CarsList>
         {data?.cars.map(car => (
-          <CarCard key={car.id} car={car} />
+          <Card key={car.id} {...car} />
         ))}
       </CarsList>
 
