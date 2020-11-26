@@ -11,7 +11,7 @@ export const Container = styled.View`
 `
 
 export const Header = styled.View`
-  height: 120px;
+  height: 100px;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
@@ -35,6 +35,8 @@ export const Contents = styled.View`
   margin: 0 16px;
 `
 
-export const CarsList = styled.ScrollView`
+export const CarsList = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false
+})`
   margin: 16px 16px;
 `
