@@ -1,7 +1,7 @@
 import React from 'react'
 
-import colors from '../../styles/colors'
-import RentIcon from '../RentIcon'
+import colors from '../../../styles/colors'
+import RentIcon from '../../RentIcon'
 import {
   Container,
   Info,
@@ -14,26 +14,28 @@ import {
   CarPhoto
 } from './styles'
 
-interface CarProps {
-  car: Car
-}
-
-const CarCard: React.FC<CarProps> = ({ car }) => {
+const CarCard: React.FC<Car> = ({
+  manufacturer,
+  name,
+  dailyValue,
+  fuelType,
+  photo
+}) => {
   return (
     <Container>
       <Info>
         <ModelInfo>
-          <Label>{car.manufacturer.name}</Label>
-          <CarModel>{car.name}</CarModel>
+          <Label>{manufacturer.name}</Label>
+          <CarModel>{name}</CarModel>
         </ModelInfo>
         <AddInfo>
           <Label>Ao dia</Label>
           <AddInfoContent>
-            <RateValue>R$ {car.dailyValue}</RateValue>
+            <RateValue>R$ {dailyValue}</RateValue>
             <RentIcon
               color={colors.grayText}
               size={20}
-              name={car.fuelType}
+              name={fuelType}
             ></RentIcon>
           </AddInfoContent>
         </AddInfo>
@@ -41,7 +43,7 @@ const CarCard: React.FC<CarProps> = ({ car }) => {
 
       <CarPhoto
         style={{ resizeMode: 'contain' }}
-        source={{ uri: car.photo.url }}
+        source={{ uri: photo.url }}
       ></CarPhoto>
     </Container>
   )

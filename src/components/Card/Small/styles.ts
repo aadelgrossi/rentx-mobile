@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import colors from '../../styles/colors'
+import colors from '../../../styles/colors'
 
 export const Container = styled.View`
   width: 100%;
@@ -20,7 +20,7 @@ export const ModelInfo = styled.View``
 
 export const Label = styled.Text`
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 12px;
   font-family: 'archivo-500';
   color: ${colors.grayAccent};
 `
