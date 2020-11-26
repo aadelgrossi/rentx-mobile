@@ -11,7 +11,7 @@
 #
 # Developed with ❤️ by APIs.guru | https://github.com/APIs-guru/graphql-faker
 
-type Image {
+type ProfilePicture {
   id: ID
   url: String! @examples(values: [
     "https://randomuser.me/api/portraits/men/41.jpg",
@@ -20,14 +20,82 @@ type Image {
     "https://randomuser.me/api/portraits/women/29.jpg"])
 }
 
+type CarPhoto {
+  id: ID
+  url: String! @examples(values: [
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177832/rentx/audi-suv_d5qhpk.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177829/rentx/audi-yellow_aqz2da.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177828/rentx/mercedes-2_wtnos1.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177824/rentx/porsche_blcjbc.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177822/rentx/bmw2_ommbp7.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177822/rentx/mercedes_aqwupk.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177821/rentx/maserati_qqg7kj.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177819/rentx/bugatti_p0ta3z.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177813/rentx/corvette_nfugdn.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177810/rentx/lamborghini_t3volw.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177807/rentx/bmw_gohyhq.png",
+    "https://res.cloudinary.com/andre-grossi/image/upload/v1606177804/rentx/audi-black_uqv0ap.png"
+  ])
+}
+
+type CarManufacturer {
+  id: ID,
+  name: String! @examples(values: ["Porsche", "BMW", "Bugatti", "Audi","Maserati","Lamborghini","Volvo","Aston Martin", "Chevrolet"])
+}
+
+enum SPECIFICATION {
+	speed,
+	acceleration,
+	hp,
+	person
+}
+
+enum TRANSMISSION{
+  AUTO,
+  MANUAL
+}
+
+enum FUEL_TYPE{
+  gas,
+  electric,
+  hybrid
+}
+
+type CustomCarSpec {
+  id: ID!
+  name: SPECIFICATION!
+  value: String! @fake(type: word)
+}
+
+
+type Car {
+  id: ID!
+  name: String! @examples(values: ["Panamera", "TT", "Huracan", "Lancer Evo X", "Corvette Z06",])
+  year: Int!
+  manufacturer: CarManufacturer!
+  photo: CarPhoto!
+  fuelType: FUEL_TYPE!
+  transmission: TRANSMISSION!
+  dailyValue: Int! @fake(type: number, options: {minNumber: 150, maxNumber: 3400})
+  specifications: [CustomCarSpec!] @listLength(min:2, max:3)
+}
+
 type User {
   id: ID
   firstName: String! @fake(type: firstName)
   lastName: String! @fake(type: lastName)
   email: String! @fake(type: email)
   admin: Boolean! @examples(values: [false])
-  avatar: Image!
+  avatar: ProfilePicture!
   createdAt: String! @fake(type: pastDate)
+}
+
+type Rental {
+  id: ID
+  car: Car!
+  user: User!
+  startDate: String! @fake(type: date, options: {dateFrom: "2020-11-01T10:34:25Z", dateTo: "2020-11-15T10:34:25Z"})
+  endDate: String! @fake(type: date, options: { dateFrom: "2020-11-15T10:34:25Z", dateTo: "2020-12-31T10:34:25Z"})
 }
 
 input SignInInput {
@@ -43,6 +111,8 @@ type Auth {
 
 type Query {
   me: User!
+  cars: [Car!] @listLength(min:5, max:9)
+  rentals: [Rental!] @listLength(min:3, max:7)
 }
 
 type Mutation {

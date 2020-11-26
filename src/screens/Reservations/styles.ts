@@ -16,7 +16,7 @@ export const Header = styled.View`
   align-items: center;
   flex-direction: row;
   background-color: ${colors.black};
-  padding: 64px 32px 64px;
+  padding: 64px 32px 32px;
 `
 
 export const Title = styled.Text`
@@ -31,12 +31,8 @@ export const ResultsCount = styled.Text`
   font-size: 13px;
 `
 
-export const Contents = styled.View`
-  margin: 0 16px;
-`
-
-export const CarsList = styled.ScrollView.attrs({
+export const RentalsList = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false
 })`
-  margin: 16px 16px;
+  margin: 0 16px;
 `

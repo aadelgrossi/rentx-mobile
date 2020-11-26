@@ -1,11 +1,9 @@
 import React from 'react'
 
-import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
-
 import RentIcon from '../../components/RentIcon'
 import { useAuth } from '../../hooks/useAuth'
 import colors from '../../styles/colors'
+import { formatLongDate } from '../../utils/formatDate'
 import {
   Container,
   Spacing,
@@ -42,11 +40,7 @@ const Profile: React.FC = () => {
         <UserName>{[user.firstName, user.lastName].join(' ')}</UserName>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Membro desde</InfoTitle>
-          <InfoValue>
-            {format(Date.parse(user.createdAt), "dd 'de' MMMM 'de' yyyy", {
-              locale: ptBR
-            })}
-          </InfoValue>
+          <InfoValue>{formatLongDate(user.createdAt)}</InfoValue>
         </InfoItem>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Agendamentos feitos</InfoTitle>

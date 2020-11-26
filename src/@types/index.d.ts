@@ -1,21 +1,6 @@
 declare module '*.png'
 
-type RentIcons =
-  | 'speed'
-  | 'transmission'
-  | 'up'
-  | 'calendar'
-  | 'car'
-  | 'electric'
-  | 'email'
-  | 'gas'
-  | 'home'
-  | 'hybrid'
-  | 'lock'
-  | 'person'
-  | 'photo'
-  | 'edit'
-  | 'filter'
-  | 'power'
-  | 'eye'
-  | 'eye-cross'
+interface Image {
+  id: string
+  url: string
+}

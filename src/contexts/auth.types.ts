@@ -1,16 +1,3 @@
-interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  admin: boolean
-  createdAt: string
-  avatar: {
-    id: string
-    url: string
-  }
-}
-
 interface SignInCredentials {
   email: string
   password: string
