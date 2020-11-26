@@ -47,3 +47,20 @@ interface Car {
   dailyValue: number
   photo: Image
 }
+interface User {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  admin: boolean
+  createdAt: string
+  avatar: Image
+}
+
+interface Rental {
+  id: string
+  car: Car
+  user: User
+  startDate: string
+  endDate: string
+}
