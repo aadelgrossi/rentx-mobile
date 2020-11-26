@@ -14,7 +14,7 @@ export type SignUpRoutesParamList = {
 export type AppRoutesParamList = {
   Home: undefined
   Search: undefined
-  Booked: undefined
+  Reservations: undefined
   Profile: undefined
 }
 

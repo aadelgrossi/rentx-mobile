@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AppRoutesParamList } from '../../types'
 import IconWrapper from '../components/IconWrapper'
 import RentIcon from '../components/RentIcon'
-import Booked from '../screens/Booked'
 import Home from '../screens/Home'
+import Reservations from '../screens/Reservations'
 import Search from '../screens/Search'
 import colors from '../styles/colors'
 import ProfileNavigator from './profile.routes'
@@ -52,8 +52,8 @@ const AppRoutes: React.FC = () => {
         }}
       />
       <BottomTab.Screen
-        name="Booked"
-        component={Booked}
+        name="Reservations"
+        component={Reservations}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
