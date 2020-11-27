@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 
-import { MaterialIcons } from '@expo/vector-icons'
 import { differenceInDays, isAfter, parseISO } from 'date-fns'
 
 import colors from '../../../styles/colors'
@@ -20,7 +19,8 @@ import {
   OnGoingReservationText,
   FutureReservation,
   ReservationDate,
-  ReservationPeriodText
+  ReservationPeriodText,
+  LeftArrowIcon
 } from './styles'
 
 const RentalCard: React.FC<Rental> = ({ car, startDate, endDate }) => {
@@ -75,11 +75,7 @@ const RentalCard: React.FC<Rental> = ({ car, startDate, endDate }) => {
             <Label>Período</Label>
             <ReservationPeriodText>
               <ReservationDate>{formatShortDate(startDate)}</ReservationDate>
-              <MaterialIcons
-                name="keyboard-arrow-right"
-                size={20}
-                color={colors.grayAccent}
-              ></MaterialIcons>
+              <LeftArrowIcon />
               <ReservationDate>{formatShortDate(endDate)}</ReservationDate>
             </ReservationPeriodText>
           </FutureReservation>
