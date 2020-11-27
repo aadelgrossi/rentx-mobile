@@ -15,7 +15,7 @@ import {
   CarsList
 } from './styles'
 
-const Search: React.FC = () => {
+const Cars: React.FC = () => {
   const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS)
 
   return (
@@ -42,4 +42,4 @@ const Search: React.FC = () => {
   )
 }
 
-export default Search
+export default Cars

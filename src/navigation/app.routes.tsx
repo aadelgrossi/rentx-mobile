@@ -5,11 +5,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AppRoutesParamList } from '../../types'
 import IconWrapper from '../components/IconWrapper'
 import RentIcon from '../components/RentIcon'
-import Home from '../screens/Home'
+import Cars from '../screens/Cars'
 import Reservations from '../screens/Reservations'
-import Search from '../screens/Search'
 import colors from '../styles/colors'
 import ProfileNavigator from './profile.routes'
+import ReservationNavigator from './reservation.routes'
 
 const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
 
@@ -31,7 +31,7 @@ const AppRoutes: React.FC = () => {
     >
       <BottomTab.Screen
         name="Home"
-        component={Home}
+        component={ReservationNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
@@ -41,8 +41,8 @@ const AppRoutes: React.FC = () => {
         }}
       />
       <BottomTab.Screen
-        name="Search"
-        component={Search}
+        name="Cars"
+        component={Cars}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>

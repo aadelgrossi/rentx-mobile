@@ -13,9 +13,19 @@ export type SignUpRoutesParamList = {
 
 export type AppRoutesParamList = {
   Home: undefined
-  Search: undefined
+  Cars: undefined
   Reservations: undefined
   Profile: undefined
+}
+
+export type ReservationParamList = {
+  Listing: undefined
+  CarDetails: {
+    car: Car
+    startDate: Date
+    endDate: Date
+  }
+  ConfirmReservation: undefined
 }
 
 export type ProfileParamList = {
