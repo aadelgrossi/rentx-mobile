@@ -25,12 +25,22 @@ export const Label = styled.Text`
   color: ${colors.grayAccent};
 `
 
-export const DateContainer = styled.View``
+export const DateContainer = styled.View`
+  align-items: stretch;
+  width: 150px;
+  min-height: 40px;
+`
 
 export const DateContent = styled.Text`
   font-family: 'inter-500';
   font-size: 15px;
   color: ${colors.white};
+`
+
+export const CalendarContainer = styled.View`
+  background-color: ${colors.white};
+  padding: 32px 32px;
+  margin-top: auto;
 `
 
 export const Header = styled.View`
@@ -119,7 +129,7 @@ export const SubmitFilters = styled.TouchableOpacity`
   height: 56px;
   align-items: center;
   justify-content: center;
-  background-color: ${colors.red};
+  background-color: ${props => (props.disabled ? colors.hoverRed : colors.red)};
   margin-top: 16px;
 `
 

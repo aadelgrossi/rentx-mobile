@@ -6,9 +6,10 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import { addDays, lastDayOfWeek } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 import { Dimensions } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
 
+import Calendar from '../../components/Calendar'
 import Card from '../../components/Card/Extended'
 import CustomMarker from '../../components/CustomMarker'
 import RentIcon from '../../components/RentIcon'
@@ -21,8 +22,9 @@ import {
   Header,
   DateRangeHeader,
   DateContainer,
-  Label,
   DateContent,
+  Label,
+  CalendarContainer,
   Title,
   ResultsCount,
   SearchResults,
@@ -51,7 +53,7 @@ const Home: React.FC = () => {
   const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS)
 
   const [startDate, setStartDate] = useState<Date>(
-    lastDayOfWeek(new Date(), { weekStartsOn: 6 })
+    lastDayOfWeek(new Date(), { weekStartsOn: 0 })
   )
   const [endDate, setEndDate] = useState<Date>(addDays(new Date(), 4))
 
@@ -61,9 +63,14 @@ const Home: React.FC = () => {
     TransmissionType | ''
   >('')
   const [modalVisible, setModalVisible] = useState(false)
+  const [calendarVisible, setCalendarVisible] = useState(true)
 
   const toggleModal = useCallback(() => {
     setModalVisible(state => !state)
+  }, [])
+
+  const toggleCalendarVisible = useCallback(() => {
+    setCalendarVisible(state => !state)
   }, [])
 
   const handleClearFilters = useCallback(() => {
@@ -72,22 +79,39 @@ const Home: React.FC = () => {
     setTransmissionType('')
   }, [])
 
+  const handleDateChange = useCallback((date, type) => {
+    if (type === 'END_DATE') {
+      setEndDate(date)
+    } else {
+      setStartDate(date)
+    }
+  }, [])
+
   return (
     <Container>
       <DateRangeHeader>
         <DateContainer>
-          <Label>De</Label>
-          <DateContent>{formatShortDate(startDate.toISOString())}</DateContent>
+          <TouchableOpacity onPress={toggleCalendarVisible}>
+            <Label>De</Label>
+            <DateContent>
+              {formatShortDate(startDate.toISOString())}
+            </DateContent>
+          </TouchableOpacity>
         </DateContainer>
+
         <MaterialIcons
-          name="keyboard-arrow-down"
+          name="keyboard-arrow-right"
           size={20}
           style={{ marginTop: 16 }}
           color={colors.grayText}
         />
         <DateContainer>
-          <Label>Até</Label>
-          <DateContent>{formatShortDate(endDate.toISOString())}</DateContent>
+          <TouchableOpacity onPress={toggleCalendarVisible}>
+            <Label>Até</Label>
+            <DateContent>
+              {endDate ? formatShortDate(endDate.toISOString()) : ''}
+            </DateContent>
+          </TouchableOpacity>
         </DateContainer>
       </DateRangeHeader>
 
@@ -106,6 +130,25 @@ const Home: React.FC = () => {
           renderItem={({ item }: { item: Car }) => <Card {...item} />}
         ></SearchResults>
       )}
+
+      <Modal
+        isVisible={calendarVisible}
+        onBackButtonPress={toggleCalendarVisible}
+        swipeDirection="down"
+        onSwipeComplete={toggleCalendarVisible}
+        style={{ margin: 0 }}
+        deviceWidth={Dimensions.get('screen').width}
+      >
+        <CalendarContainer
+          style={{ borderTopLeftRadius: 24, borderTopRightRadius: 24 }}
+        >
+          <FilterModalTopDetail />
+          <Calendar onChange={handleDateChange} />
+          <SubmitFilters disabled={!endDate} onPress={toggleCalendarVisible}>
+            <SubmitFiltersText>Confirmar</SubmitFiltersText>
+          </SubmitFilters>
+        </CalendarContainer>
+      </Modal>
 
       <Modal
         onBackButtonPress={toggleModal}
