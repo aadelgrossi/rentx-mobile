@@ -94,13 +94,30 @@ type Rental {
   id: ID
   car: Car!
   user: User!
-  startDate: String! @fake(type: date, options: {dateFrom: "2020-11-01T10:34:25Z", dateTo: "2020-11-15T10:34:25Z"})
-  endDate: String! @fake(type: date, options: { dateFrom: "2020-11-15T10:34:25Z", dateTo: "2020-12-31T10:34:25Z"})
+  startDate: String! @fake(type: date, options: {dateFrom: "2020-11-25T10:34:25Z", dateTo: "2020-12-02T10:34:25Z"})
+  endDate: String! @fake(type: date, options: { dateFrom: "2020-12-06T10:34:25Z", dateTo: "2020-12-10T10:34:25Z"})
 }
 
 input SignInInput {
   email: String!
   password: String!
+}
+
+input FilterOptions {
+  startDate: String
+  endDate: String
+  fuelType: String
+  transmission: String
+  minPrice: Int
+  maxPrice: Int
+  
+}
+
+input CreateReservation {
+  startDate: String
+  endDate: String
+  carId: String
+  userId: String
 }
 
 type Auth {
@@ -111,10 +128,11 @@ type Auth {
 
 type Query {
   me: User!
-  cars: [Car!] @listLength(min:5, max:9)
-  rentals: [Rental!] @listLength(min:3, max:7)
+  cars(data: FilterOptions): [Car!] @listLength(min:5, max:9)
+  rentals: [Rental!] @listLength(min:2, max:5)
 }
 
 type Mutation {
   signIn(data: SignInInput): Auth!
+  createReservation(data: CreateReservation!): Rental!
 }
