@@ -51,8 +51,8 @@ enum SPECIFICATION {
 }
 
 enum TRANSMISSION{
-  AUTO,
-  MANUAL
+  auto,
+  manual
 }
 
 enum FUEL_TYPE{
