@@ -27,20 +27,22 @@ import {
   ResultsCount,
   SearchResults,
   FilterContainer,
+  FilterModalTopDetail,
   FilterHeader,
-  FilterClear,
-  PriceIndicator,
-  PriceRange,
+  Separator,
   FilterItem,
   FilterItemTitle,
-  Separator,
-  SubmitFilters,
-  SubmitFiltersText,
+  FilterClearButton,
+  FilterClearText,
+  PriceIndicator,
+  PriceRange,
   TransmissionTypeSelect,
+  FuelTypeSelect,
+  FuelOptionText,
   OptionButton,
   OptionText,
-  FuelTypeSelect,
-  FilterClearButton
+  SubmitFilters,
+  SubmitFiltersText
 } from './styles'
 
 const BASE_PRICE_RANGE = [50, 1500]
@@ -114,15 +116,19 @@ const Home: React.FC = () => {
         isVisible={modalVisible}
       >
         <FilterContainer
-          style={{ borderTopRightRadius: 30, borderTopLeftRadius: 30 }}
+          style={{ borderTopRightRadius: 24, borderTopLeftRadius: 24 }}
         >
+          <FilterModalTopDetail />
+
           <FilterHeader>
             <Title>Filtro</Title>
             <FilterClearButton onPress={handleClearFilters}>
-              <FilterClear>Limpar todos</FilterClear>
+              <FilterClearText>Limpar todos</FilterClearText>
             </FilterClearButton>
           </FilterHeader>
+
           <Separator />
+
           <FilterItem>
             <PriceIndicator>
               <FilterItemTitle>Preço ao dia</FilterItemTitle>
@@ -134,11 +140,11 @@ const Home: React.FC = () => {
               values={priceRange}
               min={BASE_PRICE_RANGE[0]}
               max={BASE_PRICE_RANGE[1]}
-              containerStyle={{ marginTop: 8 }}
+              containerStyle={{ marginTop: 8, alignSelf: 'center' }}
               customMarker={CustomMarker}
               trackStyle={{ backgroundColor: colors.grayLight }}
               selectedStyle={{ backgroundColor: colors.red }}
-              sliderLength={Dimensions.get('window').width - 48}
+              sliderLength={Dimensions.get('window').width - 72}
               onValuesChange={values => setPriceRange(values)}
               minMarkerOverlapDistance={20}
               step={1}
@@ -163,7 +169,7 @@ const Home: React.FC = () => {
                       size={24}
                     ></RentIcon>
                   )}
-                  <OptionText style={{ marginTop: 4 }}>{item.label}</OptionText>
+                  <FuelOptionText>{item.label}</FuelOptionText>
                 </OptionButton>
               ))}
             </FuelTypeSelect>

@@ -58,19 +58,29 @@ export const SearchResults = styled(FlatList as new () => FlatList<Car>)`
 `
 
 export const FilterContainer = styled.View`
-  padding: 64px 24px 32px;
+  padding: 16px 32px 32px;
   background-color: ${colors.white};
   margin-top: auto;
 `
 
+export const FilterModalTopDetail = styled.View`
+  width: 48px;
+  border-radius: 100px;
+  background-color: ${colors.grayLighter};
+  height: 4px;
+  margin-bottom: 32px;
+  align-self: center;
+`
+
 export const FilterHeader = styled.View`
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `
 
 export const FilterClearButton = styled.TouchableOpacity``
 
-export const FilterClear = styled.Text`
+export const FilterClearText = styled.Text`
   font-size: 15px;
   color: ${colors.grayAccent};
   font-family: 'inter-500';
@@ -95,9 +105,8 @@ export const PriceRange = styled.Text`
 `
 
 export const FilterItem = styled.View`
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   justify-content: center;
-  align-items: stretch;
 `
 
 export const FilterItemTitle = styled.Text`
@@ -111,7 +120,7 @@ export const SubmitFilters = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   background-color: ${colors.red};
-  margin-top: 24px;
+  margin-top: 16px;
 `
 
 export const SubmitFiltersText = styled.Text`
@@ -140,12 +149,16 @@ export const OptionButton = styled.TouchableOpacity<{ active: boolean }>`
   justify-content: center;
   background-color: ${props =>
     props.active ? colors.white : colors.grayLightest};
-  margin: 5px;
+  margin: 4px;
 `
 
 export const OptionText = styled.Text`
-  color: ${colors.black};
+  color: ${colors.grayPrimary};
   font-size: 15px;
   font-family: 'inter-500';
   text-transform: capitalize;
+`
+
+export const FuelOptionText = styled(OptionText)`
+  margin-top: 4px;
 `
