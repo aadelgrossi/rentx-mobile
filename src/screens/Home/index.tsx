@@ -3,20 +3,23 @@ import React, { useCallback, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { addDays, lastDayOfWeek } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 import { Dimensions } from 'react-native'
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
 
+import { ReservationParamList } from '../../../types'
 import Calendar from '../../components/Calendar'
 import Card from '../../components/Card/Extended'
 import CustomMarker from '../../components/CustomMarker'
 import RentIcon from '../../components/RentIcon'
+import { FUEL_TYPE, TRANSMISSION } from '../../constants'
 import GET_ALL_CARS from '../../graphql/cars'
 import colors from '../../styles/colors'
-import { fuelTypes, transmissionTypes } from '../../utils/filterOptions'
 import { formatShortDate } from '../../utils/formatDate'
+import { FUEL_LABELS, TRANSMISSION_LABELS } from '../../utils/spec_labels'
 import {
   Container,
   Header,
@@ -49,21 +52,23 @@ import {
 
 const BASE_PRICE_RANGE = [50, 1500]
 
-const Home: React.FC = () => {
+const Home: React.FC<{
+  navigation: StackNavigationProp<ReservationParamList, 'Listing'>
+}> = ({ navigation }) => {
   const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS)
 
   const [startDate, setStartDate] = useState<Date>(
     lastDayOfWeek(new Date(), { weekStartsOn: 0 })
   )
-  const [endDate, setEndDate] = useState<Date>(addDays(new Date(), 4))
+  const [endDate, setEndDate] = useState<Date | null>(addDays(startDate, 4))
 
   const [priceRange, setPriceRange] = useState(BASE_PRICE_RANGE)
-  const [fuelType, setFuelType] = useState<FuelType | ''>('')
-  const [transmissionType, setTransmissionType] = useState<
-    TransmissionType | ''
-  >('')
+  const [fuelType, setFuelType] = useState<FUEL_TYPE | ''>()
+  const [transmissionType, setTransmissionType] = useState<TRANSMISSION | ''>(
+    ''
+  )
   const [modalVisible, setModalVisible] = useState(false)
-  const [calendarVisible, setCalendarVisible] = useState(true)
+  const [calendarVisible, setCalendarVisible] = useState(false)
 
   const toggleFilterModal = useCallback(() => {
     setModalVisible(state => !state)
@@ -79,13 +84,27 @@ const Home: React.FC = () => {
     setTransmissionType('')
   }, [])
 
-  const handleDateChange = useCallback((date, type) => {
+  const handleDateChange = useCallback((date: any, type: string) => {
     if (type === 'END_DATE') {
       setEndDate(date)
     } else {
       setStartDate(date)
+      setEndDate(null)
     }
   }, [])
+
+  const goToCarDetails = useCallback(
+    (car: Car) => {
+      if (startDate && endDate) {
+        navigation.navigate('CarDetails', {
+          car,
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString()
+        })
+      }
+    },
+    [startDate, endDate, navigation]
+  )
 
   return (
     <Container>
@@ -126,14 +145,18 @@ const Home: React.FC = () => {
         <SearchResults
           data={data.cars}
           keyExtractor={({ id }: Car) => id}
-          renderItem={({ item }: { item: Car }) => <Card {...item} />}
+          renderItem={({ item }: { item: Car }) => (
+            <TouchableOpacity onPress={() => goToCarDetails(item)}>
+              <Card {...item} />
+            </TouchableOpacity>
+          )}
         ></SearchResults>
       )}
 
       <Modal
         isVisible={calendarVisible}
         onBackButtonPress={toggleCalendarVisible}
-        onBackdropPress={toggleCalendarVisible}
+        onBackdropPress={endDate ? toggleCalendarVisible : undefined}
         onSwipeComplete={toggleCalendarVisible}
         swipeDirection="down"
         style={{ margin: 0 }}
@@ -198,22 +221,20 @@ const Home: React.FC = () => {
           <FilterItem>
             <FilterItemTitle>Combustível</FilterItemTitle>
             <FuelTypeSelect>
-              {fuelTypes.map(item => (
+              {Object.values(FUEL_TYPE).map(fuel => (
                 <OptionButton
-                  onPress={() => setFuelType(item.value)}
-                  active={item.value === fuelType}
-                  key={item.value}
+                  onPress={() => setFuelType(fuel)}
+                  active={fuel === fuelType}
+                  key={fuel}
                 >
-                  {item.value && (
+                  {fuel && (
                     <RentIcon
-                      name={item.value}
-                      color={
-                        item.value === fuelType ? colors.red : colors.grayAccent
-                      }
+                      name={fuel}
+                      color={fuel === fuelType ? colors.red : colors.grayAccent}
                       size={24}
                     ></RentIcon>
                   )}
-                  <FuelOptionText>{item.label}</FuelOptionText>
+                  <FuelOptionText>{FUEL_LABELS[fuel]}</FuelOptionText>
                 </OptionButton>
               ))}
             </FuelTypeSelect>
@@ -222,13 +243,13 @@ const Home: React.FC = () => {
           <FilterItem>
             <FilterItemTitle>Transmissão</FilterItemTitle>
             <TransmissionTypeSelect>
-              {transmissionTypes.map(item => (
+              {Object.values(TRANSMISSION).map(transmission => (
                 <OptionButton
-                  onPress={() => setTransmissionType(item.value)}
-                  active={item.value === transmissionType}
-                  key={item.value}
+                  onPress={() => setTransmissionType(transmission)}
+                  active={transmission === transmissionType}
+                  key={transmission}
                 >
-                  <OptionText>{item.label}</OptionText>
+                  <OptionText>{TRANSMISSION_LABELS[transmission]}</OptionText>
                 </OptionButton>
               ))}
             </TransmissionTypeSelect>
