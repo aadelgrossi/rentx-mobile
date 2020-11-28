@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { RouteProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
@@ -31,10 +31,12 @@ import {
   SubTotalSection
 } from './styles'
 
-const CarDetails: React.FC<{
+interface CarDetailsProps {
   route: RouteProp<ReservationParamList, 'CarDetails'>
-}> = ({ route }) => {
-  const navigation = useNavigation()
+  navigation: NavigationProp<ReservationParamList, 'CarDetails'>
+}
+
+const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
   const { car, startDate, endDate } = route.params
 
   const allSpecifications: CarSpec[] = [

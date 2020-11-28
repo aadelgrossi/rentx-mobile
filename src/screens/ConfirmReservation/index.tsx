@@ -1,12 +1,14 @@
 import React from 'react'
 
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 
+import { ReservationParamList } from '../../../types'
 import Button from '../../components/Button'
 import Prompt from '../../components/Prompt'
 
-const ConfirmReservation: React.FC = () => {
-  const navigation = useNavigation()
+const ConfirmReservation: React.FC<{
+  navigation: NavigationProp<ReservationParamList, 'CarDetails'>
+}> = ({ navigation }) => {
   return (
     <Prompt
       title="Carro alugado!"
@@ -18,7 +20,7 @@ const ConfirmReservation: React.FC = () => {
       <Button
         style={{ marginTop: 'auto' }}
         variant
-        onPress={() => navigation.navigate('Reservations')}
+        onPress={() => navigation.navigate('Listing')}
       >
         Ok
       </Button>
