@@ -22,8 +22,8 @@ export type ReservationParamList = {
   Listing: undefined
   CarDetails: {
     car: Car
-    startDate: Date
-    endDate: Date
+    startDate: string
+    endDate: string
   }
   ConfirmReservation: undefined
 }
