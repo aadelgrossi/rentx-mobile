@@ -8,11 +8,11 @@ interface Props {
 }
 
 export const Container = styled(RectButton)<Props>`
-  width: 100%;
   background-color: ${props =>
     props.variant ? colors.lightBlack : colors.red};
   justify-content: center;
   align-items: center;
+  padding: 0 32px;
   height: 56px;
 `
 
