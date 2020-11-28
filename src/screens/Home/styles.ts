@@ -27,7 +27,7 @@ export const Label = styled.Text`
 
 export const DateContainer = styled.View`
   align-items: stretch;
-  width: 150px;
+  width: 145px;
   min-height: 40px;
 `
 
@@ -73,7 +73,7 @@ export const FilterContainer = styled.View`
   margin-top: auto;
 `
 
-export const FilterModalTopDetail = styled.View`
+export const ModalTopDetail = styled.View`
   width: 48px;
   border-radius: 100px;
   background-color: ${colors.grayLighter};
@@ -134,7 +134,7 @@ export const SubmitFilters = styled.TouchableOpacity`
 `
 
 export const SubmitFiltersText = styled.Text`
-  font-family: 'archivo-500';
+  font-family: 'inter-500';
   font-size: 15px;
   color: ${colors.white};
 `

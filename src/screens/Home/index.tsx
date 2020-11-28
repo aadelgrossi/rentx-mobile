@@ -29,7 +29,7 @@ import {
   ResultsCount,
   SearchResults,
   FilterContainer,
-  FilterModalTopDetail,
+  ModalTopDetail,
   FilterHeader,
   Separator,
   FilterItem,
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const [calendarVisible, setCalendarVisible] = useState(true)
 
-  const toggleModal = useCallback(() => {
+  const toggleFilterModal = useCallback(() => {
     setModalVisible(state => !state)
   }, [])
 
@@ -101,8 +101,7 @@ const Home: React.FC = () => {
 
         <MaterialIcons
           name="keyboard-arrow-right"
-          size={20}
-          style={{ marginTop: 16 }}
+          size={22}
           color={colors.grayText}
         />
         <DateContainer>
@@ -118,7 +117,7 @@ const Home: React.FC = () => {
       <Header>
         <Title>Resultados</Title>
         <ResultsCount>{data?.cars.length} carro(s)</ResultsCount>
-        <RectButton onPress={toggleModal}>
+        <RectButton onPress={toggleFilterModal}>
           <RentIcon name="filter" color={colors.black} />
         </RectButton>
       </Header>
@@ -134,15 +133,16 @@ const Home: React.FC = () => {
       <Modal
         isVisible={calendarVisible}
         onBackButtonPress={toggleCalendarVisible}
-        swipeDirection="down"
+        onBackdropPress={toggleCalendarVisible}
         onSwipeComplete={toggleCalendarVisible}
+        swipeDirection="down"
         style={{ margin: 0 }}
         deviceWidth={Dimensions.get('screen').width}
       >
         <CalendarContainer
           style={{ borderTopLeftRadius: 24, borderTopRightRadius: 24 }}
         >
-          <FilterModalTopDetail />
+          <ModalTopDetail />
           <Calendar onChange={handleDateChange} />
           <SubmitFilters disabled={!endDate} onPress={toggleCalendarVisible}>
             <SubmitFiltersText>Confirmar</SubmitFiltersText>
@@ -151,17 +151,18 @@ const Home: React.FC = () => {
       </Modal>
 
       <Modal
-        onBackButtonPress={toggleModal}
+        isVisible={modalVisible}
+        onBackButtonPress={toggleFilterModal}
+        onBackdropPress={toggleFilterModal}
+        onSwipeComplete={toggleFilterModal}
         swipeDirection="down"
         style={{ margin: 0 }}
         deviceWidth={Dimensions.get('screen').width}
-        onSwipeComplete={toggleModal}
-        isVisible={modalVisible}
       >
         <FilterContainer
           style={{ borderTopRightRadius: 24, borderTopLeftRadius: 24 }}
         >
-          <FilterModalTopDetail />
+          <ModalTopDetail />
 
           <FilterHeader>
             <Title>Filtro</Title>
@@ -233,7 +234,7 @@ const Home: React.FC = () => {
             </TransmissionTypeSelect>
           </FilterItem>
 
-          <SubmitFilters onPress={toggleModal}>
+          <SubmitFilters onPress={toggleFilterModal}>
             <SubmitFiltersText>Confirmar</SubmitFiltersText>
           </SubmitFilters>
         </FilterContainer>

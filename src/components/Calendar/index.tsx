@@ -30,15 +30,11 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
       ]}
       previousComponent={<MaterialIcons name="keyboard-arrow-left" size={20} />}
       nextComponent={<MaterialIcons name="keyboard-arrow-right" size={20} />}
-      textStyle={{
-        fontFamily: 'archivo-600',
-        fontSize: 20,
-        color: colors.black
-      }}
       customDayHeaderStyles={() => ({
         textStyle: {
           textTransform: 'uppercase',
-          fontSize: 10,
+          fontSize: 11,
+          fontFamily: 'archivo-600',
           color: colors.grayAccent
         }
       })}
@@ -46,6 +42,7 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
       selectedDayTextColor={colors.white}
       todayBackgroundColor={colors.hoverGreen}
       todayTextStyle={{ color: colors.grayPrimary }}
+      minRangeDuration={1}
       selectedRangeStartStyle={{
         flex: 1,
         backgroundColor: colors.red,
@@ -54,7 +51,7 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
       }}
       selectedRangeStyle={{
         flex: 1,
-        backgroundColor: colors.hoverRed
+        backgroundColor: colors.salmon
       }}
       disabledDatesTextStyle={{
         fontFamily: 'inter-500',
@@ -71,11 +68,16 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
           fontFamily: 'inter-500',
           fontSize: 15,
           color:
-            date.weekday() === 5 || date.weekday() === 6
-              ? colors.red
-              : colors.grayPrimary
+            date.weekday() === 0 || date.weekday() === 6
+              ? colors.grayAccent
+              : colors.black
         }
       })}
+      textStyle={{
+        fontFamily: 'archivo-600',
+        fontSize: 20,
+        color: colors.black
+      }}
       dayLabelsWrapper={{ borderTopWidth: 0 }}
       selectMonthTitle={'Selecione o mês em '}
       selectYearTitle="Selecione o ano"
