@@ -88,10 +88,10 @@ export const ReservationDate = styled.Text`
   color: ${colors.black};
 `
 
-export const LeftArrowIcon = styled(MaterialIcons).attrs({
+export const RightArrow = styled(MaterialIcons).attrs({
   name: 'keyboard-arrow-right',
-  size: 20,
+  size: 16,
   color: colors.grayAccent
 })`
-  margin: 0 2px;
+  margin: 0 4px;
 `

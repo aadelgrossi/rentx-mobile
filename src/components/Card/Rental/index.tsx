@@ -20,7 +20,7 @@ import {
   FutureReservation,
   ReservationDate,
   ReservationPeriodText,
-  LeftArrowIcon
+  RightArrow
 } from './styles'
 
 const RentalCard: React.FC<Rental> = ({ car, startDate, endDate }) => {
@@ -75,7 +75,7 @@ const RentalCard: React.FC<Rental> = ({ car, startDate, endDate }) => {
             <Label>Período</Label>
             <ReservationPeriodText>
               <ReservationDate>{formatShortDate(startDate)}</ReservationDate>
-              <LeftArrowIcon />
+              <RightArrow />
               <ReservationDate>{formatShortDate(endDate)}</ReservationDate>
             </ReservationPeriodText>
           </FutureReservation>
