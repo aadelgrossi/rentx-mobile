@@ -4,7 +4,7 @@ export enum TRANSMISSION {
 }
 
 export enum FUEL_TYPE {
+  gas = 'gas',
   electric = 'electric',
-  hybrid = 'hybrid',
-  gas = 'gas'
+  hybrid = 'hybrid'
 }
