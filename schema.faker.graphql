@@ -64,7 +64,7 @@ enum FUEL_TYPE{
 type CustomCarSpec {
   id: ID!
   name: SPECIFICATION!
-  value: String! @fake(type: word)
+  value: String! @fake(type: lorem, options: { loremSize: word})
 }
 
 
@@ -77,7 +77,7 @@ type Car {
   fuelType: FUEL_TYPE!
   transmission: TRANSMISSION!
   dailyValue: Int! @fake(type: number, options: {minNumber: 150, maxNumber: 3400})
-  specifications: [CustomCarSpec!] @listLength(min:2, max:3)
+  specifications: [CustomCarSpec!] @listLength(min:3, max:4)
 }
 
 type User {
