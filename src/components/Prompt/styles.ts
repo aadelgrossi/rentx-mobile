@@ -32,5 +32,6 @@ export const Text = styled.Text`
   font-size: 15px;
   text-align: center;
   width: 220px;
+  line-height: 25px;
   color: ${colors.grayAccent};
 `

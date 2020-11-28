@@ -123,7 +123,9 @@ const CarDetails: React.FC<{
             <TotalPrice>R$ {totalPrice}</TotalPrice>
           </Item>
         </SubTotalSection>
-        <Button onPress={() => {}}>Alugar agora</Button>
+        <Button onPress={() => navigation.navigate('ConfirmReservation')}>
+          Alugar agora
+        </Button>
       </SubtotalContainer>
       <StatusBar style="dark" />
     </Container>
