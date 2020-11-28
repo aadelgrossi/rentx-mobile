@@ -17,11 +17,8 @@ const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
 const AppRoutes: React.FC = () => {
   const getTabBarVisibility = (route: Route<'Home', undefined>) => {
     const routeName = getFocusedRouteNameFromRoute(route)
-    if (routeName === 'Listing') {
-      return true
-    }
 
-    return false
+    return routeName === 'Listing' || routeName === undefined
   }
 
   return (
