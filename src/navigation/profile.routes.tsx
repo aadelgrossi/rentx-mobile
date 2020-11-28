@@ -5,7 +5,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { ProfileParamList } from '../../types'
 import RentIcon from '../components/RentIcon'
-import { useAuth } from '../hooks/useAuth'
 import Profile from '../screens/Profile'
 import ChangePassword from '../screens/Profile/ChangePassword'
 import ProfileInfo from '../screens/Profile/ProfileInfo'
@@ -16,7 +15,6 @@ import colors from '../styles/colors'
 const ProfileStack = createStackNavigator<ProfileParamList>()
 
 const ProfileNavigator: React.FC = () => {
-  const { signOut } = useAuth()
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
@@ -43,7 +41,9 @@ const ProfileNavigator: React.FC = () => {
             marginRight: 24
           },
           headerRight: () => (
-            <TouchableOpacity onPress={signOut}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignOutPrompt')}
+            >
               <RentIcon name="power" color={colors.grayAccent} />
             </TouchableOpacity>
           ),
@@ -61,7 +61,11 @@ const ProfileNavigator: React.FC = () => {
       <ProfileStack.Screen name="ProfileInfo" component={ProfileInfo} />
       <ProfileStack.Screen name="ChangePassword" component={ChangePassword} />
       <ProfileStack.Screen name="UpdateConfirm" component={UpdateConfirm} />
-      <ProfileStack.Screen name="SignOutPrompt" component={SignOutPrompt} />
+      <ProfileStack.Screen
+        name="SignOutPrompt"
+        component={SignOutPrompt}
+        options={{ headerShown: false }}
+      />
     </ProfileStack.Navigator>
   )
 }

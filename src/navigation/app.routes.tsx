@@ -21,6 +21,14 @@ const AppRoutes: React.FC = () => {
     return routeName === 'Listing' || routeName === undefined
   }
 
+  const getTabBarVisibilityForProfile = (
+    route: Route<'Profile', undefined>
+  ) => {
+    const routeName = getFocusedRouteNameFromRoute(route)
+
+    return routeName === 'Main' || routeName === undefined
+  }
+
   return (
     <BottomTab.Navigator
       sceneContainerStyle={{ backgroundColor: colors.black }}
@@ -73,13 +81,14 @@ const AppRoutes: React.FC = () => {
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarVisible: getTabBarVisibilityForProfile(route),
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
               <RentIcon color={color} size={30} name="person"></RentIcon>
             </IconWrapper>
           )
-        }}
+        })}
       />
     </BottomTab.Navigator>
   )
