@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native'
 
 import { AppRoutesParamList } from '../../types'
 import IconWrapper from '../components/IconWrapper'
@@ -14,6 +15,15 @@ import ReservationNavigator from './reservation.routes'
 const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
 
 const AppRoutes: React.FC = () => {
+  const getTabBarVisibility = (route: Route<'Home', undefined>) => {
+    const routeName = getFocusedRouteNameFromRoute(route)
+    if (routeName === 'Listing') {
+      return true
+    }
+
+    return false
+  }
+
   return (
     <BottomTab.Navigator
       sceneContainerStyle={{ backgroundColor: colors.black }}
@@ -32,13 +42,14 @@ const AppRoutes: React.FC = () => {
       <BottomTab.Screen
         name="Home"
         component={ReservationNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarVisible: getTabBarVisibility(route),
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
               <RentIcon color={color} size={30} name="home"></RentIcon>
             </IconWrapper>
           )
-        }}
+        })}
       />
       <BottomTab.Screen
         name="Cars"
