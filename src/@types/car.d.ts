@@ -1,8 +1,9 @@
-type CustomCarSpec = 'speed' | 'acceleration' | 'hp' | 'person'
-
+type CustomCarSpec = 'speed' | 'acceleration' | 'hp' | 'person' | 'transmission'
+type TransmissionSpec = 'auto' | 'manual'
+type FuelSpec = 'electric' | 'hybrid' | 'gas'
 interface CarSpec {
   id: string
-  name: CustomCarSpec
+  name: CustomCarSpec | TransmissionSpec | FuelSpec
   value: string
 }
 
@@ -12,9 +13,9 @@ interface Car {
   manufacturer: {
     name: string
   }
-  fuelType: 'gas' | 'electric' | 'hybrid'
-  transmission: 'AUTO' | 'MANUAL'
-  specifications: CustomCarSpec[]
+  fuelType: FuelSpec
+  transmission: TransmissionSpec
+  specifications: CarSpec[]
   dailyValue: number
   photo: Image
 }

@@ -11,7 +11,7 @@ export const Container = styled.View`
 `
 
 export const Header = styled.View`
-  height: 100px;
+  height: 120px;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;

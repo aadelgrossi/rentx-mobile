@@ -1,3 +1,4 @@
+import { MaterialIcons } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 
 import colors from '../../../styles/colors'
@@ -13,15 +14,14 @@ export const DetailsContainer = styled.View`
 `
 
 export const DateInfoContainer = styled.View<{ isOnGoingReservation: boolean }>`
-  width: 100%;
   height: 40px;
   background-color: ${props =>
     props.isOnGoingReservation ? colors.hoverGreen : colors.grayLightest};
   margin-top: 3px;
-  padding: 20px 20px 20px;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  padding: 0 20px;
 `
 
 export const Info = styled.View`
@@ -71,21 +71,27 @@ export const OnGoingReservationText = styled.Text`
 `
 
 export const FutureReservation = styled.View`
+  flex: 1;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 `
 
 export const ReservationPeriodText = styled.View`
-  flex: 1;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  margin-right: 16px;
-  margin-left: 64px;
 `
 
 export const ReservationDate = styled.Text`
   font-family: 'inter-400';
   font-size: 13px;
-  color: ${colors.grayPrimary};
+  color: ${colors.black};
+`
+
+export const RightArrow = styled(MaterialIcons).attrs({
+  name: 'keyboard-arrow-right',
+  size: 16,
+  color: colors.grayAccent
+})`
+  margin: 0 4px;
 `

@@ -26,3 +26,6 @@ type RentIcons =
   | 'eye'
   | 'eye-cross'
   | 'search'
+  | 'arrow-right'
+  | 'manual'
+  | 'auto'

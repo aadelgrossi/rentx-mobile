@@ -7,11 +7,17 @@ export default gql`
       name
       dailyValue
       fuelType
+      transmission
       manufacturer {
         name
       }
       photo {
         url
+      }
+      specifications {
+        id
+        name
+        value
       }
     }
   }
