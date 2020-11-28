@@ -40,7 +40,7 @@ export const Label = styled.Text`
 export const CarModel = styled.Text`
   font-family: 'archivo-600';
   font-size: 15px;
-  color: ${colors.black};
+  color: ${colors.grayPrimary};
 `
 
 export const AddInfo = styled.View`
@@ -85,7 +85,7 @@ export const ReservationPeriodText = styled.View`
 export const ReservationDate = styled.Text`
   font-family: 'inter-400';
   font-size: 13px;
-  color: ${colors.black};
+  color: ${colors.grayPrimary};
 `
 
 export const RightArrow = styled(MaterialIcons).attrs({
