@@ -1,14 +1,26 @@
 import React from 'react'
 
-import { Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
-import { Container } from './styles'
+import Button from '../../../components/Button'
+import Prompt from '../../../components/Prompt'
 
 const UpdateConfirm: React.FC = () => {
+  const navigation = useNavigation()
   return (
-    <Container>
-      <Text>UpdateConfirm</Text>
-    </Container>
+    <Prompt
+      title="Feito!"
+      content="Suas informações foram atualizadas."
+      type="done"
+    >
+      <Button
+        style={{ marginTop: 'auto' }}
+        variant
+        onPress={() => navigation.navigate('Main')}
+      >
+        Voltar
+      </Button>
+    </Prompt>
   )
 }
 
