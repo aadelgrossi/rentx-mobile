@@ -17,11 +17,16 @@ const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
 const AppRoutes: React.FC = () => {
   const getTabBarVisibility = (route: Route<'Home', undefined>) => {
     const routeName = getFocusedRouteNameFromRoute(route)
-    if (routeName === 'Listing') {
-      return true
-    }
 
-    return false
+    return routeName === 'Listing' || routeName === undefined
+  }
+
+  const getTabBarVisibilityForProfile = (
+    route: Route<'Profile', undefined>
+  ) => {
+    const routeName = getFocusedRouteNameFromRoute(route)
+
+    return routeName === 'Main' || routeName === undefined
   }
 
   return (
@@ -76,13 +81,14 @@ const AppRoutes: React.FC = () => {
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarVisible: getTabBarVisibilityForProfile(route),
           tabBarIcon: ({ color, focused }) => (
             <IconWrapper focused={focused}>
               <RentIcon color={color} size={30} name="person"></RentIcon>
             </IconWrapper>
           )
-        }}
+        })}
       />
     </BottomTab.Navigator>
   )
