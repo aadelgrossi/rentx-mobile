@@ -82,8 +82,7 @@ type Car {
 
 type User {
   id: ID
-  firstName: String! @fake(type: firstName)
-  lastName: String! @fake(type: lastName)
+  name: String! @fake(type: fullName)
   email: String! @fake(type: email)
   admin: Boolean! @examples(values: [false])
   avatar: ProfilePicture!
@@ -129,6 +128,7 @@ type Auth {
 type Query {
   me: User!
   cars(data: FilterOptions): [Car!] @listLength(min:5, max:9)
+  car: Car!
   rentals: [Rental!] @listLength(min:2, max:5)
 }
 

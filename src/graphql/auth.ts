@@ -6,8 +6,7 @@ const SIGN_IN = gql`
       accessToken
       user {
         id
-        firstName
-        lastName
+        name
         admin
         createdAt
         avatar {

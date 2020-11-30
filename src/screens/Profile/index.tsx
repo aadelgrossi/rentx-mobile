@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
           />
         </ProfileContainer>
 
-        <UserName>{[user.firstName, user.lastName].join(' ')}</UserName>
+        <UserName>{user.name}</UserName>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Membro desde</InfoTitle>
           <InfoValue>{formatLongDate(user.createdAt)}</InfoValue>
