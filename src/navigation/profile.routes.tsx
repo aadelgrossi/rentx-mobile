@@ -10,7 +10,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { ProfileParamList } from '../../types'
 import RentIcon from '../components/RentIcon'
 import Profile from '../screens/Profile'
-// import ChangePassword from '../screens/Profile/ChangePassword'
 import ProfileInfo from '../screens/Profile/ProfileInfo'
 import SignOutPrompt from '../screens/Profile/SignOutPrompt'
 import UpdateConfirm from '../screens/Profile/UpdateConfirm'
@@ -99,7 +98,6 @@ const ProfileNavigator: React.FC = () => {
           }
         })}
       />
-      {/* <ProfileStack.Screen name="ChangePassword" component={ChangePassword} /> */}
       <ProfileStack.Screen
         name="UpdateConfirm"
         component={UpdateConfirm}
