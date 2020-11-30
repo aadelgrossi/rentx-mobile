@@ -79,7 +79,7 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
         color: colors.black
       }}
       dayLabelsWrapper={{ borderTopWidth: 0 }}
-      selectMonthTitle={'Selecione o mês em '}
+      selectMonthTitle="Selecione o mês em "
       selectYearTitle="Selecione o ano"
       onDateChange={onChange}
     ></CalendarPicker>
