@@ -1,4 +1,3 @@
-import { RectButton } from 'react-native-gesture-handler'
 import styled, { css } from 'styled-components/native'
 
 import colors from '../../styles/colors'
@@ -11,7 +10,7 @@ export const Container = styled.ScrollView`
 
 export const Spacing = styled.View`
   background-color: ${colors.black};
-  height: 120px;
+  height: 100px;
 `
 
 export const HeaderTitle = styled.Text`
@@ -33,17 +32,6 @@ export const ProfilePicture = styled.Image`
   height: 180px;
   border-radius: 90px;
   margin-top: -90px;
-`
-
-export const SwitchPicture = styled(RectButton)`
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  background-color: ${colors.red};
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
 `
 
 export const UserName = styled.Text`

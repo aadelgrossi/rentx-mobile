@@ -1,8 +1,6 @@
 import React from 'react'
 
-import RentIcon from '../../components/RentIcon'
 import { useAuth } from '../../hooks/useAuth'
-import colors from '../../styles/colors'
 import { formatLongDate } from '../../utils/formatDate'
 import {
   Container,
@@ -10,7 +8,6 @@ import {
   Contents,
   ProfileContainer,
   ProfilePicture,
-  SwitchPicture,
   InfoItem,
   InfoTitle,
   InfoValue,
@@ -32,9 +29,6 @@ const Profile: React.FC = () => {
               uri: user.avatar.url
             }}
           />
-          <SwitchPicture>
-            <RentIcon name="photo" color={colors.white} size={24} />
-          </SwitchPicture>
         </ProfileContainer>
 
         <UserName>{[user.firstName, user.lastName].join(' ')}</UserName>
