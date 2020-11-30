@@ -1,13 +1,96 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { Dimensions } from 'react-native'
+import {
+  SceneMap,
+  TabBar,
+  TabView,
+  SceneRendererProps,
+  NavigationState,
+  Route
+} from 'react-native-tab-view'
 
-import { Container } from './styles'
+import RentIcon from '../../../components/RentIcon'
+import { useAuth } from '../../../hooks/useAuth'
+import colors from '../../../styles/colors'
+import {
+  Container,
+  Spacing,
+  Contents,
+  ProfileContainer,
+  ProfilePicture,
+  SwitchPicture,
+  SubmitButton,
+  TabBarTitle
+} from './styles'
+import UpdateInfo from './UpdateInfo'
+import UpdatePassword from './UpdatePassword'
 
 const ProfileInfo: React.FC = () => {
+  const { user } = useAuth()
+  const navigation = useNavigation()
+
+  const [index, setIndex] = useState(0)
+  const [routes] = useState([
+    {
+      key: 'updateInfo',
+      title: 'Dados'
+    },
+    { key: 'updatePassword', title: 'Senha' }
+  ])
+
+  const renderScene = SceneMap({
+    updateInfo: UpdateInfo,
+    updatePassword: UpdatePassword
+  })
+
+  const renderTabBar = (
+    props: SceneRendererProps & {
+      navigationState: NavigationState<Route>
+    }
+  ) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{
+        backgroundColor: colors.red,
+        height: 2
+      }}
+      style={{ backgroundColor: colors.white, elevation: 0 }}
+      renderLabel={({ route, focused }) => (
+        <TabBarTitle focused={focused}>{route.title}</TabBarTitle>
+      )}
+    />
+  )
+
   return (
     <Container>
-      <Text>ProfileInfo</Text>
+      <Spacing />
+      <Contents>
+        <ProfileContainer>
+          <ProfilePicture
+            source={{
+              uri: user.avatar.url
+            }}
+          />
+          <SwitchPicture>
+            <RentIcon name="photo" color={colors.white} size={24} />
+          </SwitchPicture>
+        </ProfileContainer>
+
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          renderTabBar={renderTabBar}
+          sceneContainerStyle={{ marginTop: 24, marginBottom: 24 }}
+          initialLayout={{ width: Dimensions.get('window').width }}
+        ></TabView>
+
+        <SubmitButton onPress={() => navigation.navigate('UpdateConfirm')}>
+          Salvar alterações
+        </SubmitButton>
+      </Contents>
     </Container>
   )
 }
