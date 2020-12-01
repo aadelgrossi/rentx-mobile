@@ -7,6 +7,7 @@ const SIGN_IN = gql`
       user {
         id
         name
+        email
         admin
         createdAt
         avatar {
