@@ -1,3 +1,4 @@
+import { FlatList } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
 import colors from '../../styles/colors'
@@ -35,8 +36,6 @@ export const Contents = styled.View`
   margin: 0 16px;
 `
 
-export const CarsList = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false
-})`
+export const CarsList = styled(FlatList as new () => FlatList<Car>)`
   margin: 16px 16px;
 `

@@ -31,11 +31,13 @@ const Cars: React.FC = () => {
         ></SearchInput>
       </Contents>
 
-      <CarsList>
-        {data?.cars.map(car => (
-          <Card key={car.id} {...car} />
-        ))}
-      </CarsList>
+      {data && (
+        <CarsList
+          data={data.cars}
+          keyExtractor={({ id }: Car) => id}
+          renderItem={({ item }: { item: Car }) => <Card {...item} />}
+        />
+      )}
 
       <StatusBar style="light" />
     </Container>
