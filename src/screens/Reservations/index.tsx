@@ -17,11 +17,13 @@ const Reservations: React.FC = () => {
         <ResultsCount>{data?.rentals.length} período(s)</ResultsCount>
       </Header>
 
-      <RentalsList>
-        {data?.rentals.map(rental => (
-          <Card key={rental.id} {...rental} />
-        ))}
-      </RentalsList>
+      {data && (
+        <RentalsList
+          data={data.rentals}
+          keyExtractor={({ id }: Rental) => id}
+          renderItem={({ item }: { item: Rental }) => <Card {...item} />}
+        ></RentalsList>
+      )}
 
       <StatusBar style="light" />
     </Container>

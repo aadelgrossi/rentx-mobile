@@ -1,3 +1,4 @@
+import { FlatList } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
 import colors from '../../styles/colors'
@@ -31,8 +32,6 @@ export const ResultsCount = styled.Text`
   font-size: 13px;
 `
 
-export const RentalsList = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false
-})`
-  margin: 0 16px;
+export const RentalsList = styled(FlatList as new () => FlatList<Rental>)`
+  margin: 16px 16px 0;
 `
