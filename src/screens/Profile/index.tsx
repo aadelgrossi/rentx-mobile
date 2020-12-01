@@ -1,5 +1,9 @@
 import React from 'react'
 
+import { useQuery } from '@apollo/client'
+
+import Card from '../../components/Card/Rental/UpperCardContent'
+import USER_RENTALS from '../../graphql/rentals'
 import { useAuth } from '../../hooks/useAuth'
 import { formatLongDate } from '../../utils/formatDate'
 import {
@@ -13,12 +17,13 @@ import {
   InfoValue,
   Separator,
   FavoriteCarContainer,
-  CarCard,
   UserName
 } from './styles'
 
 const Profile: React.FC = () => {
   const { user } = useAuth()
+  const { data } = useQuery<{ rentals: Rental[] }>(USER_RENTALS)
+
   return (
     <Container>
       <Spacing />
@@ -43,14 +48,16 @@ const Profile: React.FC = () => {
 
         <Separator />
 
-        <FavoriteCarContainer>
-          <InfoItem style={{ marginBottom: 16 }}>
-            <InfoTitle>Carro favorito</InfoTitle>
-            <InfoValue>Utilizado 02 vezes</InfoValue>
-          </InfoItem>
+        {data && (
+          <FavoriteCarContainer>
+            <InfoItem style={{ marginBottom: 16 }}>
+              <InfoTitle>Carro favorito</InfoTitle>
+              <InfoValue>Utilizado {data?.rentals.length} vezes</InfoValue>
+            </InfoItem>
 
-          <CarCard />
-        </FavoriteCarContainer>
+            <Card {...data.rentals[0]} />
+          </FavoriteCarContainer>
+        )}
       </Contents>
     </Container>
   )

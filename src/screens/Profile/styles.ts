@@ -13,13 +13,6 @@ export const Spacing = styled.View`
   height: 100px;
 `
 
-export const HeaderTitle = styled.Text`
-  font-family: 'archivo-600';
-  color: ${colors.white};
-  font-size: 30px;
-  line-height: 30px;
-`
-
 export const Contents = styled.View`
   align-items: center;
   padding: 0 24px 24px;
@@ -73,9 +66,4 @@ export const Separator = styled.View`
   width: 100%;
   margin: 16px 0;
   background-color: ${colors.grayLighter};
-`
-
-export const CarCard = styled.View`
-  height: 128px;
-  background-color: ${colors.grayLight};
 `
