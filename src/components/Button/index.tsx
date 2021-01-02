@@ -6,6 +6,7 @@ import { Container, ButtonText } from './styles'
 
 interface ButtonProps extends RectButtonProperties {
   variant?: boolean
+  onPress(e: any): void
 }
 
 const Button: React.FC<ButtonProps> = ({
