@@ -5,6 +5,7 @@ import React, {
   useRef
 } from 'react'
 
+import { Control, Controller } from 'react-hook-form'
 import { TextInputProps } from 'react-native'
 
 import colors from '~/styles/colors'
@@ -15,8 +16,8 @@ import { Wrapper, IconContainer, TextInput } from '../styles'
 interface InputProps extends TextInputProps {
   icon?: RentIcons
   secureText?: boolean
-  value: string
-  onChange(data: any): void
+  name: string
+  control: Control
 }
 
 interface InputRef {
@@ -24,7 +25,7 @@ interface InputRef {
 }
 
 const InputComponent: ForwardRefRenderFunction<InputRef, InputProps> = (
-  { icon, onChange, secureTextEntry, ...rest },
+  { icon, name, control, ...rest },
   ref
 ) => {
   const inputElementRef = useRef<any>(null)
@@ -36,21 +37,26 @@ const InputComponent: ForwardRefRenderFunction<InputRef, InputProps> = (
   }))
 
   return (
-    <Wrapper>
-      {icon && (
-        <IconContainer>
-          <RentIcon color={colors.grayText} size={24} name={icon} />
-        </IconContainer>
+    <Controller
+      control={control}
+      name={name}
+      render={({ onChange }) => (
+        <Wrapper>
+          {icon && (
+            <IconContainer>
+              <RentIcon color={colors.grayText} size={24} name={icon} />
+            </IconContainer>
+          )}
+          <TextInput
+            ref={inputElementRef}
+            keyboardAppearance="dark"
+            placeholderTextColor={colors.grayAccent}
+            onChangeText={value => onChange(value)}
+            {...rest}
+          />
+        </Wrapper>
       )}
-      <TextInput
-        ref={inputElementRef}
-        keyboardAppearance="dark"
-        secureTextEntry={secureTextEntry}
-        placeholderTextColor={colors.grayAccent}
-        onChangeText={value => onChange(value)}
-        {...rest}
-      />
-    </Wrapper>
+    />
   )
 }
 

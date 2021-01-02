@@ -7,6 +7,7 @@ import React, {
   useState
 } from 'react'
 
+import { Control, Controller } from 'react-hook-form'
 import { TextInputProps } from 'react-native'
 
 import colors from '~/styles/colors'
@@ -16,7 +17,8 @@ import { Wrapper, IconContainer, TextInput } from '../styles'
 import { ShowPassword } from './styles'
 
 interface InputProps extends TextInputProps {
-  onChange(data: any): void
+  name: string
+  control: Control
 }
 
 interface InputRef {
@@ -24,7 +26,7 @@ interface InputRef {
 }
 
 const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
-  { onChange, ...rest },
+  { name, control, ...rest },
   ref
 ) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -41,28 +43,34 @@ const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
   }, [])
 
   return (
-    <Wrapper>
-      <IconContainer>
-        <RentIcon color={colors.grayText} size={24} name="lock" />
-      </IconContainer>
+    <Controller
+      name={name}
+      control={control}
+      render={({ onChange }) => (
+        <Wrapper>
+          <IconContainer>
+            <RentIcon color={colors.grayText} size={24} name="lock" />
+          </IconContainer>
 
-      <TextInput
-        ref={inputElementRef}
-        keyboardAppearance="dark"
-        secureTextEntry={!passwordVisible}
-        placeholderTextColor={colors.grayAccent}
-        onChangeText={value => onChange(value)}
-        {...rest}
-      />
+          <TextInput
+            ref={inputElementRef}
+            keyboardAppearance="dark"
+            secureTextEntry={!passwordVisible}
+            placeholderTextColor={colors.grayAccent}
+            onChangeText={value => onChange(value)}
+            {...rest}
+          />
 
-      <ShowPassword onPress={handleShowPassword}>
-        <RentIcon
-          color={colors.grayAccent}
-          size={24}
-          name={passwordVisible ? 'eye-cross' : 'eye'}
-        />
-      </ShowPassword>
-    </Wrapper>
+          <ShowPassword onPress={handleShowPassword}>
+            <RentIcon
+              color={colors.grayAccent}
+              size={24}
+              name={passwordVisible ? 'eye-cross' : 'eye'}
+            />
+          </ShowPassword>
+        </Wrapper>
+      )}
+    />
   )
 }
 

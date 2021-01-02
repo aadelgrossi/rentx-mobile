@@ -3,7 +3,7 @@ import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import {
   TextInput,
   Keyboard,
@@ -66,30 +66,20 @@ export const StepTwo: React.FC = () => {
             <Form>
               <StepItemText>02. Senha</StepItemText>
 
-              <Controller
+              <SecureTextInput
                 control={control}
                 name="password"
-                render={({ onChange }) => (
-                  <SecureTextInput
-                    placeholder="Senha"
-                    onChange={onChange}
-                    blurOnSubmit={false}
-                    returnKeyType="next"
-                    onSubmitEditing={() => passwordConfirm.current?.focus()}
-                  />
-                )}
+                placeholder="Senha"
+                blurOnSubmit={false}
+                returnKeyType="next"
+                onSubmitEditing={() => passwordConfirm.current?.focus()}
               />
 
-              <Controller
+              <SecureTextInput
                 control={control}
                 name="password_confirmation"
-                render={({ onChange }) => (
-                  <SecureTextInput
-                    ref={passwordConfirm}
-                    onChange={onChange}
-                    placeholder="Repetir senha"
-                  />
-                )}
+                placeholder="Repetir senha"
+                ref={passwordConfirm}
               />
 
               <Button

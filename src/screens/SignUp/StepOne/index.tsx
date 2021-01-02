@@ -3,7 +3,7 @@ import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -65,37 +65,24 @@ export const StepOne: React.FC = () => {
             <Form>
               <StepItemText>01. Dados</StepItemText>
 
-              <Controller
-                name="name"
+              <Input
                 control={control}
-                render={({ onChange, value }) => (
-                  <Input
-                    value={value}
-                    icon="person"
-                    placeholder="Nome"
-                    returnKeyType="next"
-                    onChange={onChange}
-                    blurOnSubmit={false}
-                    onSubmitEditing={() => emailInput.current?.focus()}
-                  />
-                )}
+                name="name"
+                icon="person"
+                placeholder="Nome"
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onSubmitEditing={() => emailInput.current?.focus()}
               />
 
-              <Controller
-                name="email"
+              <Input
                 control={control}
-                render={({ onChange, value }) => (
-                  <Input
-                    ref={emailInput}
-                    icon="email"
-                    placeholder="Email"
-                    keyboardType="email-address"
-                    returnKeyType="default"
-                    value={value}
-                    onChange={onChange}
-                    onSubmitEditing={() => handleSubmit(onSubmit)}
-                  />
-                )}
+                name="email"
+                icon="email"
+                ref={emailInput}
+                placeholder="Email"
+                keyboardType="email-address"
+                returnKeyType="default"
               />
 
               <Button

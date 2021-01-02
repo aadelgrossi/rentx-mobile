@@ -17,20 +17,22 @@ export const SignUpContext = createContext<SignUpContextData>(
   {} as SignUpContextData
 )
 
+const initialState: SignUpFormData = {
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: ''
+}
+
 export const SignUpProvider: React.FC = ({ children }) => {
-  const [signUpData, setSignUpData] = useState<SignUpFormData>({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: ''
-  })
+  const [signUpData, setSignUpData] = useState<SignUpFormData>(initialState)
 
   const setValues = (newData: SignUpFormData) => {
     setSignUpData({ ...signUpData, ...newData })
   }
 
   const clearValues = useCallback(() => {
-    setSignUpData({} as SignUpFormData)
+    setSignUpData(initialState)
   }, [])
 
   return (
