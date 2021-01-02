@@ -34,8 +34,3 @@ export const TextInput = styled.TextInput`
   font-size: 15px;
   padding: 0 60px 0 23px;
 `
-
-export const ShowPassword = styled.TouchableOpacity`
-  position: absolute;
-  right: 30px;
-`
