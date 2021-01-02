@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { AppProvider } from '~/contexts'
+import AppProvider from '~/contexts/app'
 import { useCachedResources } from '~/hooks'
-
-import Navigation from './src/navigation'
+import Navigation from '~/navigation'
 
 const App: React.FC = () => {
   const isLoadingComplete = useCachedResources()
