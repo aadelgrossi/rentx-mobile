@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
+import { useForm } from 'react-hook-form'
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput
+} from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+
+import { SecureTextInput, Input } from '~/components/Input'
 
 import Button from '../../components/Button'
 import CheckBox from '../../components/Checkbox'
-import Input from '../../components/Input'
-import SecureTextInput from '../../components/SecureTextInput'
 import { useAuth } from '../../hooks/useAuth'
 import colors from '../../styles/colors'
 import {
@@ -23,10 +29,34 @@ import {
   ForgotPasswordText
 } from './styles'
 
+interface SignInFormData {
+  email: string
+  password: string
+}
+
 const SignIn: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false)
   const { signIn } = useAuth()
   const navigation = useNavigation()
+  const passwordRef = useRef<TextInput>(null)
+
+  const { control, handleSubmit } = useForm<SignInFormData>({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
+
+  const onSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        await signIn(data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [signIn]
+  )
 
   return (
     <Container>
@@ -51,15 +81,28 @@ const SignIn: React.FC = () => {
             </SignInText>
 
             <Form>
-              <Input name="email" icon="email" placeholder="Email" />
-              <SecureTextInput name="password" placeholder="Senha" />
+              <Input
+                name="email"
+                icon="email"
+                placeholder="Email"
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onSubmitEditing={() => passwordRef.current?.focus()}
+                control={control}
+              />
+              <SecureTextInput
+                name="password"
+                placeholder="Senha"
+                control={control}
+                ref={passwordRef}
+              />
 
               <RememberAndForgotPasswordWrapper>
                 <CheckBox
                   text="Lembrar-me"
                   checked={rememberMe}
                   onPress={() => setRememberMe(!rememberMe)}
-                ></CheckBox>
+                />
 
                 <ForgotPassword>
                   <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
@@ -68,9 +111,7 @@ const SignIn: React.FC = () => {
 
               <Button
                 style={{ marginTop: 20 }}
-                onPress={() =>
-                  signIn({ email: 'dummy@email.com', password: 'test' })
-                }
+                onPress={handleSubmit(onSubmit)}
               >
                 Entrar
               </Button>

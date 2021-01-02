@@ -3,8 +3,9 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
+import { SearchInput } from '~/components/Input'
+
 import Card from '../../components/Card/Small'
-import SearchInput from '../../components/SearchInput'
 import GET_ALL_CARS from '../../graphql/cars'
 import {
   Container,
@@ -28,7 +29,7 @@ const Cars: React.FC = () => {
         <SearchInput
           style={{ marginTop: -32 }}
           placeholder="Qual carro você procura?"
-        ></SearchInput>
+        />
       </Contents>
 
       {data && (
