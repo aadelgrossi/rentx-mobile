@@ -1,7 +1,8 @@
 import React from 'react'
 
+import { useCachedResources } from '~/hooks'
+
 import AppProvider from './src/contexts'
-import useCachedResources from './src/hooks/useCachedResources'
 import Navigation from './src/navigation'
 
 const App: React.FC = () => {

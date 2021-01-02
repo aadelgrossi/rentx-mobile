@@ -15,7 +15,7 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Button from '~/components/Button'
 import { Input } from '~/components/Input'
 import { SignUpFormData } from '~/contexts/signup_data'
-import { useSignUp } from '~/hooks/useSignUp'
+import { useSignUp } from '~/hooks'
 import colors from '~/styles/colors'
 
 import {

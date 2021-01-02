@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 
-import { useSignUp } from '~/hooks/useSignUp'
+import { useSignUp } from '~/hooks'
 
 import Button from '../../../components/Button'
 import Prompt from '../../../components/Prompt'
