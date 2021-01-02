@@ -11,9 +11,10 @@ import {
   Route
 } from 'react-native-tab-view'
 
-import RentIcon from '../../../components/RentIcon'
-import { useAuth } from '../../../hooks/useAuth'
-import colors from '../../../styles/colors'
+import RentIcon from '~/components/RentIcon'
+import { useAuth } from '~/hooks/useAuth'
+import colors from '~/styles/colors'
+
 import {
   Container,
   Spacing,
@@ -85,7 +86,7 @@ const ProfileInfo: React.FC = () => {
           renderTabBar={renderTabBar}
           sceneContainerStyle={{ marginTop: 24, marginBottom: 24 }}
           initialLayout={{ width: Dimensions.get('window').width }}
-        ></TabView>
+        />
 
         <SubmitButton onPress={() => navigation.navigate('UpdateConfirm')}>
           Salvar alterações

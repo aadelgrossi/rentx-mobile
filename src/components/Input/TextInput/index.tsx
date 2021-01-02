@@ -8,9 +8,9 @@ import React, {
 import { Control, Controller } from 'react-hook-form'
 import { TextInputProps } from 'react-native'
 
+import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
 
-import RentIcon from '../../RentIcon'
 import { Wrapper, IconContainer, TextInput } from '../styles'
 
 interface InputProps extends TextInputProps {
