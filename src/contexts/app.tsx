@@ -3,9 +3,9 @@ import React from 'react'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { AuthProvider } from './auth'
+import { AuthProvider } from '.'
 
-const AppProvider: React.FC = ({ children }) => {
+export const AppProvider: React.FC = ({ children }) => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
 
@@ -20,5 +20,3 @@ const AppProvider: React.FC = ({ children }) => {
     </SafeAreaProvider>
   )
 }
-
-export default AppProvider

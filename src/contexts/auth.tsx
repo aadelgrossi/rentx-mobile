@@ -10,7 +10,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [authData, setAuthData] = useState<AuthState>({} as AuthState)
-  const [createSession, { data, error }] = useMutation<
+  const [createSession, { data }] = useMutation<
     { signIn: AuthState },
     { credentials: SignInCredentials }
   >(SIGN_IN)

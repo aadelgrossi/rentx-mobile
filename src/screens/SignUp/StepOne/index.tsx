@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -29,7 +29,7 @@ import {
 
 export const StepOne: React.FC = () => {
   const navigation = useNavigation()
-  const { setValues, signUpData, clearValues } = useSignUp()
+  const { setValues, signUpData } = useSignUp()
 
   const emailInput = React.useRef<TextInput>(null)
 

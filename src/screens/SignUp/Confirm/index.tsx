@@ -13,7 +13,7 @@ export const Confirm: React.FC = () => {
 
   useEffect(() => {
     clearValues()
-  }, [])
+  }, [clearValues])
 
   return (
     <Prompt
