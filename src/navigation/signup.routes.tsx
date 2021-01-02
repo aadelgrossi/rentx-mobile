@@ -8,9 +8,7 @@ import {
 import { SignUpProvider } from '~/contexts/signup_data'
 
 import { SignUpRoutesParamList } from '../../types'
-import Confirm from '../screens/SignUp/Confirm'
-import StepOne from '../screens/SignUp/StepOne'
-import StepTwo from '../screens/SignUp/StepTwo'
+import { StepOne, StepTwo, Confirm } from '../screens/SignUp/'
 
 const Stack = createStackNavigator<SignUpRoutesParamList>()
 

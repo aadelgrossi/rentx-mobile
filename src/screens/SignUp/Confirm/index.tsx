@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+
+import { useSignUp } from '~/hooks/useSignUp'
 
 import Button from '../../../components/Button'
 import Prompt from '../../../components/Prompt'
 
-const Confirm: React.FC = () => {
+export const Confirm: React.FC = () => {
   const navigation = useNavigation()
+  const { clearValues } = useSignUp()
+
+  useEffect(() => {
+    clearValues()
+  }, [])
+
   return (
     <Prompt
       title="Conta criada!"
@@ -23,5 +31,3 @@ const Confirm: React.FC = () => {
     </Prompt>
   )
 }
-
-export default Confirm

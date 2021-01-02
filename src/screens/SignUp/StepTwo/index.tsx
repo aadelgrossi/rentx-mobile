@@ -3,12 +3,21 @@ import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView } from 'react-native'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  TextInput,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-import Button from '../../../components/Button'
-import SecureTextInput from '../../../components/SecureTextInput'
-import colors from '../../../styles/colors'
+import Button from '~/components/Button'
+import { SecureTextInput } from '~/components/Input'
+import { SignUpFormData } from '~/contexts/signup_data'
+import { useSignUp } from '~/hooks/useSignUp'
+import colors from '~/styles/colors'
+
 import {
   Container,
   Contents,
@@ -16,16 +25,29 @@ import {
   SignUpText,
   Title,
   StepItemText
-} from './styles'
+} from '../styles'
 
-const StepOne: React.FC = () => {
+export const StepTwo: React.FC = () => {
   const navigation = useNavigation()
+  const { signUpData, setValues } = useSignUp()
+
+  const passwordConfirm = React.useRef<TextInput>(null)
+
+  const { control, handleSubmit } = useForm<SignUpFormData>({
+    defaultValues: signUpData
+  })
+
+  const onSubmit = (data: SignUpFormData) => {
+    setValues(data)
+    navigation.navigate('SignUpConfirm')
+  }
 
   return (
     <Container>
       <KeyboardAvoidingView
         style={{ flex: 1, justifyContent: 'center' }}
-        behavior="padding"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         enabled
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -35,24 +57,44 @@ const StepOne: React.FC = () => {
               size={30}
               color={colors.grayAccent}
               onPress={navigation.goBack}
-              style={{ position: 'absolute' }}
+              style={{ marginBottom: -10 }}
             />
-            <Title>Crie sua conta</Title>
+            <Title>Defina sua senha</Title>
 
-            <SignUpText>Defina sua senha</SignUpText>
+            <SignUpText>Escolha uma senha de no mínimo 8 digitos.</SignUpText>
 
             <Form>
               <StepItemText>02. Senha</StepItemText>
 
-              <SecureTextInput name="password" placeholder="Senha" />
-              <SecureTextInput
+              <Controller
+                control={control}
+                name="password"
+                render={({ onChange }) => (
+                  <SecureTextInput
+                    placeholder="Senha"
+                    onChange={onChange}
+                    blurOnSubmit={false}
+                    returnKeyType="next"
+                    onSubmitEditing={() => passwordConfirm.current?.focus()}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
                 name="password_confirmation"
-                placeholder="Repetir senha"
+                render={({ onChange }) => (
+                  <SecureTextInput
+                    ref={passwordConfirm}
+                    onChange={onChange}
+                    placeholder="Repetir senha"
+                  />
+                )}
               />
 
               <Button
-                style={{ marginTop: 32 }}
-                onPress={() => navigation.navigate('SignUpConfirm')}
+                style={{ marginTop: 56 }}
+                onPress={handleSubmit(onSubmit)}
               >
                 Próximo
               </Button>
@@ -64,5 +106,3 @@ const StepOne: React.FC = () => {
     </Container>
   )
 }
-
-export default StepOne

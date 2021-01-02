@@ -1,31 +1,53 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView } from 'react-native'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput
+} from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-import Button from '../../../components/Button'
-import Input from '../../../components/Input'
-import colors from '../../../styles/colors'
+import Button from '~/components/Button'
+import { Input } from '~/components/Input'
+import { SignUpFormData } from '~/contexts/signup_data'
+import { useSignUp } from '~/hooks/useSignUp'
+import colors from '~/styles/colors'
+
 import {
+  Form,
+  StepItemText,
   Container,
   Contents,
-  Form,
   SignUpText,
-  Title,
-  StepItemText
-} from './styles'
+  Title
+} from '../styles'
 
-const StepOne: React.FC = () => {
+export const StepOne: React.FC = () => {
   const navigation = useNavigation()
+  const { setValues, signUpData, clearValues } = useSignUp()
+
+  const emailInput = React.useRef<TextInput>(null)
+
+  const { control, handleSubmit } = useForm<SignUpFormData>({
+    defaultValues: signUpData
+  })
+
+  const onSubmit = (data: SignUpFormData) => {
+    setValues(data)
+    navigation.navigate('SignUpStepTwo')
+  }
 
   return (
     <Container>
       <KeyboardAvoidingView
         style={{ flex: 1, justifyContent: 'center' }}
-        behavior="padding"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         enabled
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -35,21 +57,50 @@ const StepOne: React.FC = () => {
               size={30}
               color={colors.grayAccent}
               onPress={navigation.goBack}
-              style={{ position: 'absolute' }}
+              style={{ marginBottom: -10 }}
             />
             <Title>Crie sua conta</Title>
-
             <SignUpText>Faça seu cadastro de forma rápida e fácil.</SignUpText>
 
             <Form>
               <StepItemText>01. Dados</StepItemText>
 
-              <Input name="name" icon="person" placeholder="Nome" />
-              <Input name="email" icon="email" placeholder="Email" />
+              <Controller
+                name="name"
+                control={control}
+                render={({ onChange, value }) => (
+                  <Input
+                    value={value}
+                    icon="person"
+                    placeholder="Nome"
+                    returnKeyType="next"
+                    onChange={onChange}
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => emailInput.current?.focus()}
+                  />
+                )}
+              />
+
+              <Controller
+                name="email"
+                control={control}
+                render={({ onChange, value }) => (
+                  <Input
+                    ref={emailInput}
+                    icon="email"
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    returnKeyType="default"
+                    value={value}
+                    onChange={onChange}
+                    onSubmitEditing={() => handleSubmit(onSubmit)}
+                  />
+                )}
+              />
 
               <Button
-                style={{ marginTop: 32 }}
-                onPress={() => navigation.navigate('SignUpStepTwo')}
+                style={{ marginTop: 56 }}
+                onPress={handleSubmit(onSubmit)}
               >
                 Próximo
               </Button>
@@ -61,5 +112,3 @@ const StepOne: React.FC = () => {
     </Container>
   )
 }
-
-export default StepOne
