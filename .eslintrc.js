@@ -35,9 +35,11 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "multiline-ternary": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "camelcase": "off",
     "import/order": [
       "error",
       {
@@ -47,6 +49,11 @@ module.exports = {
             pattern: "react",
             group: "external",
             position: "before",
+          },
+          {
+            pattern: "\~/**",
+            group: "external",
+            position: "after"
           },
         ],
         pathGroupsExcludedImportTypes: ["react"],
