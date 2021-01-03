@@ -13,9 +13,14 @@ interface UpdateUserDetailsData {
 }
 
 const UpdateInfo: React.FC = () => {
-  const { control } = useForm<UpdateUserDetailsData>()
-  const emailRef = useRef<TextInput>(null)
   const { user } = useAuth()
+  const { control } = useForm<UpdateUserDetailsData>({
+    defaultValues: {
+      email: user.email,
+      name: user.name
+    }
+  })
+  const emailRef = useRef<TextInput>(null)
 
   return (
     <View>

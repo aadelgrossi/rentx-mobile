@@ -14,7 +14,9 @@ const Reservations: React.FC = () => {
     <Container>
       <Header>
         <Title>Agendamentos</Title>
-        <ResultsCount>{data?.rentals.length} período(s)</ResultsCount>
+        <ResultsCount>
+          {data?.rentals.length || 'Nenhum'} período(s)
+        </ResultsCount>
       </Header>
 
       {data && (
@@ -22,7 +24,7 @@ const Reservations: React.FC = () => {
           data={data.rentals}
           keyExtractor={({ id }: Rental) => id}
           renderItem={({ item }: { item: Rental }) => <Card {...item} />}
-        ></RentalsList>
+        />
       )}
 
       <StatusBar style="light" />

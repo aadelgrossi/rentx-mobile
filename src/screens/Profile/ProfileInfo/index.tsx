@@ -11,8 +11,8 @@ import {
   Route
 } from 'react-native-tab-view'
 
+import ProfilePicture from '~/components/ProfilePicture'
 import RentIcon from '~/components/RentIcon'
-import { useAuth } from '~/hooks/useAuth'
 import colors from '~/styles/colors'
 
 import {
@@ -20,7 +20,6 @@ import {
   Spacing,
   Contents,
   ProfileContainer,
-  ProfilePicture,
   SwitchPicture,
   SubmitButton,
   TabBarTitle
@@ -29,7 +28,6 @@ import UpdateInfo from './UpdateInfo'
 import UpdatePassword from './UpdatePassword'
 
 const ProfileInfo: React.FC = () => {
-  const { user } = useAuth()
   const navigation = useNavigation()
 
   const [index, setIndex] = useState(0)
@@ -69,11 +67,7 @@ const ProfileInfo: React.FC = () => {
       <Spacing />
       <Contents>
         <ProfileContainer>
-          <ProfilePicture
-            source={{
-              uri: user.avatar.url
-            }}
-          />
+          <ProfilePicture />
           <SwitchPicture>
             <RentIcon name="photo" color={colors.white} size={24} />
           </SwitchPicture>

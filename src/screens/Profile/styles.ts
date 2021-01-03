@@ -20,13 +20,6 @@ export const Contents = styled.View`
 
 export const ProfileContainer = styled.View``
 
-export const ProfilePicture = styled.Image`
-  width: 180px;
-  height: 180px;
-  border-radius: 90px;
-  margin-top: -90px;
-`
-
 export const UserName = styled.Text`
   font-family: 'archivo-600';
   font-size: 30px;

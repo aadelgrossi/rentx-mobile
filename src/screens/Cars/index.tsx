@@ -23,7 +23,7 @@ const Cars: React.FC = () => {
     <Container>
       <Header>
         <Title>Listagem</Title>
-        <ResultsCount>{data?.cars.length} carros</ResultsCount>
+        <ResultsCount>{data?.cars.length || 'Nenhum'} carro(s)</ResultsCount>
       </Header>
       <Contents>
         <SearchInput
