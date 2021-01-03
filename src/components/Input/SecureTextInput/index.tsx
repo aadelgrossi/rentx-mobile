@@ -7,26 +7,21 @@ import React, {
   useState
 } from 'react'
 
-import { Control, Controller } from 'react-hook-form'
-import { TextInputProps } from 'react-native'
+import { Controller } from 'react-hook-form'
 
 import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
 
-import { Wrapper, IconContainer, TextInput } from '../styles'
+import { InputProps } from '..'
+import { Wrapper, IconContainer, TextInput, Divider } from '../styles'
 import { ShowPassword } from './styles'
-
-interface InputProps extends TextInputProps {
-  name: string
-  control: Control
-}
 
 interface InputRef {
   focus(): void
 }
 
 const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
-  { name, control, ...rest },
+  { name, control, hasError = false, ...rest },
   ref
 ) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -47,10 +42,16 @@ const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
       name={name}
       control={control}
       render={({ onChange }) => (
-        <Wrapper>
+        <Wrapper hasError={hasError}>
           <IconContainer>
-            <RentIcon color={colors.grayText} size={24} name="lock" />
+            <RentIcon
+              color={hasError ? colors.red : colors.grayText}
+              size={24}
+              name="lock"
+            />
           </IconContainer>
+
+          <Divider />
 
           <TextInput
             ref={inputElementRef}
@@ -63,7 +64,7 @@ const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
 
           <ShowPassword onPress={handleShowPassword}>
             <RentIcon
-              color={colors.grayAccent}
+              color={hasError ? colors.red : colors.grayAccent}
               size={24}
               name={passwordVisible ? 'eye-cross' : 'eye'}
             />

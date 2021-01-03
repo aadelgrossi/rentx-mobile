@@ -5,27 +5,20 @@ import React, {
   useRef
 } from 'react'
 
-import { Control, Controller } from 'react-hook-form'
-import { TextInputProps } from 'react-native'
+import { Controller } from 'react-hook-form'
 
 import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
 
-import { Wrapper, IconContainer, TextInput } from '../styles'
-
-interface InputProps extends TextInputProps {
-  icon?: RentIcons
-  secureText?: boolean
-  name: string
-  control: Control
-}
+import { InputProps } from '../'
+import { Wrapper, IconContainer, TextInput, Divider } from '../styles'
 
 interface InputRef {
   focus(): void
 }
 
 const InputComponent: ForwardRefRenderFunction<InputRef, InputProps> = (
-  { icon, name, control, ...rest },
+  { icon, name, hasError = false, control, ...rest },
   ref
 ) => {
   const inputElementRef = useRef<any>(null)
@@ -41,12 +34,17 @@ const InputComponent: ForwardRefRenderFunction<InputRef, InputProps> = (
       control={control}
       name={name}
       render={({ onChange }) => (
-        <Wrapper>
+        <Wrapper hasError={hasError}>
           {icon && (
             <IconContainer>
-              <RentIcon color={colors.grayText} size={24} name={icon} />
+              <RentIcon
+                color={hasError ? colors.red : colors.grayText}
+                size={24}
+                name={icon}
+              />
             </IconContainer>
           )}
+          <Divider />
           <TextInput
             ref={inputElementRef}
             keyboardAppearance="dark"

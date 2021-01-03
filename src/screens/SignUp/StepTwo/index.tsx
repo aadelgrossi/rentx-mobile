@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
+import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
@@ -8,13 +9,14 @@ import {
   TextInput,
   Keyboard,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Text
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import Button from '~/components/Button'
 import { SecureTextInput } from '~/components/Input'
-import { SignUpFormData } from '~/contexts/signup_data'
+import { SignUpPassword } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
 import colors from '~/styles/colors'
 
@@ -24,22 +26,39 @@ import {
   Form,
   SignUpText,
   Title,
-  StepItemText
+  StepItemText,
+  FormGroupTitleAndError,
+  ErrorContainer,
+  Error
 } from '../styles'
+import { signUpStepTwoSchema } from '../validators'
 
 export const StepTwo: React.FC = () => {
   const navigation = useNavigation()
-  const { signUpData, setValues } = useSignUp()
+  const { signUpInfo, signUp } = useSignUp()
 
   const passwordConfirm = React.useRef<TextInput>(null)
 
-  const { control, handleSubmit } = useForm<SignUpFormData>({
-    defaultValues: signUpData
+  const { control, handleSubmit, errors } = useForm<SignUpPassword>({
+    defaultValues: {
+      password: '',
+      password_confirmation: ''
+    },
+    resolver: joiResolver(signUpStepTwoSchema)
   })
 
-  const onSubmit = (data: SignUpFormData) => {
-    setValues(data)
-    navigation.navigate('SignUpConfirm')
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
+
+  const onSubmit = async ({ password }: SignUpPassword) => {
+    const response = await signUp({ ...signUpInfo, password })
+
+    if (response) {
+      navigation.navigate('SignUpConfirm', response)
+    } else {
+      console.log('oops cant register')
+    }
   }
 
   return (
@@ -59,12 +78,26 @@ export const StepTwo: React.FC = () => {
               onPress={navigation.goBack}
               style={{ marginBottom: -10 }}
             />
-            <Title>Defina sua senha</Title>
+            <Title>Crie sua conta</Title>
 
-            <SignUpText>Escolha uma senha de no mínimo 8 digitos.</SignUpText>
+            <SignUpText>Escolha sua melhor senha.</SignUpText>
 
             <Form>
-              <StepItemText>02. Senha</StepItemText>
+              <FormGroupTitleAndError>
+                <StepItemText>02. Senha</StepItemText>
+                <ErrorContainer>
+                  {errors.password && (
+                    <Error>
+                      {errors.password.type === 'string.empty'
+                        ? 'Senha obrigatória'
+                        : 'Mínimo de 8 caracteres'}
+                    </Error>
+                  )}
+                  {errors.password_confirmation && (
+                    <Error>Confirmação inválida</Error>
+                  )}
+                </ErrorContainer>
+              </FormGroupTitleAndError>
 
               <SecureTextInput
                 control={control}
@@ -72,6 +105,7 @@ export const StepTwo: React.FC = () => {
                 placeholder="Senha"
                 blurOnSubmit={false}
                 returnKeyType="next"
+                hasError={!!errors.password}
                 onSubmitEditing={() => passwordConfirm.current?.focus()}
               />
 
@@ -79,6 +113,7 @@ export const StepTwo: React.FC = () => {
                 control={control}
                 name="password_confirmation"
                 placeholder="Repetir senha"
+                hasError={!!errors.password_confirmation}
                 ref={passwordConfirm}
               />
 

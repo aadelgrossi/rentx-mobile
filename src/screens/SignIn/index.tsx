@@ -49,11 +49,7 @@ const SignIn: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: SignInFormData) => {
-      try {
-        await signIn(data)
-      } catch (error) {
-        console.log(error)
-      }
+      await signIn(data)
     },
     [signIn]
   )

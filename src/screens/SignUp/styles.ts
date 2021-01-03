@@ -32,6 +32,19 @@ export const Form = styled.View`
   width: 100%;
 `
 
+export const FormGroupTitleAndError = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+export const ErrorContainer = styled.View`
+  align-items: flex-end;
+`
+
+export const Error = styled.Text`
+  color: ${colors.red};
+`
+
 export const StepItemText = styled.Text`
   font-family: 'archivo-500';
   font-size: 20px;

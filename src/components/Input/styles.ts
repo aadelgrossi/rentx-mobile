@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import colors from '../../styles/colors'
 
-export const Wrapper = styled.View`
+export const Wrapper = styled.View<{ hasError?: boolean }>`
   height: 56px;
   margin-top: 8px;
   width: 100%;
@@ -10,23 +10,27 @@ export const Wrapper = styled.View`
   align-items: center;
   justify-content: center;
   position: relative;
+  height: 56px;
+  background-color: ${props =>
+    props.hasError ? colors.hoverRed : colors.grayTertiary};
 `
 
-const baseProps = css`
-  background-color: ${colors.grayTertiary};
+export const Divider = styled.View`
+  position: absolute;
+  width: 2px;
   height: 56px;
+  background-color: ${colors.white};
+  left: 56px;
+  top: 0;
 `
 
 export const IconContainer = styled.View`
-  ${baseProps}
   width: 56px;
   justify-content: center;
   align-items: center;
-  margin-right: 2px;
 `
 
 export const TextInput = styled.TextInput`
-  ${baseProps}
   font-family: 'inter-400';
   color: ${colors.grayText};
   flex: 1;

@@ -2,9 +2,9 @@ import React from 'react'
 
 import { TextInputProps } from 'react-native'
 
+import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
 
-import RentIcon from '../../RentIcon'
 import { Wrapper } from '../styles'
 import { TextInput, IconContainer } from './styles'
 

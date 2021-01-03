@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
+import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
@@ -8,13 +9,14 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Text,
   TextInput
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import Button from '~/components/Button'
 import { Input } from '~/components/Input'
-import { SignUpFormData } from '~/contexts/signup_data'
+import { SignUpInfo } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
 import colors from '~/styles/colors'
 
@@ -24,21 +26,30 @@ import {
   Container,
   Contents,
   SignUpText,
-  Title
+  Title,
+  FormGroupTitleAndError,
+  ErrorContainer,
+  Error
 } from '../styles'
+import { signUpStepOneSchema } from '../validators'
 
 export const StepOne: React.FC = () => {
   const navigation = useNavigation()
-  const { setValues, signUpData } = useSignUp()
+  const { setNameAndEmail, signUpInfo } = useSignUp()
 
   const emailInput = React.useRef<TextInput>(null)
 
-  const { control, handleSubmit } = useForm<SignUpFormData>({
-    defaultValues: signUpData
+  const { control, handleSubmit, errors } = useForm<SignUpInfo>({
+    defaultValues: signUpInfo,
+    resolver: joiResolver(signUpStepOneSchema)
   })
 
-  const onSubmit = (data: SignUpFormData) => {
-    setValues(data)
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
+
+  const onSubmit = (data: SignUpInfo) => {
+    setNameAndEmail(data)
     navigation.navigate('SignUpStepTwo')
   }
 
@@ -63,7 +74,21 @@ export const StepOne: React.FC = () => {
             <SignUpText>Faça seu cadastro de forma rápida e fácil.</SignUpText>
 
             <Form>
-              <StepItemText>01. Dados</StepItemText>
+              <FormGroupTitleAndError>
+                <StepItemText>01. Dados</StepItemText>
+                <ErrorContainer>
+                  {errors.name && (
+                    <Error>{errors.name && 'Nome é obrigatório'}</Error>
+                  )}
+                  {errors.email && (
+                    <Error>
+                      {errors.email.type === 'string.empty'
+                        ? 'Email é obrigatório'
+                        : 'Digite um email válido'}
+                    </Error>
+                  )}
+                </ErrorContainer>
+              </FormGroupTitleAndError>
 
               <Input
                 control={control}
@@ -72,6 +97,7 @@ export const StepOne: React.FC = () => {
                 placeholder="Nome"
                 returnKeyType="next"
                 blurOnSubmit={false}
+                hasError={!!errors.name}
                 onSubmitEditing={() => emailInput.current?.focus()}
               />
 
@@ -82,6 +108,7 @@ export const StepOne: React.FC = () => {
                 ref={emailInput}
                 placeholder="Email"
                 keyboardType="email-address"
+                hasError={!!errors.email}
                 returnKeyType="default"
               />
 
