@@ -40,8 +40,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStorageData()
   }, [])
 
-  const authorize = useCallback((data: AuthState) => {
+  const authorize = useCallback(async (data: AuthState) => {
     setAuthData(data)
+    await AsyncStorage.multiSet([
+      ['@RentX:token', data.accessToken],
+      ['@RentX:user', JSON.stringify(data.user)]
+    ])
   }, [])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
@@ -50,13 +54,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     })
 
     if (data) {
-      const { user, accessToken } = data.signin
-
-      setAuthData({ user, accessToken })
-      await AsyncStorage.multiSet([
-        ['@RentX:token', accessToken],
-        ['@RentX:user', JSON.stringify(user)]
-      ])
+      authorize(data.signin)
     }
   }
 
