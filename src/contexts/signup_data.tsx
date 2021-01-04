@@ -1,46 +1,56 @@
 import React, { createContext, useCallback, useState } from 'react'
 
-export interface SignUpFormData {
-  name: string
-  email: string
-  password: string
-  password_confirmation: string
-}
+import { useMutation } from '@apollo/client'
+
+import { SIGN_UP } from '~/graphql/auth'
+
+import { AuthState } from './auth.types'
+import { SignUpData, SignUpInfo } from './signup.types'
 
 export interface SignUpContextData {
-  signUpData: SignUpFormData
-  setValues(data: SignUpFormData): void
-  clearValues(): void
+  signUpInfo: SignUpInfo
+  setNameAndEmail(data: SignUpInfo): void
+  signUp(data: SignUpData): Promise<AuthState | null>
 }
 
 export const SignUpContext = createContext<SignUpContextData>(
   {} as SignUpContextData
 )
 
-const initialState: SignUpFormData = {
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: ''
-}
-
 export const SignUpProvider: React.FC = ({ children }) => {
-  const [signUpData, setSignUpData] = useState<SignUpFormData>(initialState)
+  const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
+    name: '',
+    email: ''
+  })
+  const [createAccount] = useMutation<
+    { signup: AuthState },
+    { signUpData: SignUpData }
+  >(SIGN_UP)
 
-  const setValues = (newData: SignUpFormData) => {
-    setSignUpData({ ...signUpData, ...newData })
+  const setNameAndEmail = (data: SignUpInfo) => {
+    setSignUpInfo(data)
   }
 
-  const clearValues = useCallback(() => {
-    setSignUpData(initialState)
+  const signUp = useCallback(async (signUpData: SignUpData) => {
+    const { data } = await createAccount({
+      variables: { signUpData }
+    })
+
+    if (data) {
+      const { user, accessToken } = data.signup
+
+      return { user, accessToken } as AuthState
+    }
+
+    return null
   }, [])
 
   return (
     <SignUpContext.Provider
       value={{
-        signUpData,
-        setValues,
-        clearValues
+        signUpInfo,
+        setNameAndEmail,
+        signUp
       }}
     >
       {children}
