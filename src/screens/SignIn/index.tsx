@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
+import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
@@ -13,6 +14,7 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { SecureTextInput, Input } from '~/components/Input'
+import { signInSchema } from '~/validators'
 
 import Button from '../../components/Button'
 import CheckBox from '../../components/Checkbox'
@@ -26,6 +28,8 @@ import {
   Contents,
   RememberAndForgotPasswordWrapper,
   ForgotPassword,
+  Error,
+  ErrorContainer,
   ForgotPasswordText
 } from './styles'
 
@@ -40,18 +44,25 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation()
   const passwordRef = useRef<TextInput>(null)
 
-  const { control, handleSubmit } = useForm<SignInFormData>({
+  const {
+    control,
+    handleSubmit,
+    errors,
+    clearErrors
+  } = useForm<SignInFormData>({
     defaultValues: {
       email: '',
       password: ''
-    }
+    },
+    resolver: joiResolver(signInSchema)
   })
 
   const onSubmit = useCallback(
     async (data: SignInFormData) => {
+      clearErrors()
       await signIn(data)
     },
-    [signIn]
+    [signIn, clearErrors]
   )
 
   return (
@@ -68,13 +79,17 @@ const SignIn: React.FC = () => {
               size={30}
               color={colors.grayAccent}
               onPress={() => navigation.navigate('Welcome')}
-              style={{ position: 'absolute' }}
             />
             <Title>Login</Title>
 
             <SignInText>
               Entre com sua conta para começar uma experiência incrível.
             </SignInText>
+
+            <ErrorContainer>
+              {errors.email && <Error>Digite seu email</Error>}
+              {errors.password && <Error>Digite a senha</Error>}
+            </ErrorContainer>
 
             <Form>
               <Input
@@ -83,13 +98,19 @@ const SignIn: React.FC = () => {
                 placeholder="Email"
                 returnKeyType="next"
                 blurOnSubmit={false}
+                textContentType="emailAddress"
+                autoCapitalize="none"
+                autoCompleteType="email"
                 onSubmitEditing={() => passwordRef.current?.focus()}
+                hasError={!!errors.email}
                 control={control}
               />
               <SecureTextInput
                 name="password"
                 placeholder="Senha"
                 control={control}
+                textContentType="password"
+                hasError={!!errors.password}
                 ref={passwordRef}
               />
 
