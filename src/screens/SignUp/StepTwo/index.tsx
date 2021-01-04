@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { joiResolver } from '@hookform/resolvers/joi'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
 import {
   TextInput,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
-  Text
+  Platform
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { SignUpRoutesParamList } from 'types'
 
 import Button from '~/components/Button'
 import { SecureTextInput } from '~/components/Input'
 import { SignUpPassword } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
 import colors from '~/styles/colors'
+import { signUpStepTwoSchema } from '~/validators'
 
 import {
   Container,
@@ -31,10 +32,12 @@ import {
   ErrorContainer,
   Error
 } from '../styles'
-import { signUpStepTwoSchema } from '../validators'
 
-export const StepTwo: React.FC = () => {
-  const navigation = useNavigation()
+interface StepTwoProps {
+  navigation: NavigationProp<SignUpRoutesParamList, 'SignUpStepTwo'>
+}
+
+export const StepTwo: React.FC<StepTwoProps> = ({ navigation }) => {
   const { signUpInfo, signUp } = useSignUp()
 
   const passwordConfirm = React.useRef<TextInput>(null)
@@ -47,17 +50,13 @@ export const StepTwo: React.FC = () => {
     resolver: joiResolver(signUpStepTwoSchema)
   })
 
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
-
   const onSubmit = async ({ password }: SignUpPassword) => {
-    const response = await signUp({ ...signUpInfo, password })
+    const authData = await signUp({ ...signUpInfo, password })
 
-    if (response) {
-      navigation.navigate('SignUpConfirm', response)
+    if (authData) {
+      navigation.navigate('SignUpConfirm', { authData })
     } else {
-      console.log('oops cant register')
+      console.log('Handle SignUp error here.')
     }
   }
 
