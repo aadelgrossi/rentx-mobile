@@ -1,4 +1,3 @@
-import 'text-encoding-polyfill'
 import Joi from 'joi'
 
 export const signUpStepOneSchema = Joi.object({
