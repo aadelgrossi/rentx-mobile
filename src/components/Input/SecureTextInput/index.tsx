@@ -13,8 +13,8 @@ import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
 
 import { InputProps } from '..'
-import { Wrapper, IconContainer, TextInput, Divider } from '../styles'
-import { ShowPassword } from './styles'
+import { Wrapper, IconContainer, Divider } from '../styles'
+import { ShowPassword, PasswordTextInput } from './styles'
 
 interface InputRef {
   focus(): void
@@ -53,7 +53,7 @@ const Input: ForwardRefRenderFunction<InputRef, InputProps> = (
 
           <Divider />
 
-          <TextInput
+          <PasswordTextInput
             ref={inputElementRef}
             keyboardAppearance="dark"
             secureTextEntry={!passwordVisible}

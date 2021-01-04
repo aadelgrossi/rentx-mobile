@@ -36,5 +36,5 @@ export const TextInput = styled.TextInput`
   flex: 1;
   width: 100%;
   font-size: 15px;
-  padding: 0 60px 0 23px;
+  padding: 0 23px;
 `
