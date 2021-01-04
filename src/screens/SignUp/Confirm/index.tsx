@@ -26,7 +26,7 @@ export const Confirm: React.FC<ConfirmProps> = ({ route }) => {
         variant
         onPress={() => authorize(authData)}
       >
-        Retornar para o login
+        Começar
       </Button>
     </Prompt>
   )
