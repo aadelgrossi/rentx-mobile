@@ -9,7 +9,6 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Text,
   TextInput
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -19,6 +18,7 @@ import { Input } from '~/components/Input'
 import { SignUpInfo } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
 import colors from '~/styles/colors'
+import { signUpStepOneSchema } from '~/validators'
 
 import {
   Form,
@@ -31,7 +31,6 @@ import {
   ErrorContainer,
   Error
 } from '../styles'
-import { signUpStepOneSchema } from '../validators'
 
 export const StepOne: React.FC = () => {
   const navigation = useNavigation()
