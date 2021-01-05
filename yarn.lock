@@ -3966,7 +3966,7 @@ expo-asset@~8.2.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-constants@~9.3.3:
+expo-constants@^9.3.5, expo-constants@~9.3.3:
   version "9.3.5"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.3.5.tgz#78085763e8ed100a5f2df7c682fd99631aa03d5e"
   integrity sha512-qIlv2ffSjQl3wrvJwXYoNfQNfH/sK46EXcgyEQnQ1SAQO4ukwTEpG9j3fdW6aTiVEVrv/DsA1IaVRqKrUwSd3A==
@@ -7501,6 +7501,14 @@ react-native-calendar-picker@^7.0.3:
     node-git-hooks "^1.0.1"
     prop-types "^15.6.0"
     recyclerlistview "^3.0.0"
+
+"react-native-flash-message@https://github.com/aadelgrossi/react-native-flash-message.git":
+  version "0.1.18"
+  resolved "https://github.com/aadelgrossi/react-native-flash-message.git#f30f718d188dd82d23958fe8ee3be8f8f715ab6c"
+  dependencies:
+    expo-constants "^9.3.5"
+    prop-types "^15.7.2"
+    react-native-iphone-x-helper "^1.3.0"
 
 react-native-gesture-handler@~1.8.0:
   version "1.8.0"

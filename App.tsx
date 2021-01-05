@@ -1,5 +1,7 @@
 import React from 'react'
 
+import FlashMessage from 'react-native-flash-message'
+
 import AppProvider from '~/contexts/app'
 import { useCachedResources } from '~/hooks'
 import Navigation from '~/navigation'
@@ -13,6 +15,7 @@ const App: React.FC = () => {
     return (
       <AppProvider>
         <Navigation />
+        <FlashMessage position="bottom" />
       </AppProvider>
     )
   }
