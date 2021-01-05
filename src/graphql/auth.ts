@@ -12,14 +12,6 @@ const SIGN_IN = gql`
         avatar {
           url
         }
-        rentals {
-          id
-          startDate
-          endDate
-          car {
-            model
-          }
-        }
       }
     }
   }
