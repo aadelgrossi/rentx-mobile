@@ -14,6 +14,7 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { SecureTextInput, Input } from '~/components/Input'
+import { authErrorMessage } from '~/info_messages'
 import { signInSchema } from '~/validators'
 
 import Button from '../../components/Button'
@@ -60,7 +61,11 @@ const SignIn: React.FC = () => {
   const onSubmit = useCallback(
     async (data: SignInFormData) => {
       clearErrors()
-      await signIn(data)
+      try {
+        await signIn(data)
+      } catch (error) {
+        authErrorMessage('Email ou senha incorretos')
+      }
     },
     [signIn, clearErrors]
   )

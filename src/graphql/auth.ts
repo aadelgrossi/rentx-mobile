@@ -42,4 +42,10 @@ const SIGN_UP = gql`
   }
 `
 
-export { SIGN_IN, SIGN_UP }
+const IS_EMAIL_AVAILABLE = gql`
+  query CheckEmailAvailability($email: String!) {
+    isEmailAvailable(email: $email)
+  }
+`
+
+export { SIGN_IN, SIGN_UP, IS_EMAIL_AVAILABLE }

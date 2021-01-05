@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import { useLazyQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
@@ -17,8 +18,9 @@ import Button from '~/components/Button'
 import { Input } from '~/components/Input'
 import { SignUpInfo } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
+import { authErrorMessage } from '~/info_messages'
 import colors from '~/styles/colors'
-import { signUpStepOneSchema } from '~/validators'
+import { checkIfEmailAvailable, signUpStepOneSchema } from '~/validators'
 
 import {
   Form,
@@ -43,13 +45,15 @@ export const StepOne: React.FC = () => {
     resolver: joiResolver(signUpStepOneSchema)
   })
 
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
+  const onSubmit = async ({ email, name }: SignUpInfo) => {
+    setNameAndEmail({ email, name })
 
-  const onSubmit = (data: SignUpInfo) => {
-    setNameAndEmail(data)
-    navigation.navigate('SignUpStepTwo')
+    try {
+      await checkIfEmailAvailable(email)
+      navigation.navigate('SignUpStepTwo')
+    } catch {
+      authErrorMessage('Email já em uso. Escolha outro')
+    }
   }
 
   return (
