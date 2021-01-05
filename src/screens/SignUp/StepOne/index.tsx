@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { useLazyQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
@@ -18,8 +17,8 @@ import Button from '~/components/Button'
 import { Input } from '~/components/Input'
 import { SignUpInfo } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
-import { authErrorMessage } from '~/info_messages'
 import colors from '~/styles/colors'
+import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { checkIfEmailAvailable, signUpStepOneSchema } from '~/validators'
 
 import {
