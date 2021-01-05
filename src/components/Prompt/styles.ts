@@ -9,9 +9,9 @@ export const Container = styled.View`
 `
 
 export const BackgroundImage = styled.Image`
-  margin-top: 60px;
+  margin-top: 100px;
   width: 100%;
-  height: 260px;
+  height: 300px;
 `
 
 export const Contents = styled.View`
