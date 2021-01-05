@@ -53,9 +53,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       variables: { credentials: { email, password } }
     })
 
-    if (data) {
-      authorize(data.signin)
-    }
+    data && authorize(data.signin)
   }
 
   const signOut = useCallback(async () => {
