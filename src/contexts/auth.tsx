@@ -30,14 +30,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         '@RentX:user'
       ])
 
-      console.log('token from local storage', { token })
-
       if (token[1] && user[1]) {
         authorize({ accessToken: token[1], user: JSON.parse(user[1]) })
       }
     }
 
     loadStorageData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const authorize = useCallback(async (data: AuthState) => {
