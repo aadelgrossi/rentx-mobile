@@ -1,27 +1,33 @@
 import React from 'react'
 
-import { useNavigation } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
+import { SignUpRoutesParamList } from 'types'
 
-import Button from '../../../components/Button'
-import Prompt from '../../../components/Prompt'
+import Button from '~/components/Button'
+import Prompt from '~/components/Prompt'
+import { useAuth } from '~/hooks'
 
-const Confirm: React.FC = () => {
-  const navigation = useNavigation()
+interface ConfirmProps {
+  route: RouteProp<SignUpRoutesParamList, 'SignUpConfirm'>
+}
+
+export const Confirm: React.FC<ConfirmProps> = ({ route }) => {
+  const { authorize } = useAuth()
+  const { authData } = route.params
+
   return (
     <Prompt
       title="Conta criada!"
-      content="Entre agora com sua conta para aproveitar."
+      content="Seja bem-vindo ao RentX."
       type="done"
     >
       <Button
         style={{ marginTop: 'auto' }}
         variant
-        onPress={() => navigation.navigate('SignIn')}
+        onPress={() => authorize(authData)}
       >
-        Retornar para o login
+        Começar
       </Button>
     </Prompt>
   )
 }
-
-export default Confirm

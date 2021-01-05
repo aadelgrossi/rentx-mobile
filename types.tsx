@@ -1,3 +1,5 @@
+import { AuthState } from '~/contexts/auth.types'
+
 export type InitialRoutesParamList = {
   Splash: undefined
   Welcome: undefined
@@ -8,7 +10,9 @@ export type InitialRoutesParamList = {
 export type SignUpRoutesParamList = {
   SignUpStepOne: undefined
   SignUpStepTwo: undefined
-  SignUpConfirm: undefined
+  SignUpConfirm: {
+    authData: AuthState
+  }
 }
 
 export type AppRoutesParamList = {

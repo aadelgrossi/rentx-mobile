@@ -1,16 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
-import colors from '../../styles/colors'
-
-export const Wrapper = styled.View`
-  height: 56px;
-  margin-top: 8px;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`
+import colors from '~/styles/colors'
 
 const baseProps = css`
   background-color: ${colors.grayLightest};

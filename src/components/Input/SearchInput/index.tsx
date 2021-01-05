@@ -2,11 +2,13 @@ import React from 'react'
 
 import { TextInputProps } from 'react-native'
 
-import colors from '../../styles/colors'
-import RentIcon from '../RentIcon'
-import { Wrapper, TextInput, IconContainer } from './styles'
+import RentIcon from '~/components/RentIcon'
+import colors from '~/styles/colors'
 
-const SearchInput: React.FC<TextInputProps> = ({ style, ...rest }) => {
+import { Wrapper } from '../styles'
+import { TextInput, IconContainer } from './styles'
+
+export const SearchInput: React.FC<TextInputProps> = ({ style, ...rest }) => {
   return (
     <Wrapper style={style}>
       <TextInput
@@ -16,15 +18,13 @@ const SearchInput: React.FC<TextInputProps> = ({ style, ...rest }) => {
         autoCapitalize="none"
         autoCorrect={false}
         {...rest}
-      ></TextInput>
+      />
 
       <IconContainer
         style={{ borderLeftWidth: 2, borderLeftColor: colors.white }}
       >
-        <RentIcon color={colors.grayText} size={24} name="search"></RentIcon>
+        <RentIcon color={colors.grayText} size={24} name="search" />
       </IconContainer>
     </Wrapper>
   )
 }
-
-export default SearchInput

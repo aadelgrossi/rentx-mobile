@@ -8,11 +8,4 @@ interface AuthState {
   user: User
 }
 
-interface AuthContextData {
-  user: User
-  signIn(credentials: SignInCredentials): Promise<void>
-  signOut(): void
-  isAuthorized: boolean
-}
-
-export { AuthState, AuthContextData, SignInCredentials }
+export { AuthState, SignInCredentials }

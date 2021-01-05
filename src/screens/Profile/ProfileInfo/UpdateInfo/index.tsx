@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
-import { Keyboard, KeyboardAvoidingView, View } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { Keyboard, KeyboardAvoidingView, TextInput, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-import Input from '../../../../components/Input'
-import { useAuth } from '../../../../hooks/useAuth'
+import { Input } from '~/components/Input'
+import { useAuth } from '~/hooks/useAuth'
+
+interface UpdateUserDetailsData {
+  name: string
+  email: string
+}
 
 const UpdateInfo: React.FC = () => {
   const { user } = useAuth()
+  const { control } = useForm<UpdateUserDetailsData>({
+    defaultValues: {
+      email: user.email,
+      name: user.name
+    }
+  })
+  const emailRef = useRef<TextInput>(null)
+
   return (
     <View>
       <KeyboardAvoidingView
@@ -22,12 +36,17 @@ const UpdateInfo: React.FC = () => {
               icon="person"
               placeholder="Nome"
               defaultValue={user.name}
+              control={control}
+              blurOnSubmit={false}
+              onSubmitEditing={() => emailRef.current?.focus()}
             />
             <Input
               name="email"
               icon="email"
               placeholder="Email"
               defaultValue={user.email}
+              control={control}
+              ref={emailRef}
             />
           </View>
         </TouchableWithoutFeedback>

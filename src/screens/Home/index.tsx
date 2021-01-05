@@ -135,7 +135,7 @@ const Home: React.FC<{
 
       <Header>
         <Title>Resultados</Title>
-        <ResultsCount>{data?.cars.length} carro(s)</ResultsCount>
+        <ResultsCount>{data?.cars.length || 'Nenhum'} carro(s)</ResultsCount>
         <RectButton onPress={toggleFilterModal}>
           <RentIcon name="filter" color={colors.black} />
         </RectButton>

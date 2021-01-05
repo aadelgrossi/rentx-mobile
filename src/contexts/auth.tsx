@@ -1,17 +1,25 @@
 import React, { createContext, useCallback, useState, useEffect } from 'react'
 
 import { useMutation } from '@apollo/client'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { SIGN_IN } from '../graphql/auth'
-import { AuthContextData, AuthState, SignInCredentials } from './auth.types'
+import { AuthState, SignInCredentials } from './auth.types'
+
+export interface AuthContextData {
+  user: User
+  signIn(credentials: SignInCredentials): Promise<void>
+  signOut(): void
+  authorize(data: AuthState): void
+  isAuthorized: boolean
+}
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [authData, setAuthData] = useState<AuthState>({} as AuthState)
-  const [createSession, { data, error }] = useMutation<
-    { signIn: AuthState },
+  const [createSession] = useMutation<
+    { signin: AuthState },
     { credentials: SignInCredentials }
   >(SIGN_IN)
 
@@ -22,32 +30,31 @@ export const AuthProvider: React.FC = ({ children }) => {
         '@RentX:user'
       ])
 
+      console.log('token from local storage', { token })
+
       if (token[1] && user[1]) {
-        setAuthData({ accessToken: token[1], user: JSON.parse(user[1]) })
+        authorize({ accessToken: token[1], user: JSON.parse(user[1]) })
       }
     }
 
     loadStorageData()
   }, [])
 
-  const signIn = useCallback(
-    async ({ email, password }: SignInCredentials) => {
-      await createSession({
-        variables: { credentials: { email, password } }
-      })
+  const authorize = useCallback(async (data: AuthState) => {
+    setAuthData(data)
+    await AsyncStorage.multiSet([
+      ['@RentX:token', data.accessToken],
+      ['@RentX:user', JSON.stringify(data.user)]
+    ])
+  }, [])
 
-      if (data) {
-        const { user, accessToken } = data.signIn
+  const signIn = async ({ email, password }: SignInCredentials) => {
+    const { data } = await createSession({
+      variables: { credentials: { email, password } }
+    })
 
-        setAuthData({ accessToken, user })
-        await AsyncStorage.multiSet([
-          ['@RentX:token', accessToken],
-          ['@RentX:user', JSON.stringify(user)]
-        ])
-      }
-    },
-    [data, createSession]
-  )
+    data && authorize(data.signin)
+  }
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@RentX:token', '@RentX:user'])
@@ -61,6 +68,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         user: authData.user,
         signIn,
         signOut,
+        authorize,
         isAuthorized: !!authData.user
       }}
     >

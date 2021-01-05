@@ -2,6 +2,8 @@ import React from 'react'
 
 import { useQuery } from '@apollo/client'
 
+import ProfilePicture from '~/components/ProfilePicture'
+
 import Card from '../../components/Card/Rental/UpperCardContent'
 import USER_RENTALS from '../../graphql/rentals'
 import { useAuth } from '../../hooks/useAuth'
@@ -11,7 +13,6 @@ import {
   Spacing,
   Contents,
   ProfileContainer,
-  ProfilePicture,
   InfoItem,
   InfoTitle,
   InfoValue,
@@ -29,11 +30,7 @@ const Profile: React.FC = () => {
       <Spacing />
       <Contents>
         <ProfileContainer>
-          <ProfilePicture
-            source={{
-              uri: user.avatar.url
-            }}
-          />
+          <ProfilePicture />
         </ProfileContainer>
 
         <UserName>{user.name}</UserName>
@@ -43,7 +40,7 @@ const Profile: React.FC = () => {
         </InfoItem>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Agendamentos feitos</InfoTitle>
-          <InfoValue>05</InfoValue>
+          <InfoValue>{data?.rentals || 0}</InfoValue>
         </InfoItem>
 
         <Separator />

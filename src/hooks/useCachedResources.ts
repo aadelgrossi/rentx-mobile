@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
-const useCachedResources = (): boolean => {
+export const useCachedResources = (): boolean => {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
   // Load any resources or data that we need prior to rendering the app
@@ -38,5 +38,3 @@ const useCachedResources = (): boolean => {
 
   return isLoadingComplete
 }
-
-export default useCachedResources

@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import { MaterialIcons } from '@expo/vector-icons'
+import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
+import { useForm } from 'react-hook-form'
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput
+} from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+
+import { SecureTextInput, Input } from '~/components/Input'
+import { authErrorMessage } from '~/info_messages'
+import { signInSchema } from '~/validators'
 
 import Button from '../../components/Button'
 import CheckBox from '../../components/Checkbox'
-import Input from '../../components/Input'
-import SecureTextInput from '../../components/SecureTextInput'
 import { useAuth } from '../../hooks/useAuth'
 import colors from '../../styles/colors'
 import {
@@ -20,13 +29,46 @@ import {
   Contents,
   RememberAndForgotPasswordWrapper,
   ForgotPassword,
+  Error,
+  ErrorContainer,
   ForgotPasswordText
 } from './styles'
+
+interface SignInFormData {
+  email: string
+  password: string
+}
 
 const SignIn: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false)
   const { signIn } = useAuth()
   const navigation = useNavigation()
+  const passwordRef = useRef<TextInput>(null)
+
+  const {
+    control,
+    handleSubmit,
+    errors,
+    clearErrors
+  } = useForm<SignInFormData>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    resolver: joiResolver(signInSchema)
+  })
+
+  const onSubmit = useCallback(
+    async (data: SignInFormData) => {
+      clearErrors()
+      try {
+        await signIn(data)
+      } catch (error) {
+        authErrorMessage('Email ou senha incorretos')
+      }
+    },
+    [signIn, clearErrors]
+  )
 
   return (
     <Container>
@@ -42,7 +84,6 @@ const SignIn: React.FC = () => {
               size={30}
               color={colors.grayAccent}
               onPress={() => navigation.navigate('Welcome')}
-              style={{ position: 'absolute' }}
             />
             <Title>Login</Title>
 
@@ -50,16 +91,40 @@ const SignIn: React.FC = () => {
               Entre com sua conta para começar uma experiência incrível.
             </SignInText>
 
+            <ErrorContainer>
+              {errors.email && <Error>Digite seu email</Error>}
+              {errors.password && <Error>Digite a senha</Error>}
+            </ErrorContainer>
+
             <Form>
-              <Input name="email" icon="email" placeholder="Email" />
-              <SecureTextInput name="password" placeholder="Senha" />
+              <Input
+                name="email"
+                icon="email"
+                placeholder="Email"
+                returnKeyType="next"
+                blurOnSubmit={false}
+                textContentType="emailAddress"
+                autoCapitalize="none"
+                autoCompleteType="email"
+                onSubmitEditing={() => passwordRef.current?.focus()}
+                hasError={!!errors.email}
+                control={control}
+              />
+              <SecureTextInput
+                name="password"
+                placeholder="Senha"
+                control={control}
+                textContentType="password"
+                hasError={!!errors.password}
+                ref={passwordRef}
+              />
 
               <RememberAndForgotPasswordWrapper>
                 <CheckBox
                   text="Lembrar-me"
                   checked={rememberMe}
                   onPress={() => setRememberMe(!rememberMe)}
-                ></CheckBox>
+                />
 
                 <ForgotPassword>
                   <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
@@ -68,9 +133,7 @@ const SignIn: React.FC = () => {
 
               <Button
                 style={{ marginTop: 20 }}
-                onPress={() =>
-                  signIn({ email: 'dummy@email.com', password: 'test' })
-                }
+                onPress={handleSubmit(onSubmit)}
               >
                 Entrar
               </Button>

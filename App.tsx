@@ -1,8 +1,10 @@
 import React from 'react'
 
-import AppProvider from './src/contexts'
-import useCachedResources from './src/hooks/useCachedResources'
-import Navigation from './src/navigation'
+import FlashMessage from 'react-native-flash-message'
+
+import AppProvider from '~/contexts/app'
+import { useCachedResources } from '~/hooks'
+import Navigation from '~/navigation'
 
 const App: React.FC = () => {
   const isLoadingComplete = useCachedResources()
@@ -13,6 +15,7 @@ const App: React.FC = () => {
     return (
       <AppProvider>
         <Navigation />
+        <FlashMessage position="bottom" />
       </AppProvider>
     )
   }
