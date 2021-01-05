@@ -14,7 +14,7 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { SecureTextInput, Input } from '~/components/Input'
-import { authErrorMessage } from '~/info_messages'
+import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { signInSchema } from '~/validators'
 
 import Button from '../../components/Button'
