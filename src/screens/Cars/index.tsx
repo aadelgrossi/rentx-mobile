@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
@@ -17,7 +17,10 @@ import {
 } from './styles'
 
 const Cars: React.FC = () => {
-  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS)
+  const [query, setQuery] = useState('')
+  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS, {
+    variables: { filter: { fullName: query } }
+  })
 
   return (
     <Container>
@@ -29,6 +32,8 @@ const Cars: React.FC = () => {
         <SearchInput
           style={{ marginTop: -32 }}
           placeholder="Qual carro você procura?"
+          onChangeText={e => setQuery(e)}
+          value={query}
         />
       </Contents>
 

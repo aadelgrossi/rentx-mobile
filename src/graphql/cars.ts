@@ -1,23 +1,17 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query GetCars {
-    cars {
+  query GetCars($filter: CarFilterArgs!) {
+    cars(filter: $filter) {
       id
-      name
-      dailyValue
+      model
+      dailyRate
       fuelType
-      transmission
       manufacturer {
         name
       }
       photo {
         url
-      }
-      specifications {
-        id
-        name
-        value
       }
     }
   }
