@@ -19,7 +19,7 @@ import {
 const UpperCardContent: React.FC<
   Pick<Rental, 'car' | 'startDate' | 'endDate'>
 > = ({ car, endDate, startDate }) => {
-  const { manufacturer, fuelType, dailyValue, photo, name } = car
+  const { manufacturer, dailyRate, photo, model, fuelType } = car
 
   const amountOfDays = useMemo(() => {
     const parsedStartDate = Date.parse(startDate)
@@ -29,15 +29,15 @@ const UpperCardContent: React.FC<
   }, [startDate, endDate])
 
   const totalValue = useMemo(() => {
-    return dailyValue * amountOfDays
-  }, [amountOfDays, dailyValue])
+    return dailyRate * amountOfDays
+  }, [amountOfDays, dailyRate])
 
   return (
     <DetailsContainer>
       <Info>
         <ModelInfo>
           <Label>{manufacturer.name}</Label>
-          <CarModel>{name}</CarModel>
+          <CarModel>{model}</CarModel>
         </ModelInfo>
         <AddInfo>
           <Label>Por {amountOfDays} dias</Label>
@@ -52,10 +52,7 @@ const UpperCardContent: React.FC<
         </AddInfo>
       </Info>
 
-      <CarPhoto
-        style={{ resizeMode: 'contain' }}
-        source={{ uri: photo.url }}
-      ></CarPhoto>
+      <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
     </DetailsContainer>
   )
 }

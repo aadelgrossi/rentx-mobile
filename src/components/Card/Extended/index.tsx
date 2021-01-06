@@ -14,28 +14,25 @@ import {
 
 const ExtendedCard: React.FC<Car> = ({
   manufacturer,
-  name,
-  dailyValue,
-  fuelType,
+  model,
+  dailyRate,
   photo
 }) => {
+  const fuelType = 'gas'
   return (
     <Container>
       <ModelInfo>
         <Label>{manufacturer.name}</Label>
-        <CarModel>{name}</CarModel>
+        <CarModel>{model}</CarModel>
       </ModelInfo>
       <AddInfo>
         <Label>Ao dia</Label>
-        <RateValue>R$ {dailyValue}</RateValue>
+        <RateValue>R$ {dailyRate}</RateValue>
       </AddInfo>
 
       <FuelIcon color={colors.grayText} size={24} name={fuelType} />
 
-      <CarPhoto
-        style={{ resizeMode: 'contain' }}
-        source={{ uri: photo.url }}
-      ></CarPhoto>
+      <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
     </Container>
   )
 }

@@ -16,9 +16,9 @@ import {
 
 const CarCard: React.FC<Car> = ({
   manufacturer,
-  name,
-  dailyValue,
   fuelType,
+  model,
+  dailyRate,
   photo
 }) => {
   return (
@@ -26,25 +26,18 @@ const CarCard: React.FC<Car> = ({
       <Info>
         <ModelInfo>
           <Label>{manufacturer.name}</Label>
-          <CarModel>{name}</CarModel>
+          <CarModel>{model}</CarModel>
         </ModelInfo>
         <AddInfo>
           <Label>Ao dia</Label>
           <AddInfoContent>
-            <RateValue>R$ {dailyValue}</RateValue>
-            <RentIcon
-              color={colors.grayText}
-              size={20}
-              name={fuelType}
-            ></RentIcon>
+            <RateValue>R$ {dailyRate}</RateValue>
+            <RentIcon color={colors.grayText} size={20} name={fuelType} />
           </AddInfoContent>
         </AddInfo>
       </Info>
 
-      <CarPhoto
-        style={{ resizeMode: 'contain' }}
-        source={{ uri: photo.url }}
-      ></CarPhoto>
+      <CarPhoto style={{ resizeMode: 'cover' }} source={{ uri: photo.url }} />
     </Container>
   )
 }
