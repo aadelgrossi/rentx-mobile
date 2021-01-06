@@ -7,15 +7,16 @@ interface CarSpec {
   value: string
 }
 
-interface Car {
+interface CarManufacturer {
   id: string
   name: string
-  manufacturer: {
-    name: string
-  }
+}
+interface Car {
+  id: string
+  model: string
   fuelType: FuelSpec
-  transmission: TransmissionSpec
+  manufacturer: CarManufacturer
   specifications: CarSpec[]
-  dailyValue: number
+  dailyRate: number
   photo: Image
 }
