@@ -11,6 +11,7 @@ interface CarManufacturer {
   id: string
   name: string
 }
+
 interface Car {
   id: string
   model: string
@@ -19,4 +20,9 @@ interface Car {
   specifications: CarSpec[]
   dailyRate: number
   photo: Image
+}
+
+interface FavoriteCar extends Car {
+  timesRented: number
+  totalDays: number
 }

@@ -2,12 +2,12 @@ import React from 'react'
 
 import { useQuery } from '@apollo/client'
 
+import Card from '~/components/Card/FavoriteCar'
 import ProfilePicture from '~/components/ProfilePicture'
+import { USER_INFO } from '~/graphql/user'
+import { useAuth } from '~/hooks/useAuth'
+import { formatLongDate } from '~/utils/formatDate'
 
-import Card from '../../components/Card/Rental/UpperCardContent'
-import USER_RENTALS from '../../graphql/rentals'
-import { useAuth } from '../../hooks/useAuth'
-import { formatLongDate } from '../../utils/formatDate'
 import {
   Container,
   Spacing,
@@ -22,8 +22,11 @@ import {
 } from './styles'
 
 const Profile: React.FC = () => {
-  const { user } = useAuth()
-  const { data } = useQuery<{ rentals: Rental[] }>(USER_RENTALS)
+  const {
+    user: { name, createdAt }
+  } = useAuth()
+
+  const { data } = useQuery<{ me: User }>(USER_INFO)
 
   return (
     <Container>
@@ -33,27 +36,33 @@ const Profile: React.FC = () => {
           <ProfilePicture />
         </ProfileContainer>
 
-        <UserName>{user.name}</UserName>
+        <UserName>{name}</UserName>
         <InfoItem style={{ marginTop: 24 }}>
           <InfoTitle>Membro desde</InfoTitle>
-          <InfoValue>{formatLongDate(user.createdAt)}</InfoValue>
+          <InfoValue>{formatLongDate(createdAt)}</InfoValue>
         </InfoItem>
-        <InfoItem style={{ marginTop: 24 }}>
-          <InfoTitle>Agendamentos feitos</InfoTitle>
-          <InfoValue>{data?.rentals || 0}</InfoValue>
-        </InfoItem>
-
-        <Separator />
-
         {data && (
-          <FavoriteCarContainer>
-            <InfoItem style={{ marginBottom: 16 }}>
-              <InfoTitle>Carro favorito</InfoTitle>
-              <InfoValue>Utilizado {data?.rentals.length} vezes</InfoValue>
+          <>
+            <InfoItem style={{ marginTop: 24 }}>
+              <InfoTitle>Agendamentos feitos</InfoTitle>
+              <InfoValue>{data.me.totalRentals || 0}</InfoValue>
             </InfoItem>
 
-            <Card {...data.rentals[0]} />
-          </FavoriteCarContainer>
+            <Separator />
+
+            {data.me.favoriteCar && (
+              <FavoriteCarContainer>
+                <InfoItem style={{ marginBottom: 16 }}>
+                  <InfoTitle>Carro favorito</InfoTitle>
+                  <InfoValue>
+                    Utilizado {data.me.favoriteCar.timesRented} vezes
+                  </InfoValue>
+                </InfoItem>
+
+                <Card {...data.me.favoriteCar} />
+              </FavoriteCarContainer>
+            )}
+          </>
         )}
       </Contents>
     </Container>

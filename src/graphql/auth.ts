@@ -9,6 +9,19 @@ const SIGN_IN = gql`
         name
         email
         createdAt
+        totalRentals
+        favoriteCar {
+          totalDays
+          timesRented
+          model
+          dailyRate
+          manufacturer {
+            name
+          }
+          photo {
+            url
+          }
+        }
         avatar {
           url
         }
