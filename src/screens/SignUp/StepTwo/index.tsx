@@ -55,8 +55,6 @@ export const StepTwo: React.FC<StepTwoProps> = ({ navigation }) => {
 
     if (authData) {
       navigation.navigate('SignUpConfirm', { authData })
-    } else {
-      console.log('Handle SignUp error here.')
     }
   }
 
