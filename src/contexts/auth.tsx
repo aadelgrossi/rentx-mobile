@@ -1,7 +1,9 @@
 import React, { createContext, useCallback, useState, useEffect } from 'react'
 
-import { useMutation } from '@apollo/client'
+import { ApolloLink, useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { getApolloClient, httpLink } from '~/config/apollo'
 
 import { SIGN_IN } from '../graphql/auth'
 import { AuthState, SignInCredentials } from './auth.types'
@@ -22,6 +24,20 @@ export const AuthProvider: React.FC = ({ children }) => {
     { signin: AuthState },
     { credentials: SignInCredentials }
   >(SIGN_IN)
+
+  const setApolloHeaders = useCallback((token: string) => {
+    const authLink = new ApolloLink((operation, forward) => {
+      operation.setContext({
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
+
+      return forward(operation)
+    })
+
+    getApolloClient().setLink(authLink.concat(httpLink))
+  }, [])
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -45,6 +61,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       ['@RentX:token', data.accessToken],
       ['@RentX:user', JSON.stringify(data.user)]
     ])
+
+    setApolloHeaders(data.accessToken)
   }, [])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
