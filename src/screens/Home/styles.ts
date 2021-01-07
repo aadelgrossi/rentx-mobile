@@ -10,7 +10,7 @@ export const Container = styled.View`
 `
 
 export const DateRangeHeader = styled.View`
-  height: 120px;
+  height: 128px;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;

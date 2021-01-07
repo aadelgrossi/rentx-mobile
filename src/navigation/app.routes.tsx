@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native'
+import { Dimensions } from 'react-native'
 
 import { AppRoutesParamList } from '../../types'
-import IconWrapper from '../components/IconWrapper'
 import RentIcon from '../components/RentIcon'
 import Cars from '../screens/Cars'
 import Reservations from '../screens/Reservations'
@@ -12,7 +12,7 @@ import colors from '../styles/colors'
 import ProfileNavigator from './profile.routes'
 import ReservationNavigator from './reservation.routes'
 
-const BottomTab = createBottomTabNavigator<AppRoutesParamList>()
+const BottomTab = createMaterialTopTabNavigator<AppRoutesParamList>()
 
 const AppRoutes: React.FC = () => {
   const getTabBarVisibility = (route: Route<'Home', undefined>) => {
@@ -29,19 +29,40 @@ const AppRoutes: React.FC = () => {
     return routeName === 'Main' || routeName === undefined
   }
 
+  const marginForIndicator = Dimensions.get('window').width / 8 - 4
+
   return (
     <BottomTab.Navigator
       sceneContainerStyle={{ backgroundColor: colors.black }}
+      tabBarPosition="bottom"
+      timingConfig={{ duration: 300 }}
       tabBarOptions={{
         showLabel: false,
+        pressColor: 'transparent',
+        indicatorStyle: {
+          height: 4,
+          alignContent: 'space-around',
+          backgroundColor: colors.red,
+          borderLeftWidth: marginForIndicator,
+          borderRightWidth: marginForIndicator,
+          borderColor: '#fff',
+
+          marginBottom: 14
+        },
         style: {
-          height: 70,
+          height: 72,
+          paddingTop: 5,
           backgroundColor: colors.white,
           borderTopColor: colors.grayLighter
         },
         activeTintColor: colors.red,
         inactiveTintColor: colors.graySecondary,
-        keyboardHidesTabBar: true
+        showIcon: true,
+        iconStyle: {
+          width: 40,
+          alignItems: 'center',
+          height: 60
+        }
       }}
     >
       <BottomTab.Screen
@@ -49,10 +70,8 @@ const AppRoutes: React.FC = () => {
         component={ReservationNavigator}
         options={({ route }) => ({
           tabBarVisible: getTabBarVisibility(route),
-          tabBarIcon: ({ color, focused }) => (
-            <IconWrapper focused={focused}>
-              <RentIcon color={color} size={30} name="home"></RentIcon>
-            </IconWrapper>
+          tabBarIcon: ({ color }) => (
+            <RentIcon color={color} size={30} name="home"></RentIcon>
           )
         })}
       />
@@ -60,10 +79,8 @@ const AppRoutes: React.FC = () => {
         name="Cars"
         component={Cars}
         options={{
-          tabBarIcon: ({ color, focused }) => (
-            <IconWrapper focused={focused}>
-              <RentIcon color={color} size={30} name="car"></RentIcon>
-            </IconWrapper>
+          tabBarIcon: ({ color }) => (
+            <RentIcon color={color} size={30} name="car"></RentIcon>
           )
         }}
       />
@@ -71,10 +88,8 @@ const AppRoutes: React.FC = () => {
         name="Reservations"
         component={Reservations}
         options={{
-          tabBarIcon: ({ color, focused }) => (
-            <IconWrapper focused={focused}>
-              <RentIcon color={color} size={30} name="calendar"></RentIcon>
-            </IconWrapper>
+          tabBarIcon: ({ color }) => (
+            <RentIcon color={color} size={30} name="calendar"></RentIcon>
           )
         }}
       />
@@ -83,10 +98,8 @@ const AppRoutes: React.FC = () => {
         component={ProfileNavigator}
         options={({ route }) => ({
           tabBarVisible: getTabBarVisibilityForProfile(route),
-          tabBarIcon: ({ color, focused }) => (
-            <IconWrapper focused={focused}>
-              <RentIcon color={color} size={30} name="person"></RentIcon>
-            </IconWrapper>
+          tabBarIcon: ({ color }) => (
+            <RentIcon color={color} size={30} name="person"></RentIcon>
           )
         })}
       />
