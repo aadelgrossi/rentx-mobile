@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -55,18 +55,28 @@ const BASE_PRICE_RANGE = [50, 1500]
 const Home: React.FC<{
   navigation: StackNavigationProp<ReservationParamList, 'Listing'>
 }> = ({ navigation }) => {
-  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS)
-
+  const [priceRange, setPriceRange] = useState(BASE_PRICE_RANGE)
   const [startDate, setStartDate] = useState<Date>(
     lastDayOfWeek(new Date(), { weekStartsOn: 0 })
   )
   const [endDate, setEndDate] = useState<Date | null>(addDays(startDate, 4))
 
-  const [priceRange, setPriceRange] = useState(BASE_PRICE_RANGE)
-  const [fuelType, setFuelType] = useState<FUEL_TYPE | ''>()
-  const [transmissionType, setTransmissionType] = useState<TRANSMISSION | ''>(
-    ''
-  )
+  const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
+  const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
+
+  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS, {
+    variables: {
+      filter: {
+        minDailyRate: priceRange[0],
+        maxDailyRate: priceRange[1],
+        fromDate: startDate,
+        toDate: endDate,
+        fuelType,
+        transmission
+      }
+    }
+  })
+
   const [modalVisible, setModalVisible] = useState(false)
   const [calendarVisible, setCalendarVisible] = useState(false)
 
@@ -80,8 +90,8 @@ const Home: React.FC<{
 
   const handleClearFilters = useCallback(() => {
     setPriceRange(BASE_PRICE_RANGE)
-    setFuelType('')
-    setTransmissionType('')
+    setFuelType(null)
+    setTransmission(null)
   }, [])
 
   const handleDateChange = useCallback((date: any, type: string) => {
@@ -150,7 +160,7 @@ const Home: React.FC<{
               <Card {...item} />
             </TouchableOpacity>
           )}
-        ></SearchResults>
+        />
       )}
 
       <Modal
@@ -215,7 +225,7 @@ const Home: React.FC<{
               onValuesChange={values => setPriceRange(values)}
               minMarkerOverlapDistance={20}
               step={1}
-            ></MultiSlider>
+            />
           </FilterItem>
 
           <FilterItem>
@@ -232,7 +242,7 @@ const Home: React.FC<{
                       name={fuel}
                       color={fuel === fuelType ? colors.red : colors.grayAccent}
                       size={24}
-                    ></RentIcon>
+                    />
                   )}
                   <FuelOptionText>{FUEL_LABELS[fuel]}</FuelOptionText>
                 </OptionButton>
@@ -243,13 +253,13 @@ const Home: React.FC<{
           <FilterItem>
             <FilterItemTitle>Transmissão</FilterItemTitle>
             <TransmissionTypeSelect>
-              {Object.values(TRANSMISSION).map(transmission => (
+              {Object.values(TRANSMISSION).map(item => (
                 <OptionButton
-                  onPress={() => setTransmissionType(transmission)}
-                  active={transmission === transmissionType}
-                  key={transmission}
+                  onPress={() => setTransmission(item)}
+                  active={transmission === item}
+                  key={item}
                 >
-                  <OptionText>{TRANSMISSION_LABELS[transmission]}</OptionText>
+                  <OptionText>{TRANSMISSION_LABELS[item]}</OptionText>
                 </OptionButton>
               ))}
             </TransmissionTypeSelect>

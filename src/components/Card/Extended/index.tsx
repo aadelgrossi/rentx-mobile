@@ -16,9 +16,9 @@ const ExtendedCard: React.FC<Car> = ({
   manufacturer,
   model,
   dailyRate,
+  fuelType,
   photo
 }) => {
-  const fuelType = 'gas'
   return (
     <Container>
       <ModelInfo>
