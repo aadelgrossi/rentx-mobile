@@ -1,21 +1,21 @@
 import styled from 'styled-components/native'
 
-import colors from '../../../styles/colors'
+import colors from '~/styles/colors'
 
 export const Container = styled.View`
   width: 100%;
   height: 140px;
   background-color: ${colors.grayLightest};
   margin-bottom: 16px;
-  padding: 20px 20px 20px;
   flex-direction: row;
   align-items: center;
 `
 
 export const Info = styled.View`
-  margin-right: 20px;
-  width: 120px;
+  margin-left: 20px;
+  width: 150px;
 `
+
 export const ModelInfo = styled.View``
 
 export const Label = styled.Text`

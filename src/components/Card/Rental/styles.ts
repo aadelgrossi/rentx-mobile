@@ -1,7 +1,15 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import styled from 'styled-components/native'
 
-import colors from '../../../../styles/colors'
+import colors from '~/styles/colors'
+
+import { Container, RateValue } from '../styles'
+
+export const DetailsContainer = styled(Container)`
+  margin-bottom: 0;
+`
+
+export const TotalValue = styled(RateValue)``
 
 export const DateInfoContainer = styled.View<{ isOnGoingReservation: boolean }>`
   height: 40px;
@@ -15,15 +23,8 @@ export const DateInfoContainer = styled.View<{ isOnGoingReservation: boolean }>`
   margin-bottom: 16px;
 `
 
-export const Label = styled.Text`
-  text-transform: uppercase;
-  font-size: 12px;
-  font-family: 'archivo-500';
-  color: ${colors.grayAccent};
-`
-
 export const OnGoingReservationText = styled.Text`
-  font-size: 'archivo-600';
+  font-family: 'archivo-500';
   color: ${colors.green};
   font-size: 15px;
 `

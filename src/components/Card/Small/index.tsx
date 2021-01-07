@@ -12,7 +12,7 @@ import {
   AddInfoContent,
   RateValue,
   CarPhoto
-} from './styles'
+} from '../styles'
 
 const CarCard: React.FC<Car> = ({
   manufacturer,
@@ -37,7 +37,7 @@ const CarCard: React.FC<Car> = ({
         </AddInfo>
       </Info>
 
-      <CarPhoto style={{ resizeMode: 'cover' }} source={{ uri: photo.url }} />
+      <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
     </Container>
   )
 }

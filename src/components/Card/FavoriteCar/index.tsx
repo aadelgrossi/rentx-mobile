@@ -1,18 +1,17 @@
 import React from 'react'
 
-import colors from '../../../styles/colors'
-import RentIcon from '../../RentIcon'
+import RentIcon from '~/components/RentIcon'
+import colors from '~/styles/colors'
+
 import {
-  DetailsContainer,
+  Container,
   Info,
   ModelInfo,
-  AddInfo,
-  AddInfoContent,
   Label,
-  CarModel,
-  TotalValue,
-  CarPhoto
-} from './styles'
+  AddInfo,
+  AddInfoContent
+} from '../styles'
+import { CarModel, TotalValue, CarPhoto } from './styles'
 
 const FavoriteCarCard: React.FC<FavoriteCar> = ({
   dailyRate,
@@ -23,7 +22,7 @@ const FavoriteCarCard: React.FC<FavoriteCar> = ({
   totalDays
 }) => {
   return (
-    <DetailsContainer>
+    <Container>
       <Info>
         <ModelInfo>
           <Label>{manufacturer.name}</Label>
@@ -39,7 +38,7 @@ const FavoriteCarCard: React.FC<FavoriteCar> = ({
       </Info>
 
       <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
-    </DetailsContainer>
+    </Container>
   )
 }
 
