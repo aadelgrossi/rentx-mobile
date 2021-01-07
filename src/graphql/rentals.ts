@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query GetAllRentals {
+  query GetUserRentals {
     rentals {
       id
       car {
-        name
+        model
         manufacturer {
           name
         }
         fuelType
-        dailyValue
+        dailyRate
         photo {
           url
         }
