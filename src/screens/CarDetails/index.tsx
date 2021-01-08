@@ -5,7 +5,7 @@ import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
-import CAR_WITH_SPECS from '~/graphql/specs'
+import CAR_SPECIFICATIONS from '~/graphql/specs'
 
 import Button from '../../components/Button'
 import RentIcon from '../../components/RentIcon'
@@ -44,7 +44,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
     startDate,
     endDate
   } = route.params
-  const { data } = useQuery<{ car: Car }>(CAR_WITH_SPECS, {
+  const { data } = useQuery<{ specifications: CarSpec[] }>(CAR_SPECIFICATIONS, {
     variables: { id }
   })
 
@@ -77,7 +77,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
             </Item>
           </Section>
         }
-        data={data?.car.specifications}
+        data={data?.specifications}
         keyExtractor={({ id }: CarSpec) => id}
         renderItem={({ item: { specification, value } }: { item: CarSpec }) => (
           <SpecItemContainer>
