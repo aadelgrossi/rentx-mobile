@@ -16,6 +16,16 @@ export type SignUpRoutesParamList = {
 }
 
 export type AppRoutesParamList = {
+  Tabs: undefined
+  ProfileNavigator: undefined
+  CreateReservationNavigator: {
+    car: Car
+    startDate: string
+    endDate: string
+  }
+}
+
+export type TabRoutesParamList = {
   Home: undefined
   Cars: undefined
   Reservations: undefined
@@ -23,7 +33,6 @@ export type AppRoutesParamList = {
 }
 
 export type ReservationParamList = {
-  Listing: undefined
   CarDetails: {
     car: Car
     startDate: string
@@ -33,7 +42,6 @@ export type ReservationParamList = {
 }
 
 export type ProfileParamList = {
-  Main: undefined
   ProfileInfo: undefined
   ChangePassword: undefined
   UpdateConfirm: undefined

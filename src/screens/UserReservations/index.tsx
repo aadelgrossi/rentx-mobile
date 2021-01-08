@@ -8,7 +8,7 @@ import GET_RENTALS from '~/graphql/rentals'
 
 import { Container, Header, Title, ResultsCount, RentalsList } from './styles'
 
-const Reservations: React.FC = () => {
+const UserReservations: React.FC = () => {
   const { data } = useQuery<{ rentals: Rental[] }>(GET_RENTALS)
 
   return (
@@ -33,4 +33,4 @@ const Reservations: React.FC = () => {
   )
 }
 
-export default Reservations
+export default UserReservations

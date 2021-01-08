@@ -1,16 +1,23 @@
 import React from 'react'
 
 import { useQuery } from '@apollo/client'
+import { NavigationProp } from '@react-navigation/native'
 
 import Card from '~/components/Card/FavoriteCar'
 import ProfilePicture from '~/components/ProfilePicture'
+import RentIcon from '~/components/RentIcon'
 import { USER_INFO } from '~/graphql/user'
 import { useAuth } from '~/hooks/useAuth'
+import { AppRoutesParamList } from '~/navigation/types'
+import colors from '~/styles/colors'
 import { formatLongDate } from '~/utils/formatDate'
 
 import {
   Container,
   Spacing,
+  EditProfileButton,
+  LogOutButton,
+  HeaderTitle,
   Contents,
   ProfileContainer,
   InfoItem,
@@ -18,18 +25,33 @@ import {
   InfoValue,
   Separator,
   FavoriteCarContainer,
-  UserName
+  UserName,
+  Header
 } from './styles'
 
-const Profile: React.FC = () => {
+const Profile: React.FC<{
+  navigation: NavigationProp<AppRoutesParamList, 'Tabs'>
+}> = ({ navigation }) => {
   const {
-    user: { name, createdAt }
+    user: { name, createdAt },
+    signOut
   } = useAuth()
 
   const { data } = useQuery<{ me: User }>(USER_INFO)
 
   return (
     <Container>
+      <Header>
+        <EditProfileButton
+          onPress={() => navigation.navigate('ProfileNavigator')}
+        >
+          <RentIcon name="edit" color={colors.grayAccent} />
+        </EditProfileButton>
+        <HeaderTitle>Perfil</HeaderTitle>
+        <LogOutButton onPress={() => signOut()}>
+          <RentIcon name="power" color={colors.grayAccent} />
+        </LogOutButton>
+      </Header>
       <Spacing />
       <Contents>
         <ProfileContainer>

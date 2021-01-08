@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { RouteProp } from '@react-navigation/native'
-import { SignUpRoutesParamList } from 'types'
 
 import Button from '~/components/Button'
 import Prompt from '~/components/Prompt'
 import { useAuth } from '~/hooks'
+import { SignUpRoutesParamList } from '~/navigation/types'
 
 interface ConfirmProps {
   route: RouteProp<SignUpRoutesParamList, 'SignUpConfirm'>

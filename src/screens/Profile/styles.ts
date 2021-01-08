@@ -8,6 +8,24 @@ export const Container = styled.ScrollView`
   flex-direction: column;
 `
 
+export const Header = styled.View`
+  background-color: ${colors.black};
+  height: 100px;
+  flex-direction: row;
+  padding: 50px 32px 0;
+  justify-content: space-between;
+`
+
+export const EditProfileButton = styled.TouchableOpacity``
+
+export const LogOutButton = styled.TouchableOpacity``
+
+export const HeaderTitle = styled.Text`
+  font-size: 25px;
+  font-family: 'archivo-600';
+  color: ${colors.white};
+`
+
 export const Spacing = styled.View`
   background-color: ${colors.black};
   height: 100px;

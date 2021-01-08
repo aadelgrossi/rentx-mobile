@@ -2,10 +2,10 @@ import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { InitialRoutesParamList } from '../../types'
 import SignIn from '../screens/SignIn'
 import Welcome from '../screens/Welcome'
 import SignUpNavigator from './signup.routes'
+import { InitialRoutesParamList } from './types'
 
 const Stack = createStackNavigator<InitialRoutesParamList>()
 

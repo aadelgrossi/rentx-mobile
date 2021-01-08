@@ -30,13 +30,15 @@ import UpdatePassword from './UpdatePassword'
 const ProfileInfo: React.FC = () => {
   const navigation = useNavigation()
 
+  const { width: screenWidth } = Dimensions.get('screen')
+
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     {
       key: 'updateInfo',
-      title: 'Dados'
+      title: 'Dados '
     },
-    { key: 'updatePassword', title: 'Senha' }
+    { key: 'updatePassword', title: 'Senha ' }
   ])
 
   const renderScene = SceneMap({
@@ -53,6 +55,9 @@ const ProfileInfo: React.FC = () => {
       {...props}
       indicatorStyle={{
         backgroundColor: colors.red,
+        width: 54,
+        position: 'absolute',
+        marginLeft: screenWidth / 6.4,
         height: 2
       }}
       style={{ backgroundColor: colors.white, elevation: 0 }}

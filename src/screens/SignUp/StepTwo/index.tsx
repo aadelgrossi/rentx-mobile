@@ -12,12 +12,12 @@ import {
   Platform
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { SignUpRoutesParamList } from 'types'
 
 import Button from '~/components/Button'
 import { SecureTextInput } from '~/components/Input'
 import { SignUpPassword } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'
+import { SignUpRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { signUpStepTwoSchema } from '~/validators'
 

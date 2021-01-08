@@ -49,7 +49,6 @@ export const SubmitButton = styled(Button)`
 
 export const TabBarTitle = styled.Text<{ focused: boolean }>`
   font-size: 18px;
-  padding: 0 20px;
   font-family: ${props => (props.focused ? 'archivo-600' : 'archivo-500')};
   color: ${props => (props.focused ? colors.lightBlack : colors.grayText)};
 `
