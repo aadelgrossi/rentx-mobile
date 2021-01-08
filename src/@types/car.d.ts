@@ -1,9 +1,14 @@
 type CustomCarSpec = 'speed' | 'acceleration' | 'hp' | 'person' | 'transmission'
 type TransmissionSpec = 'auto' | 'manual'
 type FuelSpec = 'electric' | 'hybrid' | 'gas'
+
+interface Specification {
+  icon: CustomCarSpec
+  isIconValue: boolean
+}
 interface CarSpec {
   id: string
-  name: CustomCarSpec | TransmissionSpec | FuelSpec
+  specification: Specification
   value: string
 }
 

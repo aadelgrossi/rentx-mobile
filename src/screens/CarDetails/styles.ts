@@ -9,20 +9,21 @@ export const Container = styled.View`
   flex: 1;
   width: 100%;
   background-color: ${colors.white};
-  justify-content: space-between;
 `
 
 export const BackIcon = styled(MaterialIcons).attrs({
   name: 'keyboard-arrow-left',
-  size: 28,
+  size: 36,
   color: colors.grayAccent
 })``
 
 export const BackButton = styled.TouchableOpacity`
-  padding: 10px;
   position: absolute;
-  top: 32px;
-  left: 16px;
+  width: 80px;
+  height: 80px;
+  z-index: 5;
+  top: 68px;
+  left: 8px;
   align-items: center;
   justify-content: center;
 `
@@ -30,14 +31,14 @@ export const BackButton = styled.TouchableOpacity`
 export const Item = styled.View``
 
 export const CarPhoto = styled.Image`
-  height: 160px;
-  margin: 48px 72px 0;
+  height: ${Dimensions.get('screen').height / 4}px;
+  margin: 130px 20px 8px;
 `
 
 export const Section = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin: 0 12px 8px;
+  margin: 0 12px 24px;
   align-items: center;
 `
 
@@ -51,6 +52,7 @@ export const Label = styled.Text`
 export const InfoValue = styled.Text`
   font-size: 25px;
   font-family: 'archivo-500';
+  line-height: 32px;
 `
 
 export const CarTitle = styled(InfoValue)`
@@ -65,6 +67,7 @@ export const DateItem = styled(InfoValue)`
   font-size: 15px;
   color: ${colors.red};
   font-family: 'inter-500';
+  line-height: 24px;
 `
 
 export const TotalPrice = styled(CarTitle)``
@@ -81,7 +84,7 @@ export const SubtotalContainer = styled.View`
 `
 
 export const SubTotalSection = styled(Section)`
-  margin: 0 0 16px;
+  margin: 0 0 32px;
 `
 
 export const SpecificationsContainer = styled(
@@ -89,14 +92,14 @@ export const SpecificationsContainer = styled(
 ).attrs({
   numColumns: 3,
   contentContainerStyle: {
-    justifyContent: 'center'
+    marginTop: 'auto'
   }
 })`
-  margin: 0 12px;
+  margin: 0 12px 32px;
 `
 
 export const DatesSection = styled(Section)`
-  margin: 8px 12px 0;
+  margin: 24px 12px 0;
 `
 
 export const SpecItemContainer = styled.View`
@@ -105,7 +108,7 @@ export const SpecItemContainer = styled.View`
   margin: 4px;
   padding: 10px 0;
   width: ${Dimensions.get('window').width / 3 - 16}px;
-  height: 90px;
+  height: 94px;
   justify-content: space-evenly;
 `
 

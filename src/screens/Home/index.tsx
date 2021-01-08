@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import { CompositeNavigationProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { addDays, lastDayOfWeek } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
@@ -15,8 +16,8 @@ import Card from '../../components/Card/Extended'
 import CustomMarker from '../../components/CustomMarker'
 import RentIcon from '../../components/RentIcon'
 import { FUEL_TYPE, TRANSMISSION } from '../../constants'
-import GET_ALL_CARS from '../../graphql/cars'
-import { AppRoutesParamList } from '../../navigation/types'
+import ALL_CARS from '../../graphql/cars'
+import { AppRoutesParamList, TabRoutesParamList } from '../../navigation/types'
 import colors from '../../styles/colors'
 import { formatShortDate } from '../../utils/formatDate'
 import { FUEL_LABELS, TRANSMISSION_LABELS } from '../../utils/spec_labels'
@@ -51,9 +52,11 @@ import {
 } from './styles'
 
 const BASE_PRICE_RANGE = [50, 3000]
-
 const Home: React.FC<{
-  navigation: StackNavigationProp<AppRoutesParamList, 'Tabs'>
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<TabRoutesParamList, 'Home'>,
+    StackNavigationProp<AppRoutesParamList>
+  >
 }> = ({ navigation }) => {
   const [priceRange, setPriceRange] = useState(BASE_PRICE_RANGE)
   const [startDate, setStartDate] = useState<Date>(
@@ -64,7 +67,7 @@ const Home: React.FC<{
   const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
   const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
 
-  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS, {
+  const { data } = useQuery<{ cars: Car[] }>(ALL_CARS, {
     variables: {
       filter: {
         minDailyRate: priceRange[0],
@@ -107,9 +110,12 @@ const Home: React.FC<{
     (car: Car) => {
       if (startDate && endDate) {
         navigation.navigate('CreateReservationNavigator', {
-          car,
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString()
+          screen: 'CarDetails',
+          params: {
+            car,
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString()
+          }
         })
       }
     },

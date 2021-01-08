@@ -1,3 +1,5 @@
+import { NavigatorScreenParams } from '@react-navigation/native'
+
 import { AuthState } from '~/contexts/auth.types'
 
 export type InitialRoutesParamList = {
@@ -18,11 +20,7 @@ export type SignUpRoutesParamList = {
 export type AppRoutesParamList = {
   Tabs: undefined
   ProfileNavigator: undefined
-  CreateReservationNavigator: {
-    car: Car
-    startDate: string
-    endDate: string
-  }
+  CreateReservationNavigator: NavigatorScreenParams<ReservationParamList>
 }
 
 export type TabRoutesParamList = {

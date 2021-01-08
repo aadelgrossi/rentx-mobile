@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react'
 
+import { useQuery } from '@apollo/client'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
-import { ReservationParamList } from '../../../types'
+import CAR_WITH_SPECS from '~/graphql/specs'
+
 import Button from '../../components/Button'
 import RentIcon from '../../components/RentIcon'
+import { ReservationParamList } from '../../navigation/types'
 import colors from '../../styles/colors'
 import { formatShortDate } from '../../utils/formatDate'
-import { FUEL_LABELS, TRANSMISSION_LABELS } from '../../utils/spec_labels'
 import {
   Container,
   Section,
@@ -37,60 +39,58 @@ interface CarDetailsProps {
 }
 
 const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
-  const { car, startDate, endDate } = route.params
-
-  const allSpecifications: CarSpec[] = [
-    {
-      id: 'fuel',
-      name: car.fuelType,
-      value: FUEL_LABELS[car.fuelType]
-    },
-    {
-      id: 'transmission',
-      name: 'transmission',
-      value: TRANSMISSION_LABELS[car.transmission]
-    },
-    ...car.specifications
-  ]
+  const {
+    car: { id, manufacturer, model, dailyRate, photo },
+    startDate,
+    endDate
+  } = route.params
+  const { data } = useQuery<{ car: Car }>(CAR_WITH_SPECS, {
+    variables: { id }
+  })
 
   const reservationDaysAmount = useMemo(() => {
     return differenceInDays(parseISO(endDate), parseISO(startDate)) + 1
   }, [startDate, endDate])
 
   const totalPrice = useMemo(() => {
-    return car.dailyValue * reservationDaysAmount
-  }, [car.dailyValue, reservationDaysAmount])
+    return dailyRate * reservationDaysAmount
+  }, [dailyRate, reservationDaysAmount])
 
   return (
     <Container>
       <BackButton onPress={() => navigation.goBack()}>
         <BackIcon />
       </BackButton>
-      <CarPhoto
-        style={{ resizeMode: 'contain' }}
-        source={{ uri: car.photo.url }}
-      />
+      <CarPhoto style={{ resizeMode: 'cover' }} source={{ uri: photo.url }} />
 
       <SpecificationsContainer
         scrollEnabled
         ListHeaderComponent={
           <Section>
             <Item>
-              <Label>{car.manufacturer.name}</Label>
-              <CarTitle>{car.name}</CarTitle>
+              <Label>{manufacturer.name}</Label>
+              <CarTitle>{model}</CarTitle>
             </Item>
             <Item>
               <Label>Ao dia</Label>
-              <CarRate>R$ {car.dailyValue}</CarRate>
+              <CarRate>R$ {dailyRate}</CarRate>
             </Item>
           </Section>
         }
-        data={allSpecifications}
+        data={data?.car.specifications}
         keyExtractor={({ id }: CarSpec) => id}
-        renderItem={({ item }: { item: CarSpec }) => (
+        renderItem={({ item: { specification, value } }: { item: CarSpec }) => (
           <SpecItemContainer>
-            <RentIcon name={item.name} size={32} color={colors.grayPrimary} />
-            <SpecItemText>{item.value}</SpecItemText>
+            <RentIcon
+              name={
+                specification.isIconValue
+                  ? (value as CustomCarSpec)
+                  : specification.icon
+              }
+              size={32}
+              color={colors.grayPrimary}
+            />
+            <SpecItemText>{value}</SpecItemText>
           </SpecItemContainer>
         )}
         ListFooterComponent={
@@ -99,12 +99,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
               <Label>De</Label>
               <DateItem>{formatShortDate(startDate)}</DateItem>
             </Item>
-
-            <RentIcon
-              name="arrow-right"
-              color={colors.grayAccent}
-              size={15}
-            ></RentIcon>
+            <RentIcon name="arrow-right" color={colors.grayAccent} size={15} />
             <Item>
               <Label>Até</Label>
               <DateItem>{formatShortDate(endDate)}</DateItem>
@@ -118,7 +113,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
           <Item>
             <Label>Total</Label>
             <SubTotal>
-              R$ {car.dailyValue} x{reservationDaysAmount} diárias
+              R$ {dailyRate} x{reservationDaysAmount} diárias
             </SubTotal>
           </Item>
           <Item>
