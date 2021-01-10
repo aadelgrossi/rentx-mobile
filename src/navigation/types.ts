@@ -18,8 +18,8 @@ export type SignUpRoutesParamList = {
 }
 
 export type AppRoutesParamList = {
-  Tabs: undefined
-  ProfileNavigator: undefined
+  Tabs: NavigatorScreenParams<TabRoutesParamList>
+  ProfileNavigator: NavigatorScreenParams<ProfileParamList>
   CreateReservationNavigator: NavigatorScreenParams<ReservationParamList>
 }
 

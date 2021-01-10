@@ -1,14 +1,15 @@
 import React from 'react'
 
 import { useQuery } from '@apollo/client'
-import { NavigationProp } from '@react-navigation/native'
+import { CompositeNavigationProp } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import Card from '~/components/Card/FavoriteCar'
 import ProfilePicture from '~/components/ProfilePicture'
 import RentIcon from '~/components/RentIcon'
 import { USER_INFO } from '~/graphql/user'
 import { useAuth } from '~/hooks/useAuth'
-import { AppRoutesParamList } from '~/navigation/types'
+import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { formatLongDate } from '~/utils/formatDate'
 
@@ -29,12 +30,16 @@ import {
   Header
 } from './styles'
 
-const Profile: React.FC<{
-  navigation: NavigationProp<AppRoutesParamList, 'Tabs'>
-}> = ({ navigation }) => {
+interface ProfileScreenProps {
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<TabRoutesParamList, 'Profile'>,
+    StackNavigationProp<AppRoutesParamList>
+  >
+}
+
+const Profile: React.FC<ProfileScreenProps> = ({ navigation }) => {
   const {
-    user: { name, createdAt },
-    signOut
+    user: { name, createdAt }
   } = useAuth()
 
   const { data } = useQuery<{ me: User }>(USER_INFO)
@@ -43,12 +48,18 @@ const Profile: React.FC<{
     <Container>
       <Header>
         <EditProfileButton
-          onPress={() => navigation.navigate('ProfileNavigator')}
+          onPress={() =>
+            navigation.navigate('ProfileNavigator', { screen: 'ProfileInfo' })
+          }
         >
           <RentIcon name="edit" color={colors.grayAccent} />
         </EditProfileButton>
         <HeaderTitle>Perfil</HeaderTitle>
-        <LogOutButton onPress={() => signOut()}>
+        <LogOutButton
+          onPress={() =>
+            navigation.navigate('ProfileNavigator', { screen: 'SignOutPrompt' })
+          }
+        >
           <RentIcon name="power" color={colors.grayAccent} />
         </LogOutButton>
       </Header>

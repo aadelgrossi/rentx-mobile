@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { NavigationProp, RouteProp } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
@@ -33,12 +33,9 @@ import {
   SubTotalSection
 } from './styles'
 
-interface CarDetailsProps {
-  route: RouteProp<ReservationParamList, 'CarDetails'>
-  navigation: NavigationProp<ReservationParamList, 'CarDetails'>
-}
-
-const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
+const CarDetails: React.FC<
+  StackScreenProps<ReservationParamList, 'CarDetails'>
+> = ({ route, navigation }) => {
   const {
     car: { id, manufacturer, model, dailyRate, photo },
     startDate,
