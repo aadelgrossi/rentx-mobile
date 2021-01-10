@@ -17,5 +17,6 @@ export const TotalValue = styled.Text`
 
 export const CarPhoto = styled.Image`
   flex: 1;
-  height: 90%;
+  height: 100%;
+  margin-right: 10px;
 `
