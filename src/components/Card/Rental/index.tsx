@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { differenceInDays, isAfter, parseISO } from 'date-fns'
+import { differenceInDays, isAfter, isToday, parseISO } from 'date-fns'
 
 import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
@@ -35,7 +35,7 @@ const RentalCard: React.FC<Rental> = ({
     const parsedStartDate = parseISO(startDate)
     const parsedEndDate = parseISO(endDate)
 
-    return differenceInDays(parsedEndDate, parsedStartDate)
+    return differenceInDays(parsedEndDate, parsedStartDate) + 1
   }, [startDate, endDate])
 
   const totalValue = useMemo(() => {
@@ -43,8 +43,10 @@ const RentalCard: React.FC<Rental> = ({
   }, [amountOfDays, dailyRate])
 
   const isOnGoingReservation = useMemo(() => {
-    return isAfter(new Date(), parseISO(startDate))
-  }, [startDate])
+    const parsedEndDAte = parseISO(endDate)
+
+    return isAfter(parsedEndDAte, new Date()) || isToday(parsedEndDAte)
+  }, [endDate])
 
   return (
     <>
@@ -63,7 +65,10 @@ const RentalCard: React.FC<Rental> = ({
           </AddInfo>
         </Info>
 
-        <CarPhoto style={{ resizeMode: 'cover' }} source={{ uri: photo.url }} />
+        <CarPhoto
+          style={{ resizeMode: 'contain', marginRight: 10 }}
+          source={{ uri: photo.url }}
+        />
       </DetailsContainer>
 
       <DateInfoContainer isOnGoingReservation={isOnGoingReservation}>
