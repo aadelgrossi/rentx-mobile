@@ -6,7 +6,7 @@ import {
 } from '@apollo/client'
 
 const httpLink = new HttpLink({
-  uri: 'http://192.168.0.153:3333/graphql'
+  uri: process.env.API_URL
 })
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
