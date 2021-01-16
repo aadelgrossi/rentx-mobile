@@ -22,7 +22,7 @@ export const BackButton = styled.TouchableOpacity`
   width: 80px;
   height: 80px;
   z-index: 5;
-  top: 68px;
+  top: 30px;
   left: 8px;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@ export const Item = styled.View``
 
 export const CarPhoto = styled.Image`
   height: ${Dimensions.get('screen').height / 4}px;
-  margin: 130px 20px 8px;
+  margin: 60px 12px 0;
 `
 
 export const Section = styled.View`

@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { StackScreenProps } from '@react-navigation/stack'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
+import { CREATE_RENTAL, GET_RENTALS } from '~/graphql/rentals'
 import CAR_SPECIFICATIONS from '~/graphql/specs'
 
 import Button from '../../components/Button'
@@ -45,6 +46,11 @@ const CarDetails: React.FC<
     variables: { id }
   })
 
+  const [createRental] = useMutation(CREATE_RENTAL, {
+    variables: { data: { startDate, endDate, carId: id } },
+    refetchQueries: [{ query: GET_RENTALS }]
+  })
+
   const reservationDaysAmount = useMemo(() => {
     return differenceInDays(parseISO(endDate), parseISO(startDate)) + 1
   }, [startDate, endDate])
@@ -53,12 +59,21 @@ const CarDetails: React.FC<
     return dailyRate * reservationDaysAmount
   }, [dailyRate, reservationDaysAmount])
 
+  const handleSubmit = useCallback(async () => {
+    try {
+      await createRental()
+      navigation.navigate('ConfirmReservation')
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
+
   return (
     <Container>
       <BackButton onPress={() => navigation.goBack()}>
         <BackIcon />
       </BackButton>
-      <CarPhoto style={{ resizeMode: 'cover' }} source={{ uri: photo.url }} />
+      <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
 
       <SpecificationsContainer
         scrollEnabled
@@ -117,9 +132,7 @@ const CarDetails: React.FC<
             <TotalPrice>R$ {totalPrice}</TotalPrice>
           </Item>
         </SubTotalSection>
-        <Button onPress={() => navigation.navigate('ConfirmReservation')}>
-          Alugar agora
-        </Button>
+        <Button onPress={handleSubmit}>Alugar agora</Button>
       </SubtotalContainer>
       <StatusBar style="dark" />
     </Container>
