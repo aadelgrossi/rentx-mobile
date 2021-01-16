@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 
-import { differenceInDays, isAfter, isToday, parseISO } from 'date-fns'
+import { differenceInDays, isAfter, parseISO } from 'date-fns'
+import { startOfDay } from 'date-fns/esm'
 
 import RentIcon from '~/components/RentIcon'
 import colors from '~/styles/colors'
@@ -44,9 +45,11 @@ const RentalCard: React.FC<Rental> = ({
 
   const isOnGoingReservation = useMemo(() => {
     const parsedEndDAte = parseISO(endDate)
+    const parsedStartDate = parseISO(startDate)
+    const today = startOfDay(new Date())
 
-    return isAfter(parsedEndDAte, new Date()) || isToday(parsedEndDAte)
-  }, [endDate])
+    return isAfter(parsedEndDAte, today) && !isAfter(parsedStartDate, today)
+  }, [startDate, endDate])
 
   return (
     <>

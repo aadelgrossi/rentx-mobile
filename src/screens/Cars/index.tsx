@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar'
 import { SearchInput } from '~/components/Input'
 
 import Card from '../../components/Card/Small'
-import GET_ALL_CARS from '../../graphql/cars'
+import { CARS } from '../../graphql/cars'
 import {
   Container,
   Header,
@@ -18,7 +18,7 @@ import {
 
 const Cars: React.FC = () => {
   const [query, setQuery] = useState('')
-  const { data } = useQuery<{ cars: Car[] }>(GET_ALL_CARS, {
+  const { data } = useQuery<{ cars: Car[] }>(CARS, {
     variables: { filter: { fullName: query } }
   })
 

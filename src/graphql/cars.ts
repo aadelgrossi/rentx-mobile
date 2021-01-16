@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+export const CARS = gql`
   query GetCars($filter: CarFilterArgs!) {
     cars(filter: $filter) {
       id
