@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+const GET_RENTALS = gql`
   query GetUserRentals {
     rentals {
       id
@@ -20,3 +20,14 @@ export default gql`
     }
   }
 `
+
+const CREATE_RENTAL = gql`
+  mutation CreateRental($data: CreateRentalInput!) {
+    createRental(data: $data) {
+      id
+      createdAt
+    }
+  }
+`
+
+export { GET_RENTALS, CREATE_RENTAL }

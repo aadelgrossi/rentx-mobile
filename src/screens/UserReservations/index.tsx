@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
 import Card from '~/components/Card/Rental'
-import GET_RENTALS from '~/graphql/rentals'
+import { GET_RENTALS } from '~/graphql/rentals'
 
 import { Container, Header, Title, ResultsCount, RentalsList } from './styles'
 

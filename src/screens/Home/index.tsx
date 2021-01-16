@@ -16,7 +16,7 @@ import Card from '../../components/Card/Extended'
 import CustomMarker from '../../components/CustomMarker'
 import RentIcon from '../../components/RentIcon'
 import { FUEL_TYPE, TRANSMISSION } from '../../constants'
-import ALL_CARS from '../../graphql/cars'
+import { CARS } from '../../graphql/cars'
 import { AppRoutesParamList, TabRoutesParamList } from '../../navigation/types'
 import colors from '../../styles/colors'
 import { formatShortDate } from '../../utils/formatDate'
@@ -67,7 +67,7 @@ const Home: React.FC<{
   const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
   const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
 
-  const { data } = useQuery<{ cars: Car[] }>(ALL_CARS, {
+  const { data } = useQuery<{ cars: Car[] }>(CARS, {
     variables: {
       filter: {
         minDailyRate: priceRange[0],
