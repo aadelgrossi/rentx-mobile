@@ -3,11 +3,11 @@ interface BaseOption {
 }
 
 interface TransmissionOption extends BaseOption {
-  value: TransmissionType | ''
+  value: TransmissionSpec | ''
 }
 
 interface FuelTypeOption extends BaseOption {
-  value: FuelType | ''
+  value: FuelSpec | ''
 }
 
 const transmissionTypes: TransmissionOption[] = [

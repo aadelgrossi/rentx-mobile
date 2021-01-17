@@ -2,12 +2,12 @@ import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 
-import Button from '../../../components/Button'
-import Prompt from '../../../components/Prompt'
-import { useAuth } from '../../../hooks/useAuth'
+import { Button, Prompt } from '~/components'
+import { useAuth } from '~/hooks'
+
 import { ButtonGroup } from './styles'
 
-const SignOutPrompt: React.FC = () => {
+export const SignOutPrompt: React.FC = () => {
   const { signOut } = useAuth()
   const navigation = useNavigation()
   return (
@@ -31,5 +31,3 @@ const SignOutPrompt: React.FC = () => {
     </Prompt>
   )
 }
-
-export default SignOutPrompt

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { TextInputProps } from 'react-native'
 
-import RentIcon from '~/components/RentIcon'
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 import { Wrapper } from '../styles'

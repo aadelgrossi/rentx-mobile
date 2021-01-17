@@ -7,15 +7,14 @@ import {
 } from '@react-navigation/stack'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import ProfileInfo from '../screens/Profile/ProfileInfo'
-import SignOutPrompt from '../screens/Profile/SignOutPrompt'
-import UpdateConfirm from '../screens/Profile/UpdateConfirm'
-import colors from '../styles/colors'
-import { ProfileParamList } from './types'
+import { ProfileInfo, SignOutPrompt, UpdateConfirm } from '~/screens/Profile'
+import colors from '~/styles/colors'
+
+import { ProfileParamList } from '../types'
 
 const ProfileStack = createStackNavigator<ProfileParamList>()
 
-const ProfileNavigator: React.FC = () => {
+export const ProfileNavigator: React.FC = () => {
   return (
     <ProfileStack.Navigator
       screenOptions={{
@@ -68,5 +67,3 @@ const ProfileNavigator: React.FC = () => {
     </ProfileStack.Navigator>
   )
 }
-
-export default ProfileNavigator

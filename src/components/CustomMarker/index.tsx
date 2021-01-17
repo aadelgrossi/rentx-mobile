@@ -3,7 +3,7 @@ import React from 'react'
 import colors from '../../styles/colors'
 import { Container, Line } from './styles'
 
-const CustomMarker: React.FC = () => {
+export const CustomMarker: React.FC = () => {
   return (
     <Container
       style={{
@@ -23,5 +23,3 @@ const CustomMarker: React.FC = () => {
     </Container>
   )
 }
-
-export default CustomMarker

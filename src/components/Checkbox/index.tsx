@@ -8,7 +8,7 @@ interface CheckboxProps {
   text: string
 }
 
-const CheckBox: React.FC<CheckboxProps> = ({
+export const CheckBox: React.FC<CheckboxProps> = ({
   checked,
   text = '',
   ...props
@@ -18,5 +18,3 @@ const CheckBox: React.FC<CheckboxProps> = ({
     <CheckboxText> {text} </CheckboxText>
   </Container>
 )
-
-export default CheckBox

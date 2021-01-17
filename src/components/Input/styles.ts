@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import colors from '../../styles/colors'
+import colors from '~/styles/colors'
 
 export const Wrapper = styled.View<{ hasError?: boolean }>`
   height: 56px;

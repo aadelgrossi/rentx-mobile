@@ -3,18 +3,15 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Dimensions } from 'react-native'
 
-import RentIcon from '~/components/RentIcon'
-import Home from '~/screens/Home'
-import Profile from '~/screens/Profile'
+import { RentIcon } from '~/components'
+import { Cars, Home, UserReservations, ProfileSummary } from '~/screens'
+import colors from '~/styles/colors'
 
-import Cars from '../screens/Cars'
-import UserReservations from '../screens/UserReservations'
-import colors from '../styles/colors'
-import { TabRoutesParamList } from './types'
+import { TabRoutesParamList } from '../types'
 
 const BottomTab = createMaterialTopTabNavigator<TabRoutesParamList>()
 
-const Tabs: React.FC = () => {
+export const Tabs: React.FC = () => {
   const marginForIndicator = Dimensions.get('window').width / 8 - 4
 
   return (
@@ -73,7 +70,7 @@ const Tabs: React.FC = () => {
       />
       <BottomTab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileSummary}
         options={{
           tabBarIcon: ({ color }) => <RentIcon color={color} name="person" />
         }}
@@ -81,5 +78,3 @@ const Tabs: React.FC = () => {
     </BottomTab.Navigator>
   )
 }
-
-export default Tabs

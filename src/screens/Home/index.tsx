@@ -11,16 +11,15 @@ import { Dimensions } from 'react-native'
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
 
-import Calendar from '../../components/Calendar'
-import Card from '../../components/Card/Extended'
-import CustomMarker from '../../components/CustomMarker'
-import RentIcon from '../../components/RentIcon'
-import { FUEL_TYPE, TRANSMISSION } from '../../constants'
-import { CARS } from '../../graphql/cars'
-import { AppRoutesParamList, TabRoutesParamList } from '../../navigation/types'
-import colors from '../../styles/colors'
-import { formatShortDate } from '../../utils/formatDate'
-import { FUEL_LABELS, TRANSMISSION_LABELS } from '../../utils/spec_labels'
+import { Calendar, CustomMarker, RentIcon } from '~/components'
+import { ExtendedCard } from '~/components/Card'
+import { FUEL_TYPE, TRANSMISSION } from '~/constants'
+import { CARS } from '~/graphql/cars'
+import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
+import colors from '~/styles/colors'
+import { formatShortDate } from '~/utils/formatDate'
+import { FUEL_LABELS, TRANSMISSION_LABELS } from '~/utils/spec_labels'
+
 import {
   Container,
   Header,
@@ -52,7 +51,7 @@ import {
 } from './styles'
 
 const BASE_PRICE_RANGE = [50, 3000]
-const Home: React.FC<{
+export const Home: React.FC<{
   navigation: CompositeNavigationProp<
     StackNavigationProp<TabRoutesParamList, 'Home'>,
     StackNavigationProp<AppRoutesParamList>
@@ -163,7 +162,7 @@ const Home: React.FC<{
           keyExtractor={({ id }: Car) => id}
           renderItem={({ item }: { item: Car }) => (
             <TouchableOpacity onPress={() => goToCarDetails(item)}>
-              <Card {...item} />
+              <ExtendedCard {...item} />
             </TouchableOpacity>
           )}
         />
@@ -281,5 +280,3 @@ const Home: React.FC<{
     </Container>
   )
 }
-
-export default Home

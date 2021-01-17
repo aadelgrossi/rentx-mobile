@@ -9,7 +9,7 @@ interface ButtonProps extends RectButtonProperties {
   onPress(e: any): void
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   variant = false,
   ...rest
@@ -20,5 +20,3 @@ const Button: React.FC<ButtonProps> = ({
     </Container>
   )
 }
-
-export default Button

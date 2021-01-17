@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import { Animated } from 'react-native'
 
-import fullLogo from '../../assets/logo/full.png'
-import rentxSymbol from '../../assets/logo/symbol.png'
+import fullLogo from '~/assets/logo/full.png'
+import rentxSymbol from '~/assets/logo/symbol.png'
+
 import { Container, AnimatedImage, LogoContainer } from './styles'
 
 const Splash: React.FC = () => {

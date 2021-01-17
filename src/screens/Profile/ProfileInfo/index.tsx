@@ -11,8 +11,7 @@ import {
   Route
 } from 'react-native-tab-view'
 
-import ProfilePicture from '~/components/ProfilePicture'
-import RentIcon from '~/components/RentIcon'
+import { ProfilePicture, RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 import {
@@ -24,10 +23,10 @@ import {
   SubmitButton,
   TabBarTitle
 } from './styles'
-import UpdateInfo from './UpdateInfo'
-import UpdatePassword from './UpdatePassword'
+import UpdateInfo from './UpdateInfoTab'
+import UpdatePassword from './UpdatePasswordTab'
 
-const ProfileInfo: React.FC = () => {
+export const ProfileInfo: React.FC = () => {
   const navigation = useNavigation()
 
   const { width: screenWidth } = Dimensions.get('screen')
@@ -94,5 +93,3 @@ const ProfileInfo: React.FC = () => {
     </Container>
   )
 }
-
-export default ProfileInfo

@@ -2,8 +2,7 @@ import React from 'react'
 
 import { RouteProp } from '@react-navigation/native'
 
-import Button from '~/components/Button'
-import Prompt from '~/components/Prompt'
+import { Button, Prompt } from '~/components'
 import { useAuth } from '~/hooks'
 import { SignUpRoutesParamList } from '~/navigation/types'
 

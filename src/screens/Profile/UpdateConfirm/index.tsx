@@ -2,10 +2,9 @@ import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 
-import Button from '../../../components/Button'
-import Prompt from '../../../components/Prompt'
+import { Button, Prompt } from '~/components'
 
-const UpdateConfirm: React.FC = () => {
+export const UpdateConfirm: React.FC = () => {
   const navigation = useNavigation()
   return (
     <Prompt
@@ -23,5 +22,3 @@ const UpdateConfirm: React.FC = () => {
     </Prompt>
   )
 }
-
-export default UpdateConfirm

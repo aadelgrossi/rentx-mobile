@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { differenceInDays, isAfter, parseISO } from 'date-fns'
 import { startOfDay } from 'date-fns/esm'
 
-import RentIcon from '~/components/RentIcon'
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 import { formatShortDate } from '~/utils/formatDate'
 
@@ -27,7 +27,7 @@ import {
   RightArrow
 } from './styles'
 
-const RentalCard: React.FC<Rental> = ({
+export const RentalCard: React.FC<Rental> = ({
   car: { manufacturer, dailyRate, fuelType, model, photo },
   startDate,
   endDate
@@ -93,5 +93,3 @@ const RentalCard: React.FC<Rental> = ({
     </>
   )
 }
-
-export default RentalCard

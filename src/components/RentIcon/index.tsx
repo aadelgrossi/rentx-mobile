@@ -2,7 +2,7 @@ import React from 'react'
 
 import { createIconSetFromIcoMoon } from '@expo/vector-icons'
 
-import IcomoonConfig from '../../../assets/fonts/rent-icons.json'
+import IcomoonConfig from '~/../assets/fonts/rent-icons.json'
 
 interface IconProps {
   color: string
@@ -16,10 +16,6 @@ const IconSet = createIconSetFromIcoMoon(
   'icomoon.ttf'
 )
 
-const RentIcon: React.FC<IconProps> = props => {
-  return <IconSet {...props}></IconSet>
+export const RentIcon: React.FC<IconProps> = ({ size = 28, ...props }) => {
+  return <IconSet {...props} size={size} />
 }
-
-RentIcon.defaultProps = { size: 28 }
-
-export default RentIcon
