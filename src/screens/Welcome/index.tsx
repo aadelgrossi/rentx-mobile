@@ -4,11 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { Image } from 'react-native'
 
-import rentXSymbol from '../../assets/logo/symbol.png'
-import Button from '../../components/Button'
+import rentXSymbol from '~/assets/logo/symbol.png'
+import { Button } from '~/components'
+
 import { Container, Contents, Title, Text, Actions, ButtonText } from './styles'
 
-const Welcome: React.FC = () => {
+export const Welcome: React.FC = () => {
   const navigation = useNavigation()
 
   return (
@@ -31,5 +32,3 @@ const Welcome: React.FC = () => {
     </Container>
   )
 }
-
-export default Welcome

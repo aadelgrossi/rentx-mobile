@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RentIcon from '~/components/RentIcon'
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 import {
@@ -13,7 +13,7 @@ import {
 } from '../styles'
 import { CarModel, TotalValue, CarPhoto } from './styles'
 
-const FavoriteCarCard: React.FC<FavoriteCar> = ({
+export const FavoriteCarCard: React.FC<FavoriteCar> = ({
   dailyRate,
   model,
   fuelType,
@@ -41,5 +41,3 @@ const FavoriteCarCard: React.FC<FavoriteCar> = ({
     </Container>
   )
 }
-
-export default FavoriteCarCard

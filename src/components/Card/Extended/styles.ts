@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
 
-import RentIcon from '../../RentIcon'
+import { RentIcon } from '~/components'
+
 import { Container } from '../styles'
 
 export const LargeContainer = styled(Container)`

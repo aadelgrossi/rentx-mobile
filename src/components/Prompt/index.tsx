@@ -3,9 +3,10 @@ import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { Image } from 'react-native'
 
-import doneIndicator from '../../assets/done.png'
-import bgLogo from '../../assets/logo/bg.png'
-import quitIndicator from '../../assets/quit.png'
+import doneIndicator from '~/assets/done.png'
+import bgLogo from '~/assets/logo/bg.png'
+import quitIndicator from '~/assets/quit.png'
+
 import { Container, BackgroundImage, Contents, Title, Text } from './styles'
 
 interface PromptProps {
@@ -14,7 +15,12 @@ interface PromptProps {
   content: string
 }
 
-const Prompt: React.FC<PromptProps> = ({ title, content, type, children }) => {
+export const Prompt: React.FC<PromptProps> = ({
+  title,
+  content,
+  type,
+  children
+}) => {
   return (
     <Container>
       <BackgroundImage source={bgLogo} />
@@ -29,5 +35,3 @@ const Prompt: React.FC<PromptProps> = ({ title, content, type, children }) => {
     </Container>
   )
 }
-
-export default Prompt

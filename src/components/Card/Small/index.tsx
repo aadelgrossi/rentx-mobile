@@ -1,7 +1,8 @@
 import React from 'react'
 
-import colors from '../../../styles/colors'
-import RentIcon from '../../RentIcon'
+import { RentIcon } from '~/components'
+import colors from '~/styles/colors'
+
 import {
   Container,
   Info,
@@ -14,7 +15,7 @@ import {
   CarPhoto
 } from '../styles'
 
-const CarCard: React.FC<Car> = ({
+export const SmallCard: React.FC<Car> = ({
   manufacturer,
   fuelType,
   model,
@@ -41,5 +42,3 @@ const CarCard: React.FC<Car> = ({
     </Container>
   )
 }
-
-export default CarCard

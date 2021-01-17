@@ -7,7 +7,7 @@ import React, {
 
 import { Controller } from 'react-hook-form'
 
-import RentIcon from '~/components/RentIcon'
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 import { InputProps } from '../'

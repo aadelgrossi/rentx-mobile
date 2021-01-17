@@ -13,14 +13,13 @@ import {
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
+import { Button, CheckBox } from '~/components'
 import { SecureTextInput, Input } from '~/components/Input'
+import { useAuth } from '~/hooks'
+import colors from '~/styles/colors'
 import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { signInSchema } from '~/validators'
 
-import Button from '../../components/Button'
-import CheckBox from '../../components/Checkbox'
-import { useAuth } from '../../hooks/useAuth'
-import colors from '../../styles/colors'
 import {
   Container,
   Title,
@@ -39,7 +38,7 @@ interface SignInFormData {
   password: string
 }
 
-const SignIn: React.FC = () => {
+export const SignIn: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false)
   const { signIn } = useAuth()
   const navigation = useNavigation()
@@ -145,5 +144,3 @@ const SignIn: React.FC = () => {
     </Container>
   )
 }
-
-export default SignIn

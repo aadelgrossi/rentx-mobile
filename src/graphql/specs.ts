@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+export const CAR_SPECIFICATIONS = gql`
   query GetCarSpecs($id: String!) {
     specifications(carId: $id) {
       id

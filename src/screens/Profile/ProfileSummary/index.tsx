@@ -4,11 +4,10 @@ import { useQuery } from '@apollo/client'
 import { CompositeNavigationProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import Card from '~/components/Card/FavoriteCar'
-import ProfilePicture from '~/components/ProfilePicture'
-import RentIcon from '~/components/RentIcon'
-import { USER_INFO } from '~/graphql/user'
-import { useAuth } from '~/hooks/useAuth'
+import { ProfilePicture, RentIcon } from '~/components'
+import { FavoriteCarCard } from '~/components/Card'
+import { USER_INFO } from '~/graphql'
+import { useAuth } from '~/hooks'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { formatLongDate } from '~/utils/formatDate'
@@ -37,7 +36,9 @@ interface ProfileScreenProps {
   >
 }
 
-const Profile: React.FC<ProfileScreenProps> = ({ navigation }) => {
+export const ProfileSummary: React.FC<ProfileScreenProps> = ({
+  navigation
+}) => {
   const {
     user: { name, createdAt }
   } = useAuth()
@@ -92,7 +93,7 @@ const Profile: React.FC<ProfileScreenProps> = ({ navigation }) => {
                   </InfoValue>
                 </InfoItem>
 
-                <Card {...data.me.favoriteCar} />
+                <FavoriteCarCard {...data.me.favoriteCar} />
               </FavoriteCarContainer>
             )}
           </>
@@ -101,5 +102,3 @@ const Profile: React.FC<ProfileScreenProps> = ({ navigation }) => {
     </Container>
   )
 }
-
-export default Profile

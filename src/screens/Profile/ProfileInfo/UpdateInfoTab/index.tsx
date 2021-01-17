@@ -5,7 +5,7 @@ import { Keyboard, KeyboardAvoidingView, TextInput, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { Input } from '~/components/Input'
-import { useAuth } from '~/hooks/useAuth'
+import { useAuth } from '~/hooks'
 
 interface UpdateUserDetailsData {
   name: string

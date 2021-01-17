@@ -2,7 +2,8 @@ import React from 'react'
 
 import { NavigationContainer } from '@react-navigation/native'
 
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '~/hooks'
+
 import AppRoutes from './app.routes'
 import InitialRoutes from './initial.routes'
 

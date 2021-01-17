@@ -1,7 +1,7 @@
 import { RectButton } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
-import colors from '../../styles/colors'
+import colors from '~/styles/colors'
 
 interface Props {
   variant: boolean

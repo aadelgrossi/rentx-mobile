@@ -3,12 +3,10 @@ import React from 'react'
 import { CompositeNavigationProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
+import { Button, Prompt } from '~/components'
 import { ReservationParamList, AppRoutesParamList } from '~/navigation/types'
 
-import Button from '../../components/Button'
-import Prompt from '../../components/Prompt'
-
-const ConfirmReservation: React.FC<{
+export const ConfirmReservation: React.FC<{
   navigation: CompositeNavigationProp<
     StackNavigationProp<ReservationParamList, 'ConfirmReservation'>,
     StackNavigationProp<AppRoutesParamList>
@@ -32,5 +30,3 @@ const ConfirmReservation: React.FC<{
     </Prompt>
   )
 }
-
-export default ConfirmReservation

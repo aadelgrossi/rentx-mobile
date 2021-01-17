@@ -5,14 +5,14 @@ import {
   createStackNavigator
 } from '@react-navigation/stack'
 
-import { SignUpProvider } from '~/contexts/signup_data'
+import { SignUpProvider } from '~/contexts'
+import { StepOne, StepTwo, Confirm } from '~/screens/SignUp'
 
-import { StepOne, StepTwo, Confirm } from '../screens/SignUp/'
-import { SignUpRoutesParamList } from './types'
+import { SignUpRoutesParamList } from '../types'
 
 const Stack = createStackNavigator<SignUpRoutesParamList>()
 
-const SignUpNavigator: React.FC = () => {
+export const SignUpNavigator: React.FC = () => {
   return (
     <SignUpProvider>
       <Stack.Navigator
@@ -28,5 +28,3 @@ const SignUpNavigator: React.FC = () => {
     </SignUpProvider>
   )
 }
-
-export default SignUpNavigator

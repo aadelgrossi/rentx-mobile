@@ -2,9 +2,9 @@ import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import SignIn from '../screens/SignIn'
-import Welcome from '../screens/Welcome'
-import SignUpNavigator from './signup.routes'
+import { Welcome, SignIn } from '~/screens'
+
+import { SignUpNavigator } from './navigators'
 import { InitialRoutesParamList } from './types'
 
 const Stack = createStackNavigator<InitialRoutesParamList>()

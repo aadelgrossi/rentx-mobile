@@ -5,14 +5,12 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
-import { CREATE_RENTAL, GET_RENTALS } from '~/graphql/rentals'
-import CAR_SPECIFICATIONS from '~/graphql/specs'
+import { Button, RentIcon } from '~/components'
+import { CREATE_RENTAL, GET_RENTALS, CAR_SPECIFICATIONS } from '~/graphql'
+import { ReservationParamList } from '~/navigation/types'
+import colors from '~/styles/colors'
+import { formatShortDate } from '~/utils/formatDate'
 
-import Button from '../../components/Button'
-import RentIcon from '../../components/RentIcon'
-import { ReservationParamList } from '../../navigation/types'
-import colors from '../../styles/colors'
-import { formatShortDate } from '../../utils/formatDate'
 import {
   Container,
   Section,
@@ -34,7 +32,7 @@ import {
   SubTotalSection
 } from './styles'
 
-const CarDetails: React.FC<
+export const CarDetails: React.FC<
   StackScreenProps<ReservationParamList, 'CarDetails'>
 > = ({ route, navigation }) => {
   const {
@@ -66,7 +64,7 @@ const CarDetails: React.FC<
     } catch (err) {
       console.error(err)
     }
-  }, [])
+  }, [createRental, navigation])
 
   return (
     <Container>
@@ -91,16 +89,18 @@ const CarDetails: React.FC<
         }
         data={data?.specifications}
         keyExtractor={({ id }: CarSpec) => id}
-        renderItem={({ item: { specification, value } }: { item: CarSpec }) => (
+        renderItem={({
+          item: {
+            specification: { icon, isIconValue },
+            value
+          }
+        }: {
+          item: CarSpec
+        }) => (
           <SpecItemContainer>
             <RentIcon
-              name={
-                specification.isIconValue
-                  ? (value as CustomCarSpec)
-                  : specification.icon
-              }
-              size={32}
-              color={colors.grayPrimary}
+              name={isIconValue ? (value as CustomCarSpec) : icon}
+              color="red"
             />
             <SpecItemText>{value}</SpecItemText>
           </SpecItemContainer>
@@ -138,5 +138,3 @@ const CarDetails: React.FC<
     </Container>
   )
 }
-
-export default CarDetails

@@ -3,12 +3,12 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
-import Card from '~/components/Card/Rental'
+import { RentalCard } from '~/components/Card'
 import { GET_RENTALS } from '~/graphql/rentals'
 
 import { Container, Header, Title, ResultsCount, RentalsList } from './styles'
 
-const UserReservations: React.FC = () => {
+export const UserReservations: React.FC = () => {
   const { data } = useQuery<{ rentals: Rental[] }>(GET_RENTALS)
 
   return (
@@ -24,7 +24,7 @@ const UserReservations: React.FC = () => {
         <RentalsList
           data={data.rentals}
           keyExtractor={({ id }: Rental) => id}
-          renderItem={({ item }: { item: Rental }) => <Card {...item} />}
+          renderItem={({ item }: { item: Rental }) => <RentalCard {...item} />}
         />
       )}
 
@@ -32,5 +32,3 @@ const UserReservations: React.FC = () => {
     </Container>
   )
 }
-
-export default UserReservations

@@ -1,7 +1,7 @@
 import { Animated, Platform, StatusBar } from 'react-native'
 import styled from 'styled-components/native'
 
-import colors from '../../styles/colors'
+import colors from '~/styles/colors'
 
 const heightScreen = StatusBar.currentHeight || 0
 

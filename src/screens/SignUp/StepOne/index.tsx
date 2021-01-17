@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-import Button from '~/components/Button'
+import { Button } from '~/components'
 import { Input } from '~/components/Input'
 import { SignUpInfo } from '~/contexts/signup.types'
 import { useSignUp } from '~/hooks'

@@ -3,11 +3,11 @@ import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import CalendarPicker from 'react-native-calendar-picker'
 
-import colors from '../../styles/colors'
+import colors from '~/styles/colors'
 
-const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
-  onChange
-}) => {
+export const Calendar: React.FC<{
+  onChange(date: any, type: string): void
+}> = ({ onChange }) => {
   return (
     <CalendarPicker
       allowRangeSelection={true}
@@ -82,7 +82,6 @@ const Calendar: React.FC<{ onChange(date: any, type: string): void }> = ({
       selectMonthTitle="Selecione o mês em "
       selectYearTitle="Selecione o ano"
       onDateChange={onChange}
-    ></CalendarPicker>
+    />
   )
 }
-export default Calendar

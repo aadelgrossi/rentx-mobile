@@ -5,9 +5,7 @@ import {
   createStackNavigator
 } from '@react-navigation/stack'
 
-import ProfileNavigator from './profile.routes'
-import ReservationNavigator from './reservation.routes'
-import Tabs from './tabs.routes'
+import { ProfileNavigator, ReservationNavigator, Tabs } from './navigators'
 import { AppRoutesParamList } from './types'
 
 const Stack = createStackNavigator<AppRoutesParamList>()

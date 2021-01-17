@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
+import { SmallCard } from '~/components/Card'
 import { SearchInput } from '~/components/Input'
+import { CARS } from '~/graphql'
 
-import Card from '../../components/Card/Small'
-import { CARS } from '../../graphql/cars'
 import {
   Container,
   Header,
@@ -16,7 +16,7 @@ import {
   CarsList
 } from './styles'
 
-const Cars: React.FC = () => {
+export const Cars: React.FC = () => {
   const [query, setQuery] = useState('')
   const { data } = useQuery<{ cars: Car[] }>(CARS, {
     variables: { filter: { fullName: query } }
@@ -41,7 +41,7 @@ const Cars: React.FC = () => {
         <CarsList
           data={data.cars}
           keyExtractor={({ id }: Car) => id}
-          renderItem={({ item }: { item: Car }) => <Card {...item} />}
+          renderItem={({ item }: { item: Car }) => <SmallCard {...item} />}
         />
       )}
 
@@ -49,5 +49,3 @@ const Cars: React.FC = () => {
     </Container>
   )
 }
-
-export default Cars

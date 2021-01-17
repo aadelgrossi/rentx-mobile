@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
-import colors from '../../styles/colors'
+import colors from '~/styles/colors'
 
 export const Container = styled.ScrollView`
   flex: 1;

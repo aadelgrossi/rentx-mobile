@@ -5,13 +5,13 @@ import {
   createStackNavigator
 } from '@react-navigation/stack'
 
-import CarDetails from '../screens/CarDetails'
-import ConfirmReservation from '../screens/ConfirmReservation'
-import { ReservationParamList } from './types'
+import { CarDetails, ConfirmReservation } from '~/screens'
+
+import { ReservationParamList } from '../types'
 
 const Stack = createStackNavigator<ReservationParamList>()
 
-const ReservationNavigator: React.FC = () => {
+export const ReservationNavigator: React.FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,5 +24,3 @@ const ReservationNavigator: React.FC = () => {
     </Stack.Navigator>
   )
 }
-
-export default ReservationNavigator

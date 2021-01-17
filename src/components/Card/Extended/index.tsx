@@ -11,7 +11,7 @@ import {
   FuelIcon
 } from './styles'
 
-const ExtendedCard: React.FC<Car> = ({
+export const ExtendedCard: React.FC<Car> = ({
   manufacturer,
   model,
   dailyRate,
@@ -35,5 +35,3 @@ const ExtendedCard: React.FC<Car> = ({
     </LargeContainer>
   )
 }
-
-export default ExtendedCard
