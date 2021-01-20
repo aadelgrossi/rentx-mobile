@@ -40,6 +40,7 @@ export const DateContent = styled.Text`
 export const CalendarContainer = styled.View`
   background-color: ${colors.white};
   padding: 32px 32px;
+  min-height: 530px;
   margin-top: auto;
 `
 
@@ -130,7 +131,7 @@ export const SubmitFilters = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   background-color: ${props => (props.disabled ? colors.hoverRed : colors.red)};
-  margin-top: 16px;
+  margin-top: auto;
 `
 
 export const SubmitFiltersText = styled.Text`

@@ -40,8 +40,8 @@ export const Calendar: React.FC<{
       })}
       selectedDayColor={colors.red}
       selectedDayTextColor={colors.white}
-      todayBackgroundColor={colors.hoverGreen}
-      todayTextStyle={{ color: colors.grayPrimary }}
+      todayBackgroundColor={colors.white}
+      selectedDayTextStyle={{ color: colors.red }}
       minRangeDuration={1}
       selectedRangeStartStyle={{
         flex: 1,
@@ -51,7 +51,7 @@ export const Calendar: React.FC<{
       }}
       selectedRangeStyle={{
         flex: 1,
-        backgroundColor: colors.salmon
+        backgroundColor: colors.hoverRed
       }}
       disabledDatesTextStyle={{
         fontFamily: 'inter-500',
@@ -78,6 +78,8 @@ export const Calendar: React.FC<{
         fontSize: 20,
         color: colors.black
       }}
+      selectedRangeStartTextStyle={{ color: colors.white }}
+      selectedRangeEndTextStyle={{ color: colors.white }}
       dayLabelsWrapper={{ borderTopWidth: 0 }}
       selectMonthTitle="Selecione o mês em "
       selectYearTitle="Selecione o ano"

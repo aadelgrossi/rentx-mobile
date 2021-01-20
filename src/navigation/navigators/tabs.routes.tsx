@@ -12,7 +12,7 @@ import { TabRoutesParamList } from '../types'
 const BottomTab = createMaterialTopTabNavigator<TabRoutesParamList>()
 
 export const Tabs: React.FC = () => {
-  const marginForIndicator = Dimensions.get('window').width / 8 - 4
+  const marginForIndicator = Dimensions.get('window').width / 8 - 3
 
   return (
     <BottomTab.Navigator
@@ -35,7 +35,7 @@ export const Tabs: React.FC = () => {
         indicatorStyle: {
           height: 3,
           backgroundColor: colors.red,
-          marginBottom: 14,
+          marginBottom: 18,
           borderColor: colors.white,
           borderLeftWidth: marginForIndicator,
           borderRightWidth: marginForIndicator
