@@ -16,3 +16,12 @@ export const CARS = gql`
     }
   }
 `
+
+export const DAILY_RATE_RANGE = gql`
+  query GetDailyRateRange {
+    dailyRateRange {
+      min
+      max
+    }
+  }
+`

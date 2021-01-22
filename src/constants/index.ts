@@ -8,3 +8,5 @@ export enum FUEL_TYPE {
   electric = 'electric',
   hybrid = 'hybrid'
 }
+
+export const FALLBACK_DAILY_RATE_RANGE = [680, 1800]

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -13,8 +13,8 @@ import Modal from 'react-native-modal'
 
 import { Calendar, CustomMarker, RentIcon } from '~/components'
 import { ExtendedCard } from '~/components/Card'
-import { FUEL_TYPE, TRANSMISSION } from '~/constants'
-import { CARS } from '~/graphql/cars'
+import { FALLBACK_DAILY_RATE_RANGE, FUEL_TYPE, TRANSMISSION } from '~/constants'
+import { CARS, DAILY_RATE_RANGE } from '~/graphql/cars'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { formatShortDate } from '~/utils/formatDate'
@@ -50,14 +50,33 @@ import {
   SubmitFiltersText
 } from './styles'
 
-const BASE_PRICE_RANGE = [50, 3000]
+interface DailyRateRangeQueryResponse {
+  dailyRateRange: {
+    min: number
+    max: number
+  }
+}
+
 export const Home: React.FC<{
   navigation: CompositeNavigationProp<
     StackNavigationProp<TabRoutesParamList, 'Home'>,
     StackNavigationProp<AppRoutesParamList>
   >
 }> = ({ navigation }) => {
-  const [priceRange, setPriceRange] = useState(BASE_PRICE_RANGE)
+  const { data: rateData } = useQuery<DailyRateRangeQueryResponse>(
+    DAILY_RATE_RANGE
+  )
+  const dailyRateRange = useMemo(() => {
+    if (rateData) {
+      const { min, max } = rateData.dailyRateRange
+      return [min, max]
+    }
+
+    return FALLBACK_DAILY_RATE_RANGE
+  }, [rateData])
+
+  const [priceRange, setPriceRange] = useState(dailyRateRange)
+
   const [startDate, setStartDate] = useState<Date>(
     lastDayOfWeek(new Date(), { weekStartsOn: 6 })
   )
@@ -91,10 +110,10 @@ export const Home: React.FC<{
   }, [])
 
   const handleClearFilters = useCallback(() => {
-    setPriceRange(BASE_PRICE_RANGE)
+    setPriceRange(dailyRateRange)
     setFuelType(null)
     setTransmission(null)
-  }, [])
+  }, [dailyRateRange])
 
   const handleDateChange = useCallback((date: any, type: string) => {
     if (type === 'END_DATE') {
@@ -220,8 +239,8 @@ export const Home: React.FC<{
             </PriceIndicator>
             <MultiSlider
               values={priceRange}
-              min={BASE_PRICE_RANGE[0]}
-              max={BASE_PRICE_RANGE[1]}
+              min={dailyRateRange[0]}
+              max={dailyRateRange[1]}
               containerStyle={{ marginTop: 8, alignSelf: 'center' }}
               customMarker={CustomMarker}
               trackStyle={{ backgroundColor: colors.grayLight }}
