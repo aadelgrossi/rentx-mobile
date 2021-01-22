@@ -1,27 +1,75 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 
+import { useMutation } from '@apollo/client'
+import { joiResolver } from '@hookform/resolvers/joi'
+import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
-import { Keyboard, KeyboardAvoidingView, TextInput, View } from 'react-native'
+import {
+  Dimensions,
+  Keyboard,
+  KeyboardAvoidingView,
+  TextInput,
+  View
+} from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { SecureTextInput } from '~/components/Input'
+import { CHANGE_USER_PASSWORD } from '~/graphql'
+import { authErrorMessage } from '~/utils/authErrorInfoMessage'
+import { updateUserPasswordSchema } from '~/validators'
+
+import { SubmitButton } from '../styles'
 
 interface UpdatePasswordFormData {
-  current_password: string
-  new_password: string
-  confirm_password: string
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+interface ChangeUserPasswordResult {
+  changePassword: User
+}
+
+interface ChangeUserPasswordVariables {
+  data: {
+    oldPassword: string
+    newPassword: string
+  }
 }
 
 const UpdatePassword: React.FC = () => {
-  const { control } = useForm<UpdatePasswordFormData>({
+  const { control, handleSubmit, errors } = useForm<UpdatePasswordFormData>({
     defaultValues: {
-      current_password: '',
-      new_password: '',
-      confirm_password: ''
-    }
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    },
+    resolver: joiResolver(updateUserPasswordSchema)
   })
-  const newPasswordRef = useRef<TextInput>(null)
+  const passwordRef = useRef<TextInput>(null)
   const confirmPasswordRef = useRef<TextInput>(null)
+  const navigation = useNavigation()
+
+  const [mutate] = useMutation<
+    ChangeUserPasswordResult,
+    ChangeUserPasswordVariables
+  >(CHANGE_USER_PASSWORD)
+
+  const updatePassword = useCallback(
+    async ({ newPassword, oldPassword }: UpdatePasswordFormData) => {
+      try {
+        await mutate({
+          variables: {
+            data: { newPassword, oldPassword }
+          }
+        })
+        navigation.navigate('ChangePasswordConfirm')
+      } catch (err) {
+        authErrorMessage('Senha anterior incorreta')
+      }
+    },
+    []
+  )
 
   return (
     <View>
@@ -33,27 +81,37 @@ const UpdatePassword: React.FC = () => {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View>
             <SecureTextInput
-              name="current_password"
+              name="oldPassword"
               placeholder="Senha atual"
               control={control}
               blurOnSubmit={false}
-              onSubmitEditing={() => newPasswordRef.current?.focus()}
+              hasError={!!errors.oldPassword}
+              onSubmitEditing={() => passwordRef.current?.focus()}
             />
             <SecureTextInput
-              name="new_password"
+              name="newPassword"
               placeholder="Nova senha"
               control={control}
-              ref={newPasswordRef}
+              ref={passwordRef}
               blurOnSubmit={false}
+              hasError={!!errors.newPassword}
               onSubmitEditing={() => confirmPasswordRef.current?.focus()}
             />
             <SecureTextInput
-              name="confirm_password"
+              name="confirmPassword"
               placeholder="Confirme sua senha"
               control={control}
+              hasError={!!errors.confirmPassword}
               ref={confirmPasswordRef}
             />
           </View>
+
+          <SubmitButton
+            onPress={handleSubmit(updatePassword)}
+            style={{ marginTop: Dimensions.get('window').height - 678 }}
+          >
+            Alterar senha
+          </SubmitButton>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </View>
