@@ -6,12 +6,16 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Prompt } from '~/components'
 import { ReservationParamList, AppRoutesParamList } from '~/navigation/types'
 
-export const ConfirmReservation: React.FC<{
+interface ConfirmReservationProps {
   navigation: CompositeNavigationProp<
     StackNavigationProp<ReservationParamList, 'ConfirmReservation'>,
     StackNavigationProp<AppRoutesParamList>
   >
-}> = ({ navigation }) => {
+}
+
+export const ConfirmReservation: React.FC<ConfirmReservationProps> = ({
+  navigation
+}) => {
   return (
     <Prompt
       title="Carro alugado!"
