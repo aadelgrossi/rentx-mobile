@@ -7,7 +7,12 @@ import {
 } from '@react-navigation/stack'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { ProfileInfo, SignOutPrompt, UpdateConfirm } from '~/screens/Profile'
+import {
+  ProfileInfo,
+  SignOutPrompt,
+  UpdateConfirm,
+  ChangePasswordConfirm
+} from '~/screens/Profile'
 import colors from '~/styles/colors'
 
 import { ProfileParamList } from '../types'
@@ -57,6 +62,11 @@ export const ProfileNavigator: React.FC = () => {
       <ProfileStack.Screen
         name="UpdateConfirm"
         component={UpdateConfirm}
+        options={{ headerShown: false }}
+      />
+      <ProfileStack.Screen
+        name="ChangePasswordConfirm"
+        component={ChangePasswordConfirm}
         options={{ headerShown: false }}
       />
       <ProfileStack.Screen

@@ -42,6 +42,7 @@ export type ReservationParamList = {
 export type ProfileParamList = {
   ProfileInfo: undefined
   ChangePassword: undefined
+  ChangePasswordConfirm: undefined
   UpdateConfirm: undefined
   SignOutPrompt: undefined
 }
