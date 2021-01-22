@@ -5,7 +5,6 @@ import { Button } from '~/components'
 import colors from '~/styles/colors'
 
 export const Container = styled.ScrollView`
-  flex: 1;
   background-color: ${colors.white};
 `
 
@@ -15,8 +14,7 @@ export const Spacing = styled.View`
 `
 
 export const Contents = styled.View`
-  flex: 1;
-  padding: 0 24px;
+  padding: 24px 24px;
 `
 
 export const ProfileContainer = styled.View`
@@ -42,10 +40,7 @@ export const SwitchPicture = styled(RectButton)`
   align-items: center;
 `
 
-export const SubmitButton = styled(Button)`
-  width: 100%;
-  margin-top: auto;
-`
+export const SubmitButton = styled(Button)``
 
 export const TabBarTitle = styled.Text<{ focused: boolean }>`
   font-size: 18px;
