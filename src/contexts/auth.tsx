@@ -95,6 +95,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@RentX:token', '@RentX:user'])
+    await getApolloClient().clearStore()
     getApolloClient().setLink(httpLink)
 
     setAuthData({} as AuthState)
