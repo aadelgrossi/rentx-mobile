@@ -1,12 +1,10 @@
 import React from 'react'
 
-import { useQuery } from '@apollo/client'
 import { CompositeNavigationProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { ProfilePicture, RentIcon } from '~/components'
 import { FavoriteCarCard } from '~/components/Card'
-import { USER_INFO } from '~/graphql'
 import { useAuth } from '~/hooks'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
