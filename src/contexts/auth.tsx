@@ -63,17 +63,13 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       // if passing a user in params (on signup/signin when object is obtained alongside)
       if (user) {
-        await AsyncStorage.setItem('@RentX:user', JSON.stringify(user))
         setAuthData({ accessToken, user })
       } else {
         // if attempting to login with stored token, get user from server
         fetchUserInfoFromServer()
 
         // update state with result and up-to-date info from server
-        if (userData) {
-          await AsyncStorage.setItem('@RentX:user', JSON.stringify(userData.me))
-          setAuthData({ accessToken, user: userData.me })
-        }
+        if (userData) setAuthData({ accessToken, user: userData.me })
       }
     },
     [userData, fetchUserInfoFromServer, setApolloHeaders]
@@ -83,9 +79,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     async function loadStorageData(): Promise<void> {
       const accessToken = await AsyncStorage.getItem('@RentX:token')
 
-      if (accessToken) {
-        authorizeWith({ accessToken })
-      }
+      if (accessToken) authorizeWith({ accessToken })
     }
 
     loadStorageData()
