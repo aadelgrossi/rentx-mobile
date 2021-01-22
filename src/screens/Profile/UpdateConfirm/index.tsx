@@ -1,11 +1,21 @@
 import React from 'react'
 
-import { useNavigation } from '@react-navigation/native'
+import { CompositeNavigationProp } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import { Button, Prompt } from '~/components'
+import { ProfileParamList, TabRoutesParamList } from '~/navigation/types'
 
-export const UpdateConfirm: React.FC = () => {
-  const navigation = useNavigation()
+interface UpdateInfoConfirmProps {
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<ProfileParamList, 'UpdateConfirm'>,
+    StackNavigationProp<TabRoutesParamList>
+  >
+}
+
+export const UpdateConfirm: React.FC<UpdateInfoConfirmProps> = ({
+  navigation
+}) => {
   return (
     <Prompt
       title="Feito!"
@@ -15,7 +25,7 @@ export const UpdateConfirm: React.FC = () => {
       <Button
         style={{ marginTop: 'auto' }}
         variant
-        onPress={() => navigation.navigate('Main')}
+        onPress={() => navigation.navigate('Profile')}
       >
         Voltar
       </Button>
