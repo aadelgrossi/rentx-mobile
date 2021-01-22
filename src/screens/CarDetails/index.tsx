@@ -100,7 +100,7 @@ export const CarDetails: React.FC<
           <SpecItemContainer>
             <RentIcon
               name={isIconValue ? (value as CustomCarSpec) : icon}
-              color="red"
+              color={colors.grayPrimary}
             />
             <SpecItemText>{value}</SpecItemText>
           </SpecItemContainer>
