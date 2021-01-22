@@ -11,7 +11,7 @@ interface ConfirmProps {
 }
 
 export const Confirm: React.FC<ConfirmProps> = ({ route }) => {
-  const { authorize } = useAuth()
+  const { authorizeWith } = useAuth()
   const { authData } = route.params
 
   return (
@@ -23,7 +23,7 @@ export const Confirm: React.FC<ConfirmProps> = ({ route }) => {
       <Button
         style={{ marginTop: 'auto' }}
         variant
-        onPress={() => authorize(authData)}
+        onPress={() => authorizeWith(authData)}
       >
         Começar
       </Button>
