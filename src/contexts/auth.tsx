@@ -1,18 +1,25 @@
 import React, { createContext, useCallback, useState, useEffect } from 'react'
 
-import { ApolloLink, useMutation } from '@apollo/client'
+import { ApolloLink, useLazyQuery, useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { getApolloClient, httpLink } from '~/config/apollo'
+import { USER_INFO } from '~/graphql'
 
 import { SIGN_IN } from '../graphql/auth'
 import { AuthState, SignInCredentials } from './auth.types'
+
+interface AuthorizationParams {
+  accessToken: string
+  user?: User
+}
 
 export interface AuthContextData {
   user: User
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
-  authorize(data: AuthState): void
+  updateUserInfo(user: User): void
+  authorizeWith(data: AuthorizationParams): void
   isAuthorized: boolean
 }
 
@@ -20,6 +27,11 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [authData, setAuthData] = useState<AuthState>({} as AuthState)
+
+  const [fetchUserInfoFromServer, { data: userData }] = useLazyQuery<{
+    me: User
+  }>(USER_INFO)
+
   const [createSession] = useMutation<
     { signin: AuthState },
     { credentials: SignInCredentials }
@@ -39,42 +51,51 @@ export const AuthProvider: React.FC = ({ children }) => {
     getApolloClient().setLink(authLink.concat(httpLink))
   }, [])
 
+  const updateUserInfo = useCallback((user: User) => {
+    setAuthData(prevState => ({ ...prevState, user }))
+  }, [])
+
+  const authorizeWith = useCallback(
+    async ({ accessToken, user }: AuthorizationParams) => {
+      // add token to Apollo headers
+      setApolloHeaders(accessToken)
+      await AsyncStorage.setItem('@RentX:token', accessToken)
+
+      // if passing a user in params (on signup/signin when object is obtained alongside)
+      if (user) {
+        setAuthData({ accessToken, user })
+      } else {
+        // if attempting to login with stored token, get user from server
+        fetchUserInfoFromServer()
+
+        // update state with result and up-to-date info from server
+        if (userData) setAuthData({ accessToken, user: userData.me })
+      }
+    },
+    [userData, fetchUserInfoFromServer, setApolloHeaders]
+  )
+
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet([
-        '@RentX:token',
-        '@RentX:user'
-      ])
+      const accessToken = await AsyncStorage.getItem('@RentX:token')
 
-      if (token[1] && user[1]) {
-        authorize({ accessToken: token[1], user: JSON.parse(user[1]) })
-      }
+      if (accessToken) authorizeWith({ accessToken })
     }
 
     loadStorageData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const authorize = useCallback(async (data: AuthState) => {
-    setAuthData(data)
-    await AsyncStorage.multiSet([
-      ['@RentX:token', data.accessToken],
-      ['@RentX:user', JSON.stringify(data.user)]
-    ])
-
-    setApolloHeaders(data.accessToken)
-  }, [])
+  }, [authorizeWith])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
     const { data } = await createSession({
       variables: { credentials: { email, password } }
     })
 
-    data && authorize(data.signin)
+    data && authorizeWith(data.signin)
   }
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@RentX:token', '@RentX:user'])
+    getApolloClient().setLink(httpLink)
 
     setAuthData({} as AuthState)
   }, [])
@@ -85,7 +106,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         user: authData.user,
         signIn,
         signOut,
-        authorize,
+        authorizeWith,
+        updateUserInfo,
         isAuthorized: !!authData.user
       }}
     >

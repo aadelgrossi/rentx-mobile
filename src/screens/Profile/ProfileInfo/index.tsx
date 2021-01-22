@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { useNavigation } from '@react-navigation/native'
 import { Dimensions } from 'react-native'
 import {
   SceneMap,
@@ -20,15 +19,12 @@ import {
   Contents,
   ProfileContainer,
   SwitchPicture,
-  SubmitButton,
   TabBarTitle
 } from './styles'
 import UpdateInfo from './UpdateInfoTab'
 import UpdatePassword from './UpdatePasswordTab'
 
 export const ProfileInfo: React.FC = () => {
-  const navigation = useNavigation()
-
   const { width: screenWidth } = Dimensions.get('screen')
 
   const [index, setIndex] = useState(0)
@@ -82,13 +78,13 @@ export const ProfileInfo: React.FC = () => {
           renderScene={renderScene}
           onIndexChange={setIndex}
           renderTabBar={renderTabBar}
-          sceneContainerStyle={{ marginTop: 24, marginBottom: 24 }}
-          initialLayout={{ width: Dimensions.get('window').width }}
+          sceneContainerStyle={{
+            marginTop: 24
+          }}
+          initialLayout={{
+            width: screenWidth
+          }}
         />
-
-        <SubmitButton onPress={() => navigation.navigate('UpdateConfirm')}>
-          Salvar alterações
-        </SubmitButton>
       </Contents>
     </Container>
   )

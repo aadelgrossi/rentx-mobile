@@ -39,11 +39,8 @@ interface ProfileScreenProps {
 export const ProfileSummary: React.FC<ProfileScreenProps> = ({
   navigation
 }) => {
-  const {
-    user: { name, createdAt }
-  } = useAuth()
-
-  const { data } = useQuery<{ me: User }>(USER_INFO)
+  const { user } = useAuth()
+  const { favoriteCar } = user
 
   return (
     <Container>
@@ -69,31 +66,31 @@ export const ProfileSummary: React.FC<ProfileScreenProps> = ({
         <ProfileContainer>
           <ProfilePicture />
         </ProfileContainer>
-
-        <UserName>{name}</UserName>
-        <InfoItem style={{ marginTop: 24 }}>
-          <InfoTitle>Membro desde</InfoTitle>
-          <InfoValue>{formatLongDate(createdAt)}</InfoValue>
-        </InfoItem>
-        {data && (
+        {user && (
           <>
+            <UserName>{user.name}</UserName>
+            <InfoItem style={{ marginTop: 24 }}>
+              <InfoTitle>Membro desde</InfoTitle>
+              <InfoValue>{formatLongDate(user.createdAt)}</InfoValue>
+            </InfoItem>
+
             <InfoItem style={{ marginTop: 24 }}>
               <InfoTitle>Agendamentos feitos</InfoTitle>
-              <InfoValue>{data.me.totalRentals || 0}</InfoValue>
+              <InfoValue>{user.totalRentals || 0}</InfoValue>
             </InfoItem>
 
             <Separator />
 
-            {data.me.favoriteCar && (
+            {favoriteCar && (
               <FavoriteCarContainer>
                 <InfoItem style={{ marginBottom: 16 }}>
                   <InfoTitle>Carro favorito</InfoTitle>
                   <InfoValue>
-                    Utilizado {data.me.favoriteCar.timesRented} vezes
+                    Utilizado {favoriteCar.timesRented} vezes
                   </InfoValue>
                 </InfoItem>
 
-                <FavoriteCarCard {...data.me.favoriteCar} />
+                <FavoriteCarCard {...favoriteCar} />
               </FavoriteCarContainer>
             )}
           </>
