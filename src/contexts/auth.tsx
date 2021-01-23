@@ -4,9 +4,8 @@ import { ApolloLink, useLazyQuery, useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { getApolloClient, httpLink } from '~/config/apollo'
-import { USER_INFO } from '~/graphql'
+import { USER_INFO, SIGN_IN } from '~/graphql'
 
-import { SIGN_IN } from '../graphql/auth'
 import { AuthState, SignInCredentials } from './auth.types'
 
 interface AuthorizationParams {

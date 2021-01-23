@@ -13,6 +13,7 @@ import Modal from 'react-native-modal'
 
 import { Calendar, CustomMarker, RentIcon } from '~/components'
 import { ExtendedCard } from '~/components/Card'
+import { ExtendedCardSkeletonList } from '~/components/Card/Extended/Skeleton'
 import { FALLBACK_DAILY_RATE_RANGE, FUEL_TYPE, TRANSMISSION } from '~/constants'
 import { CARS, DAILY_RATE_RANGE } from '~/graphql/cars'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
@@ -27,6 +28,7 @@ import {
   DateContainer,
   DateContent,
   Label,
+  Content,
   CalendarContainer,
   Title,
   ResultsCount,
@@ -85,7 +87,7 @@ export const Home: React.FC<{
   const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
   const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
 
-  const { data } = useQuery<{ cars: Car[] }>(CARS, {
+  const { data, loading } = useQuery<{ cars: Car[] }>(CARS, {
     variables: {
       filter: {
         minDailyRate: priceRange[0],
@@ -169,23 +171,30 @@ export const Home: React.FC<{
 
       <Header>
         <Title>Resultados</Title>
-        <ResultsCount>{data?.cars.length || 'Nenhum'} carro(s)</ResultsCount>
+        <ResultsCount>
+          {loading && 'Buscando...'}
+          {data?.cars.length ? `${data?.cars.length} carro(s)` : ''}
+        </ResultsCount>
         <RectButton onPress={toggleFilterModal}>
           <RentIcon name="filter" color={colors.black} />
         </RectButton>
       </Header>
 
-      {data && (
-        <SearchResults
-          data={data.cars}
-          keyExtractor={({ id }: Car) => id}
-          renderItem={({ item }: { item: Car }) => (
-            <TouchableOpacity onPress={() => goToCarDetails(item)}>
-              <ExtendedCard {...item} />
-            </TouchableOpacity>
-          )}
-        />
-      )}
+      <Content>
+        {loading && <ExtendedCardSkeletonList />}
+
+        {data && (
+          <SearchResults
+            data={data.cars}
+            keyExtractor={({ id }: Car) => id}
+            renderItem={({ item }: { item: Car }) => (
+              <TouchableOpacity onPress={() => goToCarDetails(item)}>
+                <ExtendedCard {...item} />
+              </TouchableOpacity>
+            )}
+          />
+        )}
+      </Content>
 
       <Modal
         isVisible={calendarVisible}
