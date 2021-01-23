@@ -64,9 +64,11 @@ export const ResultsCount = styled.Text`
   margin-right: 32px;
 `
 
-export const SearchResults = styled(FlatList as new () => FlatList<Car>)`
+export const Content = styled.View`
   padding: 0 16px;
 `
+
+export const SearchResults = styled(FlatList as new () => FlatList<Car>)``
 
 export const FilterContainer = styled.View`
   padding: 16px 32px 32px;
