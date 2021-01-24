@@ -30,7 +30,14 @@ module.exports = {
     "react/prop-types": "off",
     "react/display-name": "off",
     "react/no-unescaped-entities": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "_",
+        "argsIgnorePattern": "_"
+      }
+    ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/class-name-casing": "off",
