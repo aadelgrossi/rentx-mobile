@@ -3,8 +3,8 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 
+import { RentalCardSkeletonList } from '~/components'
 import { RentalCard } from '~/components/Card'
-import { RentalCardSkeletonList } from '~/components/Card/Rental/Skeleton'
 import { GET_RENTALS } from '~/graphql/rentals'
 
 import {

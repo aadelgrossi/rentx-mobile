@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Skeleton } from '~/components/Skeleton'
+import { Skeleton } from '../Base'
 
 export const SingleSkeleton: React.FC = () => {
   const randomWidth = Math.floor(Math.random() * (60 - 30 + 1)) + 30

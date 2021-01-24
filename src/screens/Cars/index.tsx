@@ -4,8 +4,9 @@ import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
 import { useDebounce } from 'use-debounce'
 
-import { SearchInput, SmallCard } from '~/components'
-import { SmallCardSkeletonList } from '~/components/Card/Small/Skeleton'
+import { SmallCardSkeletonList } from '~/components'
+import { SmallCard } from '~/components/Card'
+import { SearchInput } from '~/components/Input'
 import { CARS } from '~/graphql'
 
 import {

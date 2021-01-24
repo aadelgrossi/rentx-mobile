@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Skeleton } from '~/components/Skeleton'
-
-import { SingleSkeleton as SmallSkeleton } from '../../Small/Skeleton/single'
+import { Skeleton } from '../Base'
+import { SingleSkeleton as SmallSkeleton } from '../SmallCardSkeleton/single'
 
 export const SingleSkeleton: React.FC = () => {
   const randomWidth = Math.floor(Math.random() * (70 - 40 + 1)) + 40

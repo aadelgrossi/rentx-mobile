@@ -12,8 +12,13 @@ import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
 import { useDebounce } from 'use-debounce'
 
-import { Calendar, CustomMarker, RentIcon, ExtendedCard } from '~/components'
-import { ExtendedCardSkeletonList } from '~/components/Card/Extended/Skeleton'
+import {
+  Calendar,
+  CustomMarker,
+  RentIcon,
+  ExtendedCardSkeletonList
+} from '~/components'
+import { ExtendedCard } from '~/components/Card'
 import { FALLBACK_DAILY_RATE_RANGE, FUEL_TYPE, TRANSMISSION } from '~/constants'
 import { CARS, DAILY_RATE_RANGE } from '~/graphql/cars'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
