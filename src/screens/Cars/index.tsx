@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { StatusBar } from 'expo-status-bar'
+import { useDebounce } from 'use-debounce'
 
-import { SmallCard } from '~/components/Card'
+import { SearchInput, SmallCard } from '~/components'
 import { SmallCardSkeletonList } from '~/components/Card/Small/Skeleton'
-import { SearchInput } from '~/components/Input'
 import { CARS } from '~/graphql'
 
 import {
@@ -20,8 +20,9 @@ import {
 
 export const Cars: React.FC = () => {
   const [query, setQuery] = useState('')
+  const [debouncedValue] = useDebounce(query, 500)
   const { data, loading } = useQuery<{ cars: Car[] }>(CARS, {
-    variables: { filter: { fullName: query } }
+    variables: { filter: { fullName: debouncedValue } }
   })
 
   return (

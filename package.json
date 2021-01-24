@@ -49,7 +49,8 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-web": "~0.14.10",
     "styled-components": "^5.2.1",
-    "text-encoding-polyfill": "^0.6.7"
+    "text-encoding-polyfill": "^0.6.7",
+    "use-debounce": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "~7.12.10",
