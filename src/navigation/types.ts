@@ -3,7 +3,7 @@ import { NavigatorScreenParams } from '@react-navigation/native'
 import { AuthState } from '~/contexts/auth.types'
 
 export type InitialRoutesParamList = {
-  Splash: undefined
+  Onboarding: undefined
   Welcome: undefined
   SignIn: undefined
   SignUp: undefined
@@ -18,13 +18,17 @@ export type SignUpRoutesParamList = {
 }
 
 export type AppRoutesParamList = {
+  SelectDate: undefined
   Tabs: NavigatorScreenParams<TabRoutesParamList>
   ProfileNavigator: NavigatorScreenParams<ProfileParamList>
   CreateReservationNavigator: NavigatorScreenParams<ReservationParamList>
 }
 
 export type TabRoutesParamList = {
-  Home: undefined
+  Home: {
+    startDate: string | null
+    endDate: string | null
+  }
   Cars: undefined
   Reservations: undefined
   Profile: undefined

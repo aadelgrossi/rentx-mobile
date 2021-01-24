@@ -18,7 +18,7 @@ export const Tabs: React.FC = () => {
     <BottomTab.Navigator
       sceneContainerStyle={{ backgroundColor: colors.black }}
       tabBarPosition="bottom"
-      swipeEnabled={false}
+      swipeEnabled
       tabBarOptions={{
         showIcon: true,
         pressColor: 'transparent',
