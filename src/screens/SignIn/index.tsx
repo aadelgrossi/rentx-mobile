@@ -48,6 +48,7 @@ export const SignIn: React.FC = () => {
     control,
     handleSubmit,
     errors,
+    formState: { isSubmitting },
     clearErrors
   } = useForm<SignInFormData>({
     defaultValues: {
@@ -132,6 +133,7 @@ export const SignIn: React.FC = () => {
 
               <Button
                 style={{ marginTop: 20 }}
+                loading={isSubmitting}
                 onPress={handleSubmit(onSubmit)}
               >
                 Entrar

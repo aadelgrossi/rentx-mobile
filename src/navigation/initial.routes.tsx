@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack'
+import { usePersistStorage } from 'react-native-use-persist-storage'
 
-import { Welcome, SignIn } from '~/screens'
+import { ONBOARDING_STEPS_KEY } from '~/constants/async_storage_keys'
+import { Welcome, SignIn, Onboarding } from '~/screens'
 
 import { SignUpNavigator } from './navigators'
 import { InitialRoutesParamList } from './types'
@@ -10,14 +12,20 @@ import { InitialRoutesParamList } from './types'
 const Stack = createStackNavigator<InitialRoutesParamList>()
 
 const InitialRoutes: React.FC = () => {
-  return (
+  const [hasRunBefore, _, restored] = usePersistStorage<boolean>(
+    ONBOARDING_STEPS_KEY,
+    false
+  )
+
+  return restored ? (
     <Stack.Navigator
-      initialRouteName="Welcome"
       screenOptions={{
         headerShown: false
       }}
     >
-      {/* <Stack.Screen name="Splash" component={Splash} /> */}
+      {!hasRunBefore && (
+        <Stack.Screen name="Onboarding" component={Onboarding} />
+      )}
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen
         name="SignIn"
@@ -26,7 +34,7 @@ const InitialRoutes: React.FC = () => {
       />
       <Stack.Screen name="SignUp" component={SignUpNavigator} />
     </Stack.Navigator>
-  )
+  ) : null
 }
 
 export default InitialRoutes

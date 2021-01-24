@@ -31,7 +31,12 @@ const UpdateInfo: React.FC = () => {
   const { user, updateUserInfo } = useAuth()
   const navigation = useNavigation()
 
-  const { control, errors, handleSubmit } = useForm<UpdateUserDetailsData>({
+  const {
+    control,
+    errors,
+    handleSubmit,
+    formState: { isSubmitting }
+  } = useForm<UpdateUserDetailsData>({
     defaultValues: {
       email: user.email,
       name: user.name
@@ -93,6 +98,7 @@ const UpdateInfo: React.FC = () => {
       </KeyboardAvoidingView>
       <SubmitButton
         onPress={handleSubmit(updateNameAndEmail)}
+        loading={isSubmitting}
         style={{ marginTop: Dimensions.get('window').height - 614 }}
       >
         Salvar alterações

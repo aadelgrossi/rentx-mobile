@@ -32,13 +32,15 @@ export const CarModel = styled.Text`
 `
 
 export const AddInfo = styled.View`
-  margin-top: 10px;
+  margin-top: 8px;
 `
 
 export const AddInfoContent = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 100px;
+  align-items: flex-end;
+  margin-top: -4px;
+  width: 110px;
 `
 export const RateValue = styled.Text`
   font-size: 15px;

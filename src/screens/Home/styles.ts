@@ -26,13 +26,13 @@ export const Label = styled.Text`
 `
 
 export const DateContainer = styled.View`
-  align-items: stretch;
-  width: 145px;
-  min-height: 40px;
+  align-items: flex-start;
+  width: 140px;
 `
 
 export const DateContent = styled.Text`
   font-family: 'inter-500';
+  margin-top: 4px;
   font-size: 15px;
   color: ${colors.white};
 `
@@ -40,7 +40,7 @@ export const DateContent = styled.Text`
 export const CalendarContainer = styled.View`
   background-color: ${colors.white};
   padding: 32px 32px;
-  min-height: 530px;
+  min-height: 580px;
   margin-top: auto;
 `
 
@@ -68,7 +68,9 @@ export const Content = styled.View`
   padding: 0 16px;
 `
 
-export const SearchResults = styled(FlatList as new () => FlatList<Car>)``
+export const SearchResults = styled(FlatList as new () => FlatList<Car>)`
+  margin-bottom: 212px;
+`
 
 export const FilterContainer = styled.View`
   padding: 16px 32px 32px;

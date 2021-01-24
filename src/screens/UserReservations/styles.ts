@@ -36,4 +36,6 @@ export const Content = styled.View`
   margin: 16px 16px 0;
 `
 
-export const RentalsList = styled(FlatList as new () => FlatList<Rental>)``
+export const RentalsList = styled(FlatList as new () => FlatList<Rental>)`
+  margin-bottom: 128px;
+`

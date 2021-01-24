@@ -38,7 +38,12 @@ interface ChangeUserPasswordVariables {
 }
 
 const UpdatePassword: React.FC = () => {
-  const { control, handleSubmit, errors } = useForm<UpdatePasswordFormData>({
+  const {
+    control,
+    handleSubmit,
+    errors,
+    formState: { isSubmitting }
+  } = useForm<UpdatePasswordFormData>({
     defaultValues: {
       oldPassword: '',
       newPassword: '',
@@ -107,6 +112,7 @@ const UpdatePassword: React.FC = () => {
           </View>
 
           <SubmitButton
+            loading={isSubmitting}
             onPress={handleSubmit(updatePassword)}
             style={{ marginTop: Dimensions.get('window').height - 678 }}
           >

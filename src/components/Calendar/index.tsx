@@ -5,9 +5,16 @@ import CalendarPicker from 'react-native-calendar-picker'
 
 import colors from '~/styles/colors'
 
-export const Calendar: React.FC<{
+interface CalendarProps {
   onChange(date: any, type: string): void
-}> = ({ onChange }) => {
+  initialDate?: Date
+  endDate?: Date | undefined
+}
+export const Calendar: React.FC<CalendarProps> = ({
+  onChange,
+  initialDate,
+  endDate
+}) => {
   return (
     <CalendarPicker
       allowRangeSelection={true}
@@ -38,6 +45,9 @@ export const Calendar: React.FC<{
           color: colors.grayAccent
         }
       })}
+      initialDate={initialDate}
+      selectedStartDate={initialDate}
+      selectedEndDate={endDate}
       selectedDayColor={colors.red}
       selectedDayTextColor={colors.white}
       todayBackgroundColor={colors.white}
@@ -55,6 +65,7 @@ export const Calendar: React.FC<{
       }}
       disabledDatesTextStyle={{
         fontFamily: 'inter-500',
+        fontSize: 15,
         color: colors.grayAccent
       }}
       selectedRangeEndStyle={{
@@ -63,6 +74,7 @@ export const Calendar: React.FC<{
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }}
+      scaleFactor={410}
       customDatesStyles={date => ({
         textStyle: {
           fontFamily: 'inter-500',
@@ -78,6 +90,7 @@ export const Calendar: React.FC<{
         fontSize: 20,
         color: colors.black
       }}
+      headerWrapperStyle={{ paddingHorizontal: 20 }}
       selectedRangeStartTextStyle={{ color: colors.white }}
       selectedRangeEndTextStyle={{ color: colors.white }}
       dayLabelsWrapper={{ borderTopWidth: 0 }}
