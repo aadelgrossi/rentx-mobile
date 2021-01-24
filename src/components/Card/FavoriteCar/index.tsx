@@ -9,10 +9,11 @@ import {
   ModelInfo,
   Label,
   AddInfo,
-  AddInfoContent
+  AddInfoContent,
+  CarModel,
+  RateValue
 } from '../styles'
-import { CarModel, TotalValue, CarPhoto } from './styles'
-
+import { CarPhoto } from './styles'
 export const FavoriteCarCard: React.FC<FavoriteCar> = ({
   dailyRate,
   model,
@@ -31,7 +32,7 @@ export const FavoriteCarCard: React.FC<FavoriteCar> = ({
         <AddInfo>
           <Label>Por {totalDays} dias</Label>
           <AddInfoContent>
-            <TotalValue>R$ {dailyRate}</TotalValue>
+            <RateValue>R$ {dailyRate}</RateValue>
             <RentIcon color={colors.grayText} size={20} name={fuelType} />
           </AddInfoContent>
         </AddInfo>

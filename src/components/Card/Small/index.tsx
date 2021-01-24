@@ -33,7 +33,7 @@ export const SmallCard: React.FC<Car> = ({
           <Label>Ao dia</Label>
           <AddInfoContent>
             <RateValue>R$ {dailyRate}</RateValue>
-            <RentIcon color={colors.grayText} size={20} name={fuelType} />
+            <RentIcon color={colors.grayText} size={22} name={fuelType} />
           </AddInfoContent>
         </AddInfo>
       </Info>

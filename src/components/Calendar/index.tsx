@@ -74,7 +74,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }}
-      scaleFactor={380}
+      scaleFactor={410}
       customDatesStyles={date => ({
         textStyle: {
           fontFamily: 'inter-500',

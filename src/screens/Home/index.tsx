@@ -168,11 +168,7 @@ export const Home: React.FC<{
           </TouchableOpacity>
         </DateContainer>
 
-        <MaterialIcons
-          name="keyboard-arrow-right"
-          size={22}
-          color={colors.grayText}
-        />
+        <RentIcon name="arrow-right" size={18} color={colors.grayText} />
         <DateContainer>
           <TouchableOpacity onPress={toggleCalendarVisible}>
             <Label>Até</Label>

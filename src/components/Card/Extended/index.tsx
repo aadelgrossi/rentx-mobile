@@ -29,7 +29,7 @@ export const ExtendedCard: React.FC<Car> = ({
         <RateValue style={{ marginRight: 0 }}>R$ {dailyRate}</RateValue>
       </AddInfo>
 
-      <FuelIcon color={colors.grayText} size={24} name={fuelType} />
+      <FuelIcon color={colors.grayText} size={26} name={fuelType} />
 
       <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
     </LargeContainer>

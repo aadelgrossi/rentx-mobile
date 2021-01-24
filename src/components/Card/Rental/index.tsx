@@ -63,7 +63,7 @@ export const RentalCard: React.FC<Rental> = ({
             <Label>Por {amountOfDays} dias</Label>
             <AddInfoContent>
               <TotalValue>R$ {totalValue}</TotalValue>
-              <RentIcon color={colors.grayText} size={20} name={fuelType} />
+              <RentIcon color={colors.grayText} size={22} name={fuelType} />
             </AddInfoContent>
           </AddInfo>
         </Info>
