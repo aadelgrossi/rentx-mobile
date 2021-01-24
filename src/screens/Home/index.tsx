@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { MaterialIcons } from '@expo/vector-icons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
