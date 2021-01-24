@@ -42,7 +42,12 @@ export const StepTwo: React.FC<StepTwoProps> = ({ navigation }) => {
 
   const passwordConfirm = React.useRef<TextInput>(null)
 
-  const { control, handleSubmit, errors } = useForm<SignUpPassword>({
+  const {
+    control,
+    handleSubmit,
+    errors,
+    formState: { isSubmitting }
+  } = useForm<SignUpPassword>({
     defaultValues: {
       password: '',
       password_confirmation: ''
@@ -115,6 +120,7 @@ export const StepTwo: React.FC<StepTwoProps> = ({ navigation }) => {
               />
 
               <Button
+                loading={isSubmitting}
                 style={{ marginTop: 56 }}
                 onPress={handleSubmit(onSubmit)}
               >

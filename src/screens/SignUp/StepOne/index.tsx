@@ -39,7 +39,12 @@ export const StepOne: React.FC = () => {
 
   const emailInput = React.useRef<TextInput>(null)
 
-  const { control, handleSubmit, errors } = useForm<SignUpInfo>({
+  const {
+    control,
+    handleSubmit,
+    errors,
+    formState: { isSubmitting }
+  } = useForm<SignUpInfo>({
     defaultValues: signUpInfo,
     resolver: joiResolver(signUpStepOneSchema)
   })
@@ -115,6 +120,7 @@ export const StepOne: React.FC = () => {
               />
 
               <Button
+                loading={isSubmitting}
                 style={{ marginTop: 56 }}
                 onPress={handleSubmit(onSubmit)}
               >
