@@ -3,9 +3,9 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
-import { CompositeNavigationProp } from '@react-navigation/native'
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { addDays, lastDayOfWeek } from 'date-fns'
+import { addDays, lastDayOfWeek, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 import { Dimensions } from 'react-native'
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
@@ -69,10 +69,16 @@ export const Home: React.FC<{
     StackNavigationProp<TabRoutesParamList, 'Home'>,
     StackNavigationProp<AppRoutesParamList>
   >
-}> = ({ navigation }) => {
+  route: RouteProp<TabRoutesParamList, 'Home'>
+}> = ({ navigation, route }) => {
   const { data: rateData } = useQuery<DailyRateRangeQueryResponse>(
     DAILY_RATE_RANGE
   )
+  const { params } = route
+
+  const routeStartDate = params?.startDate ? parseISO(params.startDate) : null
+  const routeEndDate = params?.endDate ? parseISO(params.endDate) : null
+
   const dailyRateRange = useMemo(() => {
     if (rateData) {
       const { min, max } = rateData.dailyRateRange
@@ -85,9 +91,11 @@ export const Home: React.FC<{
   const [priceRange, setPriceRange] = useState(dailyRateRange)
 
   const [startDate, setStartDate] = useState<Date>(
-    lastDayOfWeek(new Date(), { weekStartsOn: 6 })
+    routeStartDate || lastDayOfWeek(new Date(), { weekStartsOn: 6 })
   )
-  const [endDate, setEndDate] = useState<Date | null>(addDays(startDate, 3))
+  const [endDate, setEndDate] = useState<Date | undefined>(
+    routeEndDate || addDays(startDate, 3)
+  )
 
   const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
   const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
@@ -128,7 +136,7 @@ export const Home: React.FC<{
       setEndDate(date)
     } else {
       setStartDate(date)
-      setEndDate(null)
+      setEndDate(undefined)
     }
   }, [])
 
@@ -215,7 +223,11 @@ export const Home: React.FC<{
           style={{ borderTopLeftRadius: 24, borderTopRightRadius: 24 }}
         >
           <ModalTopDetail />
-          <Calendar onChange={handleDateChange} />
+          <Calendar
+            onChange={handleDateChange}
+            initialDate={startDate}
+            endDate={endDate}
+          />
           <SubmitFilters disabled={!endDate} onPress={toggleCalendarVisible}>
             <SubmitFiltersText>Confirmar</SubmitFiltersText>
           </SubmitFilters>
