@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/stack'
 import { usePersistStorage } from 'react-native-use-persist-storage'
 
+import { ONBOARDING_SELECT_DATE_KEY } from '~/constants/async_storage_keys'
 import { SelectDate } from '~/screens'
 
 import { ProfileNavigator, ReservationNavigator, Tabs } from './navigators'
@@ -15,7 +16,7 @@ const Stack = createStackNavigator<AppRoutesParamList>()
 
 const AppRoutes: React.FC = () => {
   const [hasRunBefore, _, restored] = usePersistStorage<boolean>(
-    'RentX@HasRunBefore',
+    ONBOARDING_SELECT_DATE_KEY,
     false
   )
 

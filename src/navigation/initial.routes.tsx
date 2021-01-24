@@ -3,6 +3,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { usePersistStorage } from 'react-native-use-persist-storage'
 
+import { ONBOARDING_STEPS_KEY } from '~/constants/async_storage_keys'
 import { Welcome, SignIn, Onboarding } from '~/screens'
 
 import { SignUpNavigator } from './navigators'
@@ -12,7 +13,7 @@ const Stack = createStackNavigator<InitialRoutesParamList>()
 
 const InitialRoutes: React.FC = () => {
   const [hasRunBefore, _, restored] = usePersistStorage<boolean>(
-    'RentX@HasRunBefore',
+    ONBOARDING_STEPS_KEY,
     false
   )
 

@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar'
 import { usePersistStorage } from 'react-native-use-persist-storage'
 
 import { Calendar, RentIcon } from '~/components'
+import { ONBOARDING_SELECT_DATE_KEY } from '~/constants/async_storage_keys'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { formatShortDate } from '~/utils/formatDate'
@@ -33,8 +34,8 @@ interface SelectDateNavigationProps {
 export const SelectDate: React.FC<SelectDateNavigationProps> = ({
   navigation
 }) => {
-  const [_, setHasRunBefore] = usePersistStorage<boolean>(
-    'RentX@HasRunBefore',
+  const [_, setHasSelectedDate] = usePersistStorage<boolean>(
+    ONBOARDING_SELECT_DATE_KEY,
     false
   )
 
@@ -52,7 +53,7 @@ export const SelectDate: React.FC<SelectDateNavigationProps> = ({
 
   const handleSubmit = useCallback(() => {
     if (startDate && endDate) {
-      setHasRunBefore(true)
+      setHasSelectedDate(true)
       navigation.navigate('Tabs', {
         screen: 'Home',
         params: {
@@ -61,7 +62,7 @@ export const SelectDate: React.FC<SelectDateNavigationProps> = ({
         }
       })
     }
-  }, [startDate, endDate, navigation, setHasRunBefore])
+  }, [startDate, endDate, navigation, setHasSelectedDate])
 
   return (
     <>

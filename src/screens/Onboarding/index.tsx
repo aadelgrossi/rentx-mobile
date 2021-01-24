@@ -4,8 +4,10 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { StatusBar } from 'expo-status-bar'
 import { Dimensions } from 'react-native'
 import Onboard from 'react-native-onboarding-swiper'
+import { usePersistStorage } from 'react-native-use-persist-storage'
 
 import { NextButton } from '~/components'
+import { ONBOARDING_STEPS_KEY } from '~/constants/async_storage_keys'
 import { InitialRoutesParamList } from '~/navigation/types'
 
 import { pages } from './pages'
@@ -17,9 +19,15 @@ interface OnboardingNavigationProps {
 export const Onboarding: React.FC<OnboardingNavigationProps> = ({
   navigation
 }) => {
+  const [_, setHasRunBefore] = usePersistStorage<boolean>(
+    ONBOARDING_STEPS_KEY,
+    false
+  )
+
   const handleDone = useCallback(async () => {
+    setHasRunBefore(true)
     navigation.navigate('Welcome')
-  }, [navigation])
+  }, [navigation, setHasRunBefore])
 
   return (
     <>

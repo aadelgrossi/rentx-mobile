@@ -4,6 +4,7 @@ import { ApolloLink, useLazyQuery, useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { getApolloClient, httpLink } from '~/config/apollo'
+import { AUTH_TOKEN_KEY } from '~/constants/async_storage_keys'
 import { USER_INFO, SIGN_IN } from '~/graphql'
 
 import { AuthState, SignInCredentials } from './auth.types'
@@ -58,7 +59,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     async ({ accessToken, user }: AuthorizationParams) => {
       // add token to Apollo headers
       setApolloHeaders(accessToken)
-      await AsyncStorage.setItem('@RentX:token', accessToken)
+      await AsyncStorage.setItem(AUTH_TOKEN_KEY, accessToken)
 
       // if passing a user in params (on signup/signin when object is obtained alongside)
       if (user) {
@@ -76,7 +77,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
-      const accessToken = await AsyncStorage.getItem('@RentX:token')
+      const accessToken = await AsyncStorage.getItem(AUTH_TOKEN_KEY)
 
       if (accessToken) authorizeWith({ accessToken })
     }
@@ -93,7 +94,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@RentX:token', '@RentX:user'])
+    await AsyncStorage.removeItem(AUTH_TOKEN_KEY)
     await getApolloClient().clearStore()
     getApolloClient().setLink(httpLink)
 

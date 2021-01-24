@@ -32,17 +32,16 @@ export const DateContainer = styled.View`
 `
 
 export const Label = styled.Text`
-  font-size: 10px;
+  font-size: 12px;
   font-family: 'archivo-500';
   color: ${colors.grayAccent};
   text-transform: uppercase;
+  margin-bottom: 4px;
 `
+
 export const DateWrapper = styled.View<DateValueProps>`
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 130px;
-  height: 40px;
-  align-items: flex-start;
+  width: 140px;
+  height: 46px;
 
   ${props =>
     !props.filled &&
