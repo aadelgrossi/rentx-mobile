@@ -10,10 +10,15 @@ import { StatusBar } from 'expo-status-bar'
 import { Dimensions } from 'react-native'
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
+import { useDebounce } from 'use-debounce'
 
-import { Calendar, CustomMarker, RentIcon } from '~/components'
+import {
+  Calendar,
+  CustomMarker,
+  RentIcon,
+  ExtendedCardSkeletonList
+} from '~/components'
 import { ExtendedCard } from '~/components/Card'
-import { ExtendedCardSkeletonList } from '~/components/Card/Extended/Skeleton'
 import { FALLBACK_DAILY_RATE_RANGE, FUEL_TYPE, TRANSMISSION } from '~/constants'
 import { CARS, DAILY_RATE_RANGE } from '~/graphql/cars'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
@@ -86,12 +91,13 @@ export const Home: React.FC<{
 
   const [fuelType, setFuelType] = useState<FUEL_TYPE | null>(null)
   const [transmission, setTransmission] = useState<TRANSMISSION | null>(null)
+  const [debouncedPriceRange] = useDebounce(priceRange, 500)
 
   const { data, loading } = useQuery<{ cars: Car[] }>(CARS, {
     variables: {
       filter: {
-        minDailyRate: priceRange[0],
-        maxDailyRate: priceRange[1],
+        minDailyRate: debouncedPriceRange[0],
+        maxDailyRate: debouncedPriceRange[1],
         fromDate: startDate,
         toDate: endDate,
         fuelType,
