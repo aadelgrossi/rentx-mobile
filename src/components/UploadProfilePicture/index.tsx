@@ -22,7 +22,7 @@ interface UpdateAvatarMutationVariables {
 }
 
 export const UploadProfilePicture: React.FC = () => {
-  const { user, updateUserInfo } = useAuth()
+  const { user } = useAuth()
   const [updateAvatarInfoForUser] = useMutation<
     UpdateAvatarResponse,
     UpdateAvatarMutationVariables
@@ -44,7 +44,7 @@ export const UploadProfilePicture: React.FC = () => {
 
       setPreviewImage(uri)
 
-      if (user.avatar) {
+      if (user?.avatar) {
         const previousPicture = user.avatar.url.replace(/^.*[\\/]/, '')
         await deleteFile({ key: previousPicture })
       }
@@ -62,17 +62,15 @@ export const UploadProfilePicture: React.FC = () => {
         setUploadProgress(0)
       })
 
-      const { data } = await updateAvatarInfoForUser({
+      await updateAvatarInfoForUser({
         variables: {
           data: { url: `${process.env.AWS_S3_PUBLIC_URL}/${filename}` }
         },
         refetchQueries: [{ query: USER_INFO }],
         awaitRefetchQueries: true
       })
-
-      if (data) updateUserInfo(data.updateAvatar)
     }
-  }, [updateAvatarInfoForUser, updateUserInfo, user.avatar])
+  }, [updateAvatarInfoForUser, user?.avatar])
 
   return (
     <Container>

@@ -27,7 +27,7 @@ interface UpdateUserDetailsData {
 }
 
 const UpdateInfo: React.FC = () => {
-  const { user, updateUserInfo } = useAuth()
+  const { user } = useAuth()
   const navigation = useNavigation()
 
   const {
@@ -37,8 +37,8 @@ const UpdateInfo: React.FC = () => {
     formState: { isSubmitting }
   } = useForm<UpdateUserDetailsData>({
     defaultValues: {
-      email: user.email,
-      name: user.name
+      email: user?.email,
+      name: user?.name
     },
     resolver: joiResolver(updateUserInfoSchema)
   })
@@ -49,13 +49,11 @@ const UpdateInfo: React.FC = () => {
   const updateNameAndEmail = useCallback(
     async (data: UpdateUserDetailsData) => {
       try {
-        const { data: response } = await updateUser({
+        await updateUser({
           variables: { data },
           awaitRefetchQueries: true,
           refetchQueries: [{ query: USER_INFO }]
         })
-
-        if (response) updateUserInfo(response.updateUser)
 
         navigation.navigate('UpdateConfirm')
       } catch (err) {
@@ -63,7 +61,7 @@ const UpdateInfo: React.FC = () => {
         authErrorMessage('Email já em uso.')
       }
     },
-    [navigation, updateUser, updateUserInfo]
+    [navigation, updateUser]
   )
 
   return (
@@ -78,7 +76,7 @@ const UpdateInfo: React.FC = () => {
               name="name"
               icon="person"
               placeholder="Nome"
-              defaultValue={user.name}
+              defaultValue={user?.name}
               control={control}
               blurOnSubmit={false}
               hasError={!!errors.name}
@@ -88,7 +86,7 @@ const UpdateInfo: React.FC = () => {
               name="email"
               icon="email"
               placeholder="Email"
-              defaultValue={user.email}
+              defaultValue={user?.email}
               control={control}
               hasError={!!errors.email}
               ref={emailRef}
