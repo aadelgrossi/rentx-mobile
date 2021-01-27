@@ -3,9 +3,9 @@ import React, { createContext, useCallback, useState, useEffect } from 'react'
 import { ApolloLink, useLazyQuery, useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { getApolloClient, httpLink } from '~/config/apollo'
 import { AUTH_TOKEN_KEY } from '~/constants/async_storage_keys'
 import { USER_INFO, SIGN_IN } from '~/graphql'
+import { getApolloClient, httpLink } from '~/services/apollo'
 
 import { AuthState, SignInCredentials } from './auth.types'
 
@@ -26,7 +26,8 @@ export interface AuthContextData {
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [authData, setAuthData] = useState<AuthState>({} as AuthState)
+  const [user, setUser] = useState<User>({} as User)
+  const [isAuthorized, setIsAuthorized] = useState(false)
 
   const [fetchUserInfoFromServer, { data: userData }] = useLazyQuery<{
     me: User
@@ -51,25 +52,28 @@ export const AuthProvider: React.FC = ({ children }) => {
     getApolloClient().setLink(authLink.concat(httpLink))
   }, [])
 
-  const updateUserInfo = useCallback((user: User) => {
-    setAuthData(prevState => ({ ...prevState, user }))
+  const updateUserInfo = useCallback((newUserInfo: User) => {
+    setUser(newUserInfo)
   }, [])
 
   const authorizeWith = useCallback(
     async ({ accessToken, user }: AuthorizationParams) => {
       // add token to Apollo headers
       setApolloHeaders(accessToken)
+      setIsAuthorized(true)
+
       await AsyncStorage.setItem(AUTH_TOKEN_KEY, accessToken)
 
       // if passing a user in params (on signup/signin when object is obtained alongside)
       if (user) {
-        setAuthData({ accessToken, user })
+        // setAuthData({ accessToken, user })
+        setUser(user)
       } else {
         // if attempting to login with stored token, get user from server
         fetchUserInfoFromServer()
 
         // update state with result and up-to-date info from server
-        if (userData) setAuthData({ accessToken, user: userData.me })
+        if (userData) setUser(userData.me)
       }
     },
     [userData, fetchUserInfoFromServer, setApolloHeaders]
@@ -98,18 +102,19 @@ export const AuthProvider: React.FC = ({ children }) => {
     await getApolloClient().clearStore()
     getApolloClient().setLink(httpLink)
 
-    setAuthData({} as AuthState)
+    setUser({} as User)
+    setIsAuthorized(false)
   }, [])
 
   return (
     <AuthContext.Provider
       value={{
-        user: authData.user,
+        user,
         signIn,
         signOut,
         authorizeWith,
         updateUserInfo,
-        isAuthorized: !!authData.user
+        isAuthorized
       }}
     >
       {children}

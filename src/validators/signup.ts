@@ -1,8 +1,8 @@
 import { ApolloQueryResult } from '@apollo/client'
 import Joi from 'joi'
 
-import { getApolloClient } from '~/config/apollo'
-import { IS_EMAIL_AVAILABLE } from '~/graphql/auth'
+import { IS_EMAIL_AVAILABLE } from '~/graphql'
+import { getApolloClient } from '~/services/apollo'
 
 export const signUpStepOneSchema = Joi.object({
   name: Joi.string().required(),
