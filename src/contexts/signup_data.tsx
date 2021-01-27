@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useState } from 'react'
 
 import { useMutation } from '@apollo/client'
 
-import { SIGN_UP } from '~/graphql/auth'
+import { SIGN_UP } from '~/graphql'
 
 import { AuthState } from './auth.types'
 import { SignUpData, SignUpInfo } from './signup.types'
@@ -31,19 +31,16 @@ export const SignUpProvider: React.FC = ({ children }) => {
     setSignUpInfo(data)
   }
 
-  const signUp = useCallback(async (signUpData: SignUpData) => {
-    const { data } = await createAccount({
-      variables: { signUpData }
-    })
+  const signUp = useCallback(
+    async (signUpData: SignUpData) => {
+      const { data } = await createAccount({
+        variables: { signUpData }
+      })
 
-    if (data) {
-      const { user, accessToken } = data.signup
-
-      return { user, accessToken } as AuthState
-    }
-
-    return null
-  }, [])
+      return data ? data.signup : null
+    },
+    [createAccount]
+  )
 
   return (
     <SignUpContext.Provider
