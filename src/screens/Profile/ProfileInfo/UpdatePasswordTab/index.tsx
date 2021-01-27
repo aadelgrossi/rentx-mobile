@@ -114,7 +114,7 @@ const UpdatePassword: React.FC = () => {
           <SubmitButton
             loading={isSubmitting}
             onPress={handleSubmit(updatePassword)}
-            style={{ marginTop: Dimensions.get('window').height - 678 }}
+            style={{ marginTop: Dimensions.get('window').height / 3.5 }}
           >
             Alterar senha
           </SubmitButton>

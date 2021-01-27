@@ -9,13 +9,12 @@ import {
   KeyboardAvoidingView,
   TextInput,
   View,
-  Platform,
-  Dimensions
+  Platform
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { Input } from '~/components/Input'
-import { UPDATE_USER_INFO } from '~/graphql'
+import { UPDATE_USER_INFO, USER_INFO } from '~/graphql'
 import { useAuth } from '~/hooks'
 import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { updateUserInfoSchema } from '~/validators'
@@ -51,7 +50,9 @@ const UpdateInfo: React.FC = () => {
     async (data: UpdateUserDetailsData) => {
       try {
         const { data: response } = await updateUser({
-          variables: { data }
+          variables: { data },
+          awaitRefetchQueries: true,
+          refetchQueries: [{ query: USER_INFO }]
         })
 
         if (response) updateUserInfo(response.updateUser)
@@ -62,13 +63,12 @@ const UpdateInfo: React.FC = () => {
         authErrorMessage('Email já em uso.')
       }
     },
-    []
+    [navigation, updateUser, updateUserInfo]
   )
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <KeyboardAvoidingView
-        style={{ flex: 1, justifyContent: 'center' }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
@@ -99,7 +99,7 @@ const UpdateInfo: React.FC = () => {
       <SubmitButton
         onPress={handleSubmit(updateNameAndEmail)}
         loading={isSubmitting}
-        style={{ marginTop: Dimensions.get('window').height - 614 }}
+        style={{ marginTop: 'auto' }}
       >
         Salvar alterações
       </SubmitButton>
