@@ -11,6 +11,7 @@ import { ONBOARDING_STEPS_KEY } from '~/constants/async_storage_keys'
 import { InitialRoutesParamList } from '~/navigation/types'
 
 import { pages } from './pages'
+import { Container } from './styles'
 
 interface OnboardingNavigationProps {
   navigation: StackNavigationProp<InitialRoutesParamList, 'Onboarding'>
@@ -30,7 +31,7 @@ export const Onboarding: React.FC<OnboardingNavigationProps> = ({
   }, [navigation, setHasRunBefore])
 
   return (
-    <>
+    <Container>
       <Onboard
         pages={pages}
         showSkip={false}
@@ -46,7 +47,7 @@ export const Onboarding: React.FC<OnboardingNavigationProps> = ({
         onDone={handleDone}
       />
       <StatusBar style="dark" />
-    </>
+    </Container>
   )
 }
 

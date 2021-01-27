@@ -4,6 +4,10 @@ import styled from 'styled-components/native'
 import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
+export const Container = styled.View`
+  flex: 1;
+`
+
 export const styles = StyleSheet.create({
   title: {
     fontFamily: 'archivo-700',
