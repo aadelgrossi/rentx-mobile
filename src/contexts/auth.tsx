@@ -53,7 +53,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const updateUserInfo = useCallback((newUserInfo: User) => {
-    setUser(newUserInfo)
+    setUser(prevState => ({ ...prevState, newUserInfo }))
   }, [])
 
   const authorizeWith = useCallback(
