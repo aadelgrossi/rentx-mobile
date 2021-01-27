@@ -59,3 +59,13 @@ export const CHANGE_USER_PASSWORD = gql`
     }
   }
 `
+
+export const UPDATE_AVATAR = gql`
+  mutation updateAvatar($data: UpdateAvatarInput!) {
+    updateAvatar(data: $data) {
+      avatar {
+        url
+      }
+    }
+  }
+`
