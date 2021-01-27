@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar'
 
 import { RentalCardSkeletonList } from '~/components'
 import { RentalCard } from '~/components/Card'
-import { GET_RENTALS } from '~/graphql/rentals'
+import { GET_RENTALS } from '~/graphql'
 
 import {
   Container,

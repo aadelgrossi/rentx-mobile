@@ -19,7 +19,7 @@ import {
 } from '~/components'
 import { ExtendedCard } from '~/components/Card'
 import { FALLBACK_DAILY_RATE_RANGE, FUEL_TYPE, TRANSMISSION } from '~/constants'
-import { CARS, DAILY_RATE_RANGE } from '~/graphql/cars'
+import { CARS, DAILY_RATE_RANGE } from '~/graphql'
 import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
 import colors from '~/styles/colors'
 import { formatShortDate } from '~/utils/formatDate'
