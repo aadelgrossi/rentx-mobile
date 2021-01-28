@@ -5,10 +5,10 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { differenceInDays, parseISO } from 'date-fns'
 import { StatusBar } from 'expo-status-bar'
 
-import { Button, RentIcon } from '~/components'
+import { Button } from '~/components'
+import { BASE_SPECS, FUEL_TYPE, FUEL_LABELS } from '~/constants'
 import { CREATE_RENTAL, GET_RENTALS, CAR_SPECIFICATIONS } from '~/graphql'
 import { ReservationParamList } from '~/navigation/types'
-import colors from '~/styles/colors'
 import { formatShortDate } from '~/utils/formatDate'
 
 import {
@@ -27,7 +27,9 @@ import {
   SpecItemText,
   DateItem,
   SubTotal,
+  Arrow,
   TotalPrice,
+  SpecIcon,
   DatesSection,
   SubTotalSection
 } from './styles'
@@ -91,18 +93,19 @@ export const CarDetails: React.FC<
         keyExtractor={({ id }: CarSpec) => id}
         renderItem={({
           item: {
-            specification: { icon, isIconValue },
+            specification: { icon, isIconValue, name },
             value
           }
         }: {
           item: CarSpec
         }) => (
           <SpecItemContainer>
-            <RentIcon
-              name={isIconValue ? (value as CustomCarSpec) : icon}
-              color={colors.grayPrimary}
-            />
-            <SpecItemText>{value}</SpecItemText>
+            <SpecIcon name={isIconValue ? (value as CustomCarSpec) : icon} />
+            <SpecItemText>
+              {name === BASE_SPECS.fuelType
+                ? FUEL_LABELS[value as FUEL_TYPE]
+                : value}
+            </SpecItemText>
           </SpecItemContainer>
         )}
         ListFooterComponent={
@@ -111,7 +114,7 @@ export const CarDetails: React.FC<
               <Label>De</Label>
               <DateItem>{formatShortDate(startDate)}</DateItem>
             </Item>
-            <RentIcon name="arrow-right" color={colors.grayAccent} size={15} />
+            <Arrow />
             <Item>
               <Label>Até</Label>
               <DateItem>{formatShortDate(endDate)}</DateItem>
