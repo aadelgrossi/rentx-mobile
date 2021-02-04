@@ -1,0 +1,1 @@
+export const FALLBACK_DAILY_RATE_RANGE = [680, 1800]

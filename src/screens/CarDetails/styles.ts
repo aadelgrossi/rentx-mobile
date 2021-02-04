@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 export const Container = styled.View`
@@ -31,8 +32,8 @@ export const BackButton = styled.TouchableOpacity`
 export const Item = styled.View``
 
 export const CarPhoto = styled.Image`
-  height: ${Dimensions.get('screen').height / 4}px;
-  margin: 60px 12px 0;
+  height: ${Dimensions.get('screen').height / 3.8}px;
+  margin: 100px 12px 0;
 `
 
 export const Section = styled.View`
@@ -118,3 +119,13 @@ export const SpecItemText = styled.Text`
   font-family: 'inter-500';
   text-align: center;
 `
+
+export const SpecIcon = styled(RentIcon).attrs({
+  color: colors.grayPrimary
+})``
+
+export const Arrow = styled(RentIcon).attrs({
+  name: 'arrow-right',
+  color: colors.grayAccent,
+  size: 15
+})``

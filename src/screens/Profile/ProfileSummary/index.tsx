@@ -1,13 +1,9 @@
 import React from 'react'
 
-import { CompositeNavigationProp } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-
-import { ProfilePicture, RentIcon } from '~/components'
+import { ProfilePicture } from '~/components'
 import { FavoriteCarCard } from '~/components/Card'
+import { USER_INFO } from '~/graphql'
 import { useAuth } from '~/hooks'
-import { AppRoutesParamList, TabRoutesParamList } from '~/navigation/types'
-import colors from '~/styles/colors'
 import { formatLongDate } from '~/utils/formatDate'
 
 import {
@@ -24,21 +20,15 @@ import {
   Separator,
   FavoriteCarContainer,
   UserName,
-  Header
+  Header,
+  Icon
 } from './styles'
-
-interface ProfileScreenProps {
-  navigation: CompositeNavigationProp<
-    StackNavigationProp<TabRoutesParamList, 'Profile'>,
-    StackNavigationProp<AppRoutesParamList>
-  >
-}
+import { ProfileScreenProps } from './types'
 
 export const ProfileSummary: React.FC<ProfileScreenProps> = ({
   navigation
 }) => {
   const { user } = useAuth()
-  const { favoriteCar } = user
 
   return (
     <Container>
@@ -48,7 +38,7 @@ export const ProfileSummary: React.FC<ProfileScreenProps> = ({
             navigation.navigate('ProfileNavigator', { screen: 'ProfileInfo' })
           }
         >
-          <RentIcon name="edit" color={colors.grayAccent} />
+          <Icon name="edit" />
         </EditProfileButton>
         <HeaderTitle>Perfil</HeaderTitle>
         <LogOutButton
@@ -56,7 +46,7 @@ export const ProfileSummary: React.FC<ProfileScreenProps> = ({
             navigation.navigate('ProfileNavigator', { screen: 'SignOutPrompt' })
           }
         >
-          <RentIcon name="power" color={colors.grayAccent} />
+          <Icon name="power" />
         </LogOutButton>
       </Header>
       <Spacing />
@@ -64,35 +54,37 @@ export const ProfileSummary: React.FC<ProfileScreenProps> = ({
         <ProfileContainer>
           <ProfilePicture />
         </ProfileContainer>
-        {user && (
-          <>
-            <UserName>{user.name}</UserName>
-            <InfoItem style={{ marginTop: 24 }}>
-              <InfoTitle>Membro desde</InfoTitle>
-              <InfoValue>{formatLongDate(user.createdAt)}</InfoValue>
-            </InfoItem>
 
-            <InfoItem style={{ marginTop: 24 }}>
-              <InfoTitle>Agendamentos feitos</InfoTitle>
-              <InfoValue>{user.totalRentals || 0}</InfoValue>
-            </InfoItem>
+        <>
+          <UserName>{user?.name}</UserName>
+          <InfoItem style={{ marginTop: 24 }}>
+            <InfoTitle>Membro desde</InfoTitle>
+            <InfoValue>
+              {user?.createdAt && formatLongDate(user?.createdAt)}
+            </InfoValue>
+          </InfoItem>
 
-            <Separator />
+          <InfoItem style={{ marginTop: 24 }}>
+            <InfoTitle>Agendamentos feitos</InfoTitle>
+            <InfoValue>{user?.totalRentals || 0}</InfoValue>
+          </InfoItem>
 
-            {favoriteCar && (
-              <FavoriteCarContainer>
-                <InfoItem style={{ marginBottom: 16 }}>
-                  <InfoTitle>Carro favorito</InfoTitle>
-                  <InfoValue>
-                    Utilizado {favoriteCar.timesRented} vezes
-                  </InfoValue>
-                </InfoItem>
+          <Separator />
 
-                <FavoriteCarCard {...favoriteCar} />
-              </FavoriteCarContainer>
-            )}
-          </>
-        )}
+          {user?.favoriteCar && (
+            <FavoriteCarContainer>
+              <InfoItem style={{ marginBottom: 16 }}>
+                <InfoTitle>Carro favorito</InfoTitle>
+                <InfoValue>
+                  Utilizado {user?.favoriteCar.timesRented} vez
+                  {user?.favoriteCar.timesRented > 1 && 'es'}
+                </InfoValue>
+              </InfoItem>
+
+              <FavoriteCarCard {...user?.favoriteCar} />
+            </FavoriteCarContainer>
+          )}
+        </>
       </Contents>
     </Container>
   )

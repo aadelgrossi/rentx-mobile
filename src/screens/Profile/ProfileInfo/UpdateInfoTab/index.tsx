@@ -9,13 +9,12 @@ import {
   KeyboardAvoidingView,
   TextInput,
   View,
-  Platform,
-  Dimensions
+  Platform
 } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { Input } from '~/components/Input'
-import { UPDATE_USER_INFO } from '~/graphql'
+import { UPDATE_USER_INFO, USER_INFO } from '~/graphql'
 import { useAuth } from '~/hooks'
 import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { updateUserInfoSchema } from '~/validators'
@@ -28,7 +27,7 @@ interface UpdateUserDetailsData {
 }
 
 const UpdateInfo: React.FC = () => {
-  const { user, updateUserInfo } = useAuth()
+  const { user } = useAuth()
   const navigation = useNavigation()
 
   const {
@@ -38,8 +37,8 @@ const UpdateInfo: React.FC = () => {
     formState: { isSubmitting }
   } = useForm<UpdateUserDetailsData>({
     defaultValues: {
-      email: user.email,
-      name: user.name
+      email: user?.email,
+      name: user?.name
     },
     resolver: joiResolver(updateUserInfoSchema)
   })
@@ -50,11 +49,11 @@ const UpdateInfo: React.FC = () => {
   const updateNameAndEmail = useCallback(
     async (data: UpdateUserDetailsData) => {
       try {
-        const { data: response } = await updateUser({
-          variables: { data }
+        await updateUser({
+          variables: { data },
+          awaitRefetchQueries: true,
+          refetchQueries: [{ query: USER_INFO }]
         })
-
-        if (response) updateUserInfo(response.updateUser)
 
         navigation.navigate('UpdateConfirm')
       } catch (err) {
@@ -62,13 +61,12 @@ const UpdateInfo: React.FC = () => {
         authErrorMessage('Email já em uso.')
       }
     },
-    []
+    [navigation, updateUser]
   )
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <KeyboardAvoidingView
-        style={{ flex: 1, justifyContent: 'center' }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
@@ -78,7 +76,7 @@ const UpdateInfo: React.FC = () => {
               name="name"
               icon="person"
               placeholder="Nome"
-              defaultValue={user.name}
+              defaultValue={user?.name}
               control={control}
               blurOnSubmit={false}
               hasError={!!errors.name}
@@ -88,7 +86,7 @@ const UpdateInfo: React.FC = () => {
               name="email"
               icon="email"
               placeholder="Email"
-              defaultValue={user.email}
+              defaultValue={user?.email}
               control={control}
               hasError={!!errors.email}
               ref={emailRef}
@@ -99,7 +97,7 @@ const UpdateInfo: React.FC = () => {
       <SubmitButton
         onPress={handleSubmit(updateNameAndEmail)}
         loading={isSubmitting}
-        style={{ marginTop: Dimensions.get('window').height - 614 }}
+        style={{ marginTop: 'auto' }}
       >
         Salvar alterações
       </SubmitButton>

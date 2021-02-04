@@ -1,14 +1,30 @@
 import React from 'react'
 
-import noPicture from '~/assets/profilePicPlaceholder.png'
 import { useAuth } from '~/hooks'
 
-import { Container } from './styles'
+import { Avatar, Icon, Placeholder, PreviewImage } from './styles'
 
-export const ProfilePicture: React.FC = () => {
+interface ProfilePictureProps {
+  uri?: string
+}
+
+export const ProfilePicture: React.FC<ProfilePictureProps> = ({ uri }) => {
   const { user } = useAuth()
 
-  return (
-    <Container source={user.avatar ? { uri: user.avatar.url } : noPicture} />
-  )
+  if (uri) {
+    return <PreviewImage source={{ uri }} />
+  } else if (user?.avatar) {
+    return (
+      <Avatar
+        uri={user?.avatar.url}
+        key={`${user?.avatar.url}-${new Date().getTime()}`}
+      />
+    )
+  } else {
+    return (
+      <Placeholder>
+        <Icon name="person" />
+      </Placeholder>
+    )
+  }
 }

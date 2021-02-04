@@ -2,12 +2,6 @@ import styled from 'styled-components/native'
 
 import colors from '~/styles/colors'
 
-export const CarModel = styled.Text`
-  font-family: 'archivo-600';
-  font-size: 15px;
-  color: ${colors.grayPrimary};
-`
-
 export const TotalValue = styled.Text`
   font-size: 15px;
   font-family: 'archivo-500';

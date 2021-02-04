@@ -10,7 +10,7 @@ import {
   Route
 } from 'react-native-tab-view'
 
-import { ProfilePicture, RentIcon } from '~/components'
+import { UploadProfilePicture } from '~/components/UploadProfilePicture'
 import colors from '~/styles/colors'
 
 import {
@@ -18,7 +18,6 @@ import {
   Spacing,
   Contents,
   ProfileContainer,
-  SwitchPicture,
   TabBarTitle
 } from './styles'
 import UpdateInfo from './UpdateInfoTab'
@@ -67,10 +66,7 @@ export const ProfileInfo: React.FC = () => {
       <Spacing />
       <Contents>
         <ProfileContainer>
-          <ProfilePicture />
-          <SwitchPicture>
-            <RentIcon name="photo" color={colors.white} size={24} />
-          </SwitchPicture>
+          <UploadProfilePicture />
         </ProfileContainer>
 
         <TabView
@@ -78,9 +74,7 @@ export const ProfileInfo: React.FC = () => {
           renderScene={renderScene}
           onIndexChange={setIndex}
           renderTabBar={renderTabBar}
-          sceneContainerStyle={{
-            marginTop: 24
-          }}
+          sceneContainerStyle={{ marginTop: 24 }}
           initialLayout={{
             width: screenWidth
           }}

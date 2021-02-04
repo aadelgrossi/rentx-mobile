@@ -4,6 +4,7 @@ type FuelSpec = 'electric' | 'hybrid' | 'gas'
 
 interface Specification {
   icon: CustomCarSpec
+  name: string
   isIconValue: boolean
 }
 interface CarSpec {

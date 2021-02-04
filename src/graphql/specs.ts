@@ -5,6 +5,7 @@ export const CAR_SPECIFICATIONS = gql`
     specifications(carId: $id) {
       id
       specification {
+        name
         icon
         isIconValue
       }

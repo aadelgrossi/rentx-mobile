@@ -19,23 +19,11 @@ import { authErrorMessage } from '~/utils/authErrorInfoMessage'
 import { updateUserPasswordSchema } from '~/validators'
 
 import { SubmitButton } from '../styles'
-
-interface UpdatePasswordFormData {
-  oldPassword: string
-  newPassword: string
-  confirmPassword: string
-}
-
-interface ChangeUserPasswordResult {
-  changePassword: User
-}
-
-interface ChangeUserPasswordVariables {
-  data: {
-    oldPassword: string
-    newPassword: string
-  }
-}
+import {
+  ChangeUserPasswordResult,
+  ChangeUserPasswordVariables,
+  UpdatePasswordFormData
+} from './types'
 
 const UpdatePassword: React.FC = () => {
   const {
@@ -114,7 +102,7 @@ const UpdatePassword: React.FC = () => {
           <SubmitButton
             loading={isSubmitting}
             onPress={handleSubmit(updatePassword)}
-            style={{ marginTop: Dimensions.get('window').height - 678 }}
+            style={{ marginTop: Dimensions.get('window').height / 3.5 }}
           >
             Alterar senha
           </SubmitButton>

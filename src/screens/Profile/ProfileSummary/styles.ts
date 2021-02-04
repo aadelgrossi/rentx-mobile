@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
+import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
 
 export const Container = styled.ScrollView`
@@ -28,12 +29,13 @@ export const HeaderTitle = styled.Text`
 
 export const Spacing = styled.View`
   background-color: ${colors.black};
-  height: 100px;
+  height: 120px;
 `
 
 export const Contents = styled.View`
   align-items: center;
   padding: 0 24px 24px;
+  margin-top: -90px;
 `
 
 export const ProfileContainer = styled.View``
@@ -78,3 +80,7 @@ export const Separator = styled.View`
   margin: 16px 0;
   background-color: ${colors.grayLighter};
 `
+
+export const Icon = styled(RentIcon).attrs({
+  color: colors.grayText
+})``
