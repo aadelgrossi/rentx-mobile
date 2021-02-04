@@ -19,6 +19,7 @@ export interface AuthContextData {
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
   authorizeWith(data: AuthorizationParams): void
+  // updateUserInfo(user: User): void
   isAuthorized: boolean
 }
 
@@ -26,6 +27,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false)
+  // const [user, setUser] = useState<User>({} as User)
 
   const [fetchUserInfoFromServer, { data: userData }] = useLazyQuery<{
     me: User
@@ -49,6 +51,10 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     getApolloClient().setLink(authLink.concat(httpLink))
   }, [])
+
+  // const updateUserInfo = useCallback((newInfo: User) => {
+  //   setUser(prevState => ({ ...prevState, newInfo }))
+  // }, [])
 
   const authorizeWith = useCallback(
     async ({ accessToken, user }: AuthorizationParams) => {
@@ -96,6 +102,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         signIn,
         signOut,
         authorizeWith,
+        // updateUserInfo,
         isAuthorized
       }}
     >

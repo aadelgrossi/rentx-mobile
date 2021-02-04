@@ -1,23 +1,25 @@
 import React from 'react'
 
-import { useQuery } from '@apollo/client'
+import { useAuth } from '~/hooks'
 
-import { USER_INFO } from '~/graphql'
-
-import { Avatar, Icon, Placeholder } from './styles'
+import { Avatar, Icon, Placeholder, PreviewImage } from './styles'
 
 interface ProfilePictureProps {
   uri?: string
 }
 
 export const ProfilePicture: React.FC<ProfilePictureProps> = ({ uri }) => {
-  const { data } = useQuery<{ me: User }>(USER_INFO)
-  const randomKey = `${uri || data?.me.avatar?.url}-${new Date().getTime()}`
+  const { user } = useAuth()
 
   if (uri) {
-    return <Avatar source={{ uri }} key={randomKey} />
-  } else if (data?.me.avatar) {
-    return <Avatar source={{ uri: data.me.avatar.url }} key={randomKey} />
+    return <PreviewImage source={{ uri }} />
+  } else if (user?.avatar) {
+    return (
+      <Avatar
+        uri={user?.avatar.url}
+        key={`${user?.avatar.url}-${new Date().getTime()}`}
+      />
+    )
   } else {
     return (
       <Placeholder>

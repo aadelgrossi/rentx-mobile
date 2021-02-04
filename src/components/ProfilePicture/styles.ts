@@ -1,13 +1,22 @@
-import styled from 'styled-components/native'
+import { Image } from 'react-native-expo-image-cache'
+import styled, { css } from 'styled-components/native'
 
 import colors from '~/styles/colors'
 
 import { RentIcon } from '../RentIcon'
 
-export const Avatar = styled.Image`
+const imageProps = css`
   width: 180px;
   height: 180px;
   border-radius: 90px;
+`
+
+export const Avatar = styled(Image)`
+  ${imageProps}
+`
+
+export const PreviewImage = styled.Image`
+  ${imageProps}
 `
 
 export const Placeholder = styled.View`

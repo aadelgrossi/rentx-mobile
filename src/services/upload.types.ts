@@ -3,7 +3,7 @@ import { AWSError, Request, S3 } from 'aws-sdk'
 export interface UploadFileArgs {
   uri: string
   filename: string
-  type: string | undefined
+  type?: string
 }
 
 export interface DeleteFileArgs {

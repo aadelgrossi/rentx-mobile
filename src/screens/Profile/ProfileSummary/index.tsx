@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useQuery } from '@apollo/client'
-
 import { ProfilePicture } from '~/components'
 import { FavoriteCarCard } from '~/components/Card'
 import { USER_INFO } from '~/graphql'
@@ -54,7 +52,7 @@ export const ProfileSummary: React.FC<ProfileScreenProps> = ({
       <Spacing />
       <Contents>
         <ProfileContainer>
-          <ProfilePicture uri={user?.avatar?.url} />
+          <ProfilePicture />
         </ProfileContainer>
 
         <>
