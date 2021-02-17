@@ -8,13 +8,13 @@ import {
 } from './upload.types'
 
 const credentials = new Credentials({
-  accessKeyId: process.env.AWS_ACCESS_KEY || 'amazon_access_key',
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'secret_access_key'
+  accessKeyId: process.env.AWS_ACCESS_KEY as string,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string
 })
 
 const s3 = new S3({
   credentials,
-  region: process.env.AWS_DEFAULT_REGION,
+  region: process.env.AWS_DEFAULT_REGION || 'us-east-1',
   signatureVersion: 'v4'
 })
 
