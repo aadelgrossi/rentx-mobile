@@ -5,8 +5,10 @@ import {
   NormalizedCacheObject
 } from '@apollo/client'
 
+import { config } from '~/constants'
+
 const httpLink = new HttpLink({
-  uri: process.env.API_URL
+  uri: config.apiHost
 })
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
