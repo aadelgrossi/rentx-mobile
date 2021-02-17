@@ -15,11 +15,11 @@ interface AuthorizationParams {
 }
 
 export interface AuthContextData {
-  user: User | undefined
+  user: User
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
   authorizeWith(data: AuthorizationParams): void
-  // updateUserInfo(user: User): void
+  updateUserInfo(user: User): void
   isAuthorized: boolean
 }
 
@@ -27,7 +27,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false)
-  // const [user, setUser] = useState<User>({} as User)
+  const [user, setUser] = useState<User>({} as User)
 
   const [fetchUserInfoFromServer, { data: userData }] = useLazyQuery<{
     me: User
@@ -52,9 +52,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     getApolloClient().setLink(authLink.concat(httpLink))
   }, [])
 
-  // const updateUserInfo = useCallback((newInfo: User) => {
-  //   setUser(prevState => ({ ...prevState, newInfo }))
-  // }, [])
+  const updateUserInfo = useCallback((newInfo: User) => {
+    setUser(prevState => ({ ...prevState, ...newInfo }))
+  }, [])
 
   const authorizeWith = useCallback(
     async ({ accessToken, user }: AuthorizationParams) => {
@@ -64,9 +64,19 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       await AsyncStorage.setItem(AUTH_TOKEN_KEY, accessToken)
 
-      if (!user) fetchUserInfoFromServer()
+      // if passing a user in params (on signup/signin when object is obtained alongside)
+      if (user) {
+        // setAuthData({ accessToken, user })
+        setUser(user)
+      } else {
+        // if attempting to login with stored token, get user from server
+        fetchUserInfoFromServer()
+
+        // update state with result and up-to-date info from server
+        if (userData) setUser(userData.me)
+      }
     },
-    [fetchUserInfoFromServer, setApolloHeaders]
+    [fetchUserInfoFromServer, setApolloHeaders, userData]
   )
 
   useEffect(() => {
@@ -98,11 +108,11 @@ export const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user: userData?.me,
+        user,
         signIn,
         signOut,
         authorizeWith,
-        // updateUserInfo,
+        updateUserInfo,
         isAuthorized
       }}
     >
