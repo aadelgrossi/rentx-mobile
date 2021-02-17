@@ -109,7 +109,7 @@ export const SpecItemContainer = styled.View`
   margin: 4px;
   padding: 10px 0;
   width: ${Dimensions.get('window').width / 3 - 16}px;
-  height: 94px;
+  height: 100px;
   justify-content: space-evenly;
 `
 
