@@ -1,8 +1,8 @@
 import React from 'react'
 
+import SkeletonContent from '@vitu.soares/react-native-skeleton-content'
+import { ICustomViewStyle } from '@vitu.soares/react-native-skeleton-content/lib/Constants'
 import { StyleProp, ViewStyle } from 'react-native'
-import SkeletonContent from 'react-native-skeleton-content'
-import { ICustomViewStyle } from 'react-native-skeleton-content/lib/Constants'
 
 import colors from '~/styles/colors'
 
