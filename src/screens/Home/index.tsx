@@ -75,9 +75,8 @@ export const Home: React.FC<{
   >
   route: RouteProp<TabRoutesParamList, 'Home'>
 }> = ({ navigation, route }) => {
-  const { data: rateData } = useQuery<DailyRateRangeQueryResponse>(
-    DAILY_RATE_RANGE
-  )
+  const { data: rateData } =
+    useQuery<DailyRateRangeQueryResponse>(DAILY_RATE_RANGE)
   const { params } = route
 
   const routeStartDate = params?.startDate ? parseISO(params.startDate) : null

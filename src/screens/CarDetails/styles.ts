@@ -32,8 +32,8 @@ export const BackButton = styled.TouchableOpacity`
 export const Item = styled.View``
 
 export const CarPhoto = styled.Image`
-  height: ${Dimensions.get('screen').height / 3.8}px;
-  margin: 100px 12px 0;
+  height: ${Dimensions.get('screen').height / 4}px;
+  margin: 70px 12px 0;
 `
 
 export const Section = styled.View`

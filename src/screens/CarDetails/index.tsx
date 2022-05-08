@@ -76,7 +76,6 @@ export const CarDetails: React.FC<
       <CarPhoto style={{ resizeMode: 'contain' }} source={{ uri: photo.url }} />
 
       <SpecificationsContainer
-        scrollEnabled
         ListHeaderComponent={
           <Section>
             <Item>

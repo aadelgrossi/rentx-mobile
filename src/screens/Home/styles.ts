@@ -27,7 +27,6 @@ export const Label = styled.Text`
 
 export const DateContainer = styled.View`
   align-items: flex-start;
-  width: 140px;
 `
 
 export const DateContent = styled.Text`
