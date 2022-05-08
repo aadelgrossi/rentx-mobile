@@ -8,13 +8,13 @@ interface EnvConfig {
 
 const environments: EnvConfig = {
   dev: {
-    apiHost: 'http://localhost:3333/graphql'
+    apiHost: (process.env.API_URL as string) || 'http://localhost:3333/graphql'
   },
-  prod: {
+  default: {
     apiHost: process.env.API_URL as string
   }
 }
 
-const env = Constants.manifest.releaseChannel || 'dev'
+const env = Constants.manifest?.releaseChannel || 'dev'
 
 export const config = environments[env]
