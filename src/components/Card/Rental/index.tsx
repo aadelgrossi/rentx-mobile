@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { differenceInDays, isAfter, parseISO } from 'date-fns'
-import { startOfDay } from 'date-fns/esm'
+import { differenceInDays, isAfter, parseISO, startOfDay } from 'date-fns'
 
 import { RentIcon } from '~/components'
 import colors from '~/styles/colors'
