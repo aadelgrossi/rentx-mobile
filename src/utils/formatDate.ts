@@ -7,7 +7,7 @@ const formatLongDate = (date: string): string =>
   })
 
 const formatShortDate = (date: string): string => {
-  const tempFormat = format(parseISO(date), 'dd LLLL yyyy', {
+  const tempFormat = format(parseISO(date), 'dd LLL yyyy', {
     locale: ptBR
   })
   return (
