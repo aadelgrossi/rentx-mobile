@@ -37,11 +37,11 @@ export const Onboarding: React.FC<OnboardingNavigationProps> = ({
         showSkip={false}
         controlStatusBar={false}
         bottomBarStyles={{
-          width: Dimensions.get('screen').width,
-          paddingHorizontal: 50
+          width: Dimensions.get('screen').width - 16,
+          paddingHorizontal: 16
         }}
         bottomBarHighlight={false}
-        bottomBarHeight={140}
+        bottomBarHeight={80}
         NextButtonComponent={NextButton}
         DoneButtonComponent={NextButton}
         onDone={handleDone}

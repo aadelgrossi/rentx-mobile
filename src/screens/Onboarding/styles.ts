@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
 
 import { RentIcon } from '~/components'
@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     color: colors.grayPrimary,
     maxWidth: 250,
     textAlign: 'left',
-    marginLeft: -120,
-    marginTop: -50,
+    marginLeft: -80,
+    marginTop: -60,
     paddingTop: 80
   },
   subtitle: {
@@ -26,14 +26,13 @@ export const styles = StyleSheet.create({
     color: colors.grayText,
     lineHeight: 25,
     maxWidth: 220,
-    marginLeft: -150,
+    marginLeft: -100,
     textAlign: 'left'
   },
   illustrations: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: -40
+    justifyContent: 'space-between'
   }
 })
 
@@ -45,9 +44,10 @@ export const NumberText = styled.Text`
 
 export const PageIllustration = styled.View`
   flex-direction: row;
-  align-items: center;
-  width: ${Dimensions.get('screen').width - 80}px;
+  align-items: flex-end;
   justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
 `
 
 export const SkipWrapper = styled.View`
@@ -60,6 +60,6 @@ export const SkipText = styled.Text`
 `
 
 export const Icon = styled(RentIcon).attrs({
-  size: 85,
+  size: 140,
   color: colors.red
 })``
