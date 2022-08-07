@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { Dimensions } from 'react-native'
 import {
   SceneMap,
   TabBar,
@@ -24,8 +23,6 @@ import UpdateInfo from './UpdateInfoTab'
 import UpdatePassword from './UpdatePasswordTab'
 
 export const ProfileInfo: React.FC = () => {
-  const { width: screenWidth } = Dimensions.get('screen')
-
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     {
@@ -48,11 +45,7 @@ export const ProfileInfo: React.FC = () => {
     <TabBar
       {...props}
       indicatorStyle={{
-        backgroundColor: colors.red,
-        width: 54,
-        position: 'absolute',
-        marginLeft: screenWidth / 6.4,
-        height: 2
+        backgroundColor: colors.red
       }}
       style={{ backgroundColor: colors.white, elevation: 0 }}
       renderLabel={({ route, focused }) => (
@@ -75,9 +68,6 @@ export const ProfileInfo: React.FC = () => {
           onIndexChange={setIndex}
           renderTabBar={renderTabBar}
           sceneContainerStyle={{ marginTop: 24 }}
-          initialLayout={{
-            width: screenWidth
-          }}
         />
       </Contents>
     </Container>

@@ -14,8 +14,6 @@ export const Spacing = styled.View`
 `
 
 export const Contents = styled.View`
-  flex: 1;
-  padding: 0 24px;
   margin-top: -90px;
 `
 

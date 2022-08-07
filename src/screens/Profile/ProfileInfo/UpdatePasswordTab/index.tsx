@@ -4,13 +4,7 @@ import { useMutation } from '@apollo/client'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
-import {
-  Dimensions,
-  Keyboard,
-  KeyboardAvoidingView,
-  TextInput,
-  View
-} from 'react-native'
+import { Keyboard, KeyboardAvoidingView, TextInput, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { SecureTextInput } from '~/components/Input'
@@ -61,18 +55,15 @@ const UpdatePassword: React.FC = () => {
         authErrorMessage('Senha anterior incorreta')
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
   return (
-    <View>
-      <KeyboardAvoidingView
-        style={{ flex: 1, justifyContent: 'center' }}
-        behavior="padding"
-        enabled
-      >
+    <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="padding" enabled>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View>
+          <View style={{ flex: 1, paddingHorizontal: 16 }}>
             <SecureTextInput
               name="oldPassword"
               placeholder="Senha atual"
@@ -102,7 +93,7 @@ const UpdatePassword: React.FC = () => {
           <SubmitButton
             loading={isSubmitting}
             onPress={handleSubmit(updatePassword)}
-            style={{ marginTop: Dimensions.get('window').height / 3.5 }}
+            style={{ marginHorizontal: 16, marginTop: 16 }}
           >
             Alterar senha
           </SubmitButton>

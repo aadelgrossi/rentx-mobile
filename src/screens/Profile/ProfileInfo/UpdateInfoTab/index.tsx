@@ -71,7 +71,7 @@ const UpdateInfo: React.FC = () => {
         enabled
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View>
+          <View style={{ paddingHorizontal: 16 }}>
             <Input
               name="name"
               icon="person"
@@ -95,9 +95,9 @@ const UpdateInfo: React.FC = () => {
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
       <SubmitButton
+        style={{ marginHorizontal: 16, marginTop: 16 }}
         onPress={handleSubmit(updateNameAndEmail)}
         loading={isSubmitting}
-        style={{ marginTop: 'auto' }}
       >
         Salvar alterações
       </SubmitButton>
