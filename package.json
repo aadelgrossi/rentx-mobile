@@ -24,7 +24,7 @@
     "@react-navigation/stack": "^5.9.0",
     "@vitu.soares/react-native-skeleton-content": "^1.0.26",
     "aws-sdk": "^2.1066.0",
-    "axios": "^0.21.0",
+    "axios": "^1.6.0",
     "date-fns": "^2.16.1",
     "expo": "^44.0.0",
     "expo-asset": "~8.4.6",
